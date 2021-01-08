@@ -40,3 +40,19 @@ html, body {
 
 	background-color: white;
 }
+
+/* added via javascript */
+
+.menuItem {
+	display: inline-block;
+	background-color: white;
+
+	padding: 10px 20px;
+	margin: 0px 20px;
+
+	cursor: pointer;
+}
+
+.menuItem:hover {
+	background-color: #a3a3a3;
+}
