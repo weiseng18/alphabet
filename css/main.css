@@ -1,0 +1,25 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+#wrapper {
+	margin: 15px;
+	height: calc(100vh - 30px);
+}
+
+#left {
+	width: 25%;
+	height: 100%;
+	display: inline-block;
+
+	float: left;
+}
+
+#right {
+	width: 70%;
+	height: 100%;
+	display: inline-block;
+
+	float: left;
+}
