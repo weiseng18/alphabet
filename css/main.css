@@ -27,3 +27,13 @@ html, body {
 
 	float: left;
 }
+
+#printerArea {
+	height: 40%;
+	width: 100%;
+}
+
+#menuArea {
+	height: 55%;
+	width: 100%;
+}
