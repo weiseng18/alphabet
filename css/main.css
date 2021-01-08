@@ -16,6 +16,10 @@ html, body {
 	float: left;
 }
 
+#resources td {
+	padding: 5px;
+}
+
 #right {
 	width: 70%;
 	height: 100%;
