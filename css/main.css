@@ -1,6 +1,7 @@
 html, body {
 	margin: 0;
 	padding: 0;
+	background-color: #f2f2f2;
 }
 
 #wrapper {
@@ -36,4 +37,6 @@ html, body {
 #menuArea {
 	height: 55%;
 	width: 100%;
+
+	background-color: white;
 }
