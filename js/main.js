@@ -20,11 +20,34 @@ Game.prototype.init_resources = function() {
 	}
 }
 
+function Menu() {
+	this.tabs = [
+		"Printer",
+		"Research",
+		"Settings"
+	];
+}
+
+Menu.prototype.init_menu = function() {
+	let menuSelect = get("menuSelect");
+	for (let i=0; i<this.tabs.length; i++) {
+		let header = this.tabs[i];
+
+		let div = document.createElement("div");
+		div.innerHTML = header;
+		div.className = "menuItem";
+		menuSelect.appendChild(div);
+	}
+}
+
 var game;
 
 function init() {
 	game = new Game();
 	game.init_resources();
+
+	menu = new Menu();
+	menu.init_menu();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);
