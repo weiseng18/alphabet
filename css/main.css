@@ -53,10 +53,6 @@ html, body {
 	cursor: pointer;
 }
 
-.menuItem:hover {
-	background-color: #a3a3a3;
-}
-
 #printerUpgrades {
 	width: 90%;
 }
