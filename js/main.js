@@ -5,6 +5,7 @@ function Game() {
 		ink: 0,
 		money: 0
 	};
+	this.resources_max = {}
 	this.upgrades = [];
 	this.printerUpgradeLevels = {
 		speed: 1,
@@ -13,6 +14,11 @@ function Game() {
 		inkCartridgeSize: 1,
 		fontSize: 1
 	}
+}
+
+Game.prototype.update_resources_max = function() {
+	this.resources_max.paper = this.upgrades["paperTraySize"].formula();
+	this.resources_max.ink = this.upgrades["inkCartridgeSize"].formula();
 }
 
 Game.prototype.init_resources = function() {
@@ -25,6 +31,15 @@ Game.prototype.init_resources = function() {
 		// amount
 		let amount = row.insertCell();
 		amount.innerHTML = this.resources[resource];
+
+		if (resource != "money") {
+			// slash
+			let slash = row.insertCell();
+			slash.innerHTML = "/";
+			// total amount
+			let totalAmount = row.insertCell();
+			totalAmount.innerHTML = this.resources_max[resource];
+		}
 	}
 }
 
@@ -236,8 +251,10 @@ var game;
 
 function init() {
 	game = new Game();
-	game.init_resources();
 	game.init_upgrades();
+	game.update_resources_max();
+
+	game.init_resources();
 
 	menu = new Menu();
 	menu.init_menu();
