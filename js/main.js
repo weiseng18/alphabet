@@ -37,7 +37,7 @@ Game.prototype.init_upgrades = function() {
 			baseAmount: 5,
 			baseMultiplier: 0.9,
 			level: 1,
-			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+			effect: (amount) => {return "1 page / " + amount + " seconds";}
 		},
 		{
 			name:"Ink efficiency",
@@ -46,7 +46,7 @@ Game.prototype.init_upgrades = function() {
 			baseAmount: 10,
 			baseMultiplier: 0.9,
 			level: 1,
-			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+			effect: (amount) => {return "1 page / " + amount + " ml of ink";}
 		},
 		{
 			name:"Paper tray size",
@@ -55,7 +55,7 @@ Game.prototype.init_upgrades = function() {
 			baseAmount: 50,
 			baseMultiplier: 1.1,
 			level: 1,
-			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+			effect: (amount) => {return amount + " pages";}
 		},
 		{
 			name:"Ink cartridge size",
@@ -64,25 +64,25 @@ Game.prototype.init_upgrades = function() {
 			baseAmount: 1000,
 			baseMultiplier: 1.1,
 			level: 1,
-			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+			effect: (amount) => {return amount + " ml of ink";}
 		},
 		{
 			name:"Font size",
 			ref:"fontSize",
 			tooltip:"Better technology allows the font size to be decreased, to print more characters per page",
 			level: 1,
-			formula: () => {return this.level;}
+			effect: (amount) => {return amount + " characters per page";}
 		}
 	]
 
 	for (let i=0; i<upgrades.length; i++) {
 		let data = upgrades[i];
-		let upgrade = new Upgrade(data.name, data.ref, data.tooltip, data.baseAmount, data.baseMultiplier, data.level, data.formula);
+		let upgrade = new Upgrade(data.name, data.ref, data.tooltip, data.baseAmount, data.baseMultiplier, data.level, data.effect);
 		this.upgrades.push(upgrade);
 	}
 }
 
-function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, formula) {
+function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
 	// constants
 	this.name = name;
 	this.ref = ref;
@@ -94,7 +94,14 @@ function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, formula)
 	this.level = level;
 
 	// function
-	this.formula = formula;
+	this.effect = effect;
+}
+
+Upgrade.prototype.formula = function() {
+	if (this.ref == "fontSize")
+		return this.level;
+	else
+		return this.baseAmount * (this.baseMultiplier)**(this.level-1);
 }
 
 function Menu() {
@@ -178,6 +185,10 @@ Menu.prototype.init_printer_menu = function() {
 		// level
 		let cell_level = row.insertCell();
 		cell_level.innerHTML = upgrade["level"];
+		// effect
+		let cell_effect = row.insertCell();
+		let amount = upgrade.formula();
+		cell_effect.innerHTML = upgrade["effect"]( amount );
 	}
 
 	wrapper.appendChild(table);
