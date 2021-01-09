@@ -40,6 +40,7 @@ function Menu() {
 		{name:"Ink cartridge size", ref:"inkCartridgeSize", tooltip:"Makes more space in the printer, to allow a larger ink cartridge to fit in"},
 		{name:"Font size", ref:"fontSize", tooltip:"Better technology allows the font size to be decreased, to print more characters per page"}
 	];
+	this.activeMenu = "printerMenu";
 }
 
 Menu.prototype.init_menu = function() {
@@ -50,6 +51,18 @@ Menu.prototype.init_menu = function() {
 		let div = document.createElement("div");
 		div.innerHTML = header;
 		div.className = "menuItem";
+
+		div.addEventListener("click", () => {
+			let menuID = div.innerHTML.toLowerCase() + "Menu";
+
+			// hide previous menu
+			get(this.activeMenu).style.display = "none";
+
+			// show new menu
+			this.activeMenu = menuID;
+			get(this.activeMenu).style.display = "block";
+		});
+
 		menuSelect.appendChild(div);
 	}
 }
@@ -92,6 +105,9 @@ Menu.prototype.init_printer_menu = function() {
 
 	wrapper.appendChild(table);
 	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
 }
 
 Menu.prototype.init_research_menu = function() {
@@ -103,6 +119,9 @@ Menu.prototype.init_research_menu = function() {
 	wrapper.innerHTML = "placeholder";
 
 	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
 }
 
 Menu.prototype.init_settings_menu = function() {
@@ -114,6 +133,9 @@ Menu.prototype.init_settings_menu = function() {
 	wrapper.innerHTML = "placeholder";
 
 	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
 }
 
 var game;
