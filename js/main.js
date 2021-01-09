@@ -78,7 +78,7 @@ Game.prototype.init_upgrades = function() {
 	for (let i=0; i<upgrades.length; i++) {
 		let data = upgrades[i];
 		let upgrade = new Upgrade(data.name, data.ref, data.tooltip, data.baseAmount, data.baseMultiplier, data.level, data.effect);
-		this.upgrades.push(upgrade);
+		this.upgrades[data.ref] = upgrade;
 	}
 }
 
@@ -172,8 +172,8 @@ Menu.prototype.init_printer_menu = function() {
 
 	// content rows
 	let TBody = table.createTBody();
-	for (let i=0; i<game.upgrades.length; i++) {
-		let upgrade = game.upgrades[i];
+	for (const upgradeRef in game.upgrades) {
+		let upgrade = game.upgrades[ upgradeRef ];
 
 		let row = TBody.insertRow();
 		// name
