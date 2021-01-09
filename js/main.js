@@ -40,6 +40,28 @@ Menu.prototype.init_menu = function() {
 	}
 }
 
+Menu.prototype.init_research_menu = function() {
+	let menuContent = get("menuContent");
+
+	let wrapper = document.createElement("div");
+	wrapper.id = "researchMenu";
+
+	wrapper.innerHTML = "placeholder";
+
+	menuContent.appendChild(wrapper);
+}
+
+Menu.prototype.init_settings_menu = function() {
+	let menuContent = get("menuContent");
+
+	let wrapper = document.createElement("div");
+	wrapper.id = "settingsMenu";
+
+	wrapper.innerHTML = "placeholder";
+
+	menuContent.appendChild(wrapper);
+}
+
 var game;
 
 function init() {
@@ -48,6 +70,8 @@ function init() {
 
 	menu = new Menu();
 	menu.init_menu();
+	menu.init_research_menu();
+	menu.init_settings_menu();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);
