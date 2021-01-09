@@ -56,3 +56,11 @@ html, body {
 .menuItem:hover {
 	background-color: #a3a3a3;
 }
+
+#printerUpgrades {
+	width: 90%;
+}
+
+thead {
+	background-color: #23a5bc;
+}
