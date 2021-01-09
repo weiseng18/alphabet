@@ -5,6 +5,7 @@ function Game() {
 		ink: 0,
 		money: 0
 	};
+	this.upgrades = [];
 	this.printerUpgradeLevels = {
 		speed: 1,
 		inkEfficiency: 1,
@@ -25,6 +26,75 @@ Game.prototype.init_resources = function() {
 		let amount = row.insertCell();
 		amount.innerHTML = this.resources[resource];
 	}
+}
+
+Game.prototype.init_upgrades = function() {
+	let upgrades = [
+		{
+			name:"Speed",
+			ref:"speed",
+			tooltip:"Increases printing speed",
+			baseAmount: 5,
+			baseMultiplier: 0.9,
+			level: 1,
+			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+		},
+		{
+			name:"Ink efficiency",
+			ref:"inkEfficiency",
+			tooltip:"Use less ink for the same printout",
+			baseAmount: 10,
+			baseMultiplier: 0.9,
+			level: 1,
+			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+		},
+		{
+			name:"Paper tray size",
+			ref:"paperTraySize",
+			tooltip:"Increases amount of paper the tray can hold",
+			baseAmount: 50,
+			baseMultiplier: 1.1,
+			level: 1,
+			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+		},
+		{
+			name:"Ink cartridge size",
+			ref:"inkCartridgeSize",
+			tooltip:"Makes more space in the printer, to allow a larger ink cartridge to fit in",
+			baseAmount: 1000,
+			baseMultiplier: 1.1,
+			level: 1,
+			formula: () => {return this.baseAmount*(this.baseMultiplier)^(this.level-1);}
+		},
+		{
+			name:"Font size",
+			ref:"fontSize",
+			tooltip:"Better technology allows the font size to be decreased, to print more characters per page",
+			level: 1,
+			formula: () => {return this.level;}
+		}
+	]
+
+	for (let i=0; i<upgrades.length; i++) {
+		let data = upgrades[i];
+		let upgrade = new Upgrade(data.name, data.ref, data.tooltip, data.baseAmount, data.baseMultiplier, data.level, data.formula);
+		this.upgrades.push(upgrade);
+	}
+}
+
+function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, formula) {
+	// constants
+	this.name = name;
+	this.ref = ref;
+	this.tooltip = tooltip;
+	this.baseAmount = baseAmount;
+	this.baseMultiplier = baseMultiplier;
+
+	// values
+	this.level = level;
+
+	// function
+	this.formula = formula;
 }
 
 function Menu() {
@@ -164,6 +234,7 @@ var game;
 function init() {
 	game = new Game();
 	game.init_resources();
+	game.init_upgrades();
 
 	menu = new Menu();
 	menu.init_menu();
