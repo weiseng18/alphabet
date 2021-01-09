@@ -56,16 +56,26 @@ Menu.prototype.init_menu = function() {
 		let div = document.createElement("div");
 		div.innerHTML = header;
 		div.className = "menuItem";
+		div.id = div.innerHTML.toLowerCase() + "Menu_button";
 
 		div.addEventListener("click", () => {
-			let menuID = div.innerHTML.toLowerCase() + "Menu";
-
 			// hide previous menu
+			get(this.activeMenu + "_button").style.backgroundColor = this.color.notSelected;
 			get(this.activeMenu).style.display = "none";
 
 			// show new menu
+			let menuID = div.id.split("_")[0];
 			this.activeMenu = menuID;
+
+			get(this.activeMenu + "_button").style.backgroundColor = this.color.selected;
 			get(this.activeMenu).style.display = "block";
+		});
+		div.addEventListener("mouseover", () => {
+			div.style.backgroundColor = this.color.hover;
+		});
+		div.addEventListener("mouseout", () => {
+			let menuID = div.id.split("_")[0];
+			div.style.backgroundColor = menuID == this.activeMenu ? this.color.selected : this.color.notSelected;
 		});
 
 		menuSelect.appendChild(div);
@@ -113,6 +123,8 @@ Menu.prototype.init_printer_menu = function() {
 
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
 Menu.prototype.init_research_menu = function() {
@@ -127,6 +139,8 @@ Menu.prototype.init_research_menu = function() {
 
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
 Menu.prototype.init_settings_menu = function() {
@@ -141,6 +155,8 @@ Menu.prototype.init_settings_menu = function() {
 
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
 var game;
