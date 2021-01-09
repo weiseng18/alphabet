@@ -103,13 +103,6 @@ function Menu() {
 		"Research",
 		"Settings"
 	];
-	this.printerUpgrades = [
-		{name:"Speed", ref:"speed", tooltip:"Increases printing speed"},
-		{name:"Ink efficiency", ref:"inkEfficiency", tooltip:"Use less ink for the same printout"},
-		{name:"Paper tray size", ref:"paperTraySize", tooltip:"Increases amount of paper the tray can hold"},
-		{name:"Ink cartridge size", ref:"inkCartridgeSize", tooltip:"Makes more space in the printer, to allow a larger ink cartridge to fit in"},
-		{name:"Font size", ref:"fontSize", tooltip:"Better technology allows the font size to be decreased, to print more characters per page"}
-	];
 	this.activeMenu = "printerMenu";
 	this.color = {
 		selected: "#555",
@@ -172,8 +165,8 @@ Menu.prototype.init_printer_menu = function() {
 
 	// content rows
 	let TBody = table.createTBody();
-	for (let i=0; i<this.printerUpgrades.length; i++) {
-		let upgrade = this.printerUpgrades[i];
+	for (let i=0; i<game.upgrades.length; i++) {
+		let upgrade = game.upgrades[i];
 
 		let row = TBody.insertRow();
 		// name
@@ -184,8 +177,7 @@ Menu.prototype.init_printer_menu = function() {
 		cell_tooltip.innerHTML = upgrade["tooltip"];
 		// level
 		let cell_level = row.insertCell();
-		let ref = upgrade["ref"];
-		cell_level.innerHTML = game.printerUpgradeLevels[ref];
+		cell_level.innerHTML = upgrade["level"];
 	}
 
 	wrapper.appendChild(table);
