@@ -41,6 +41,11 @@ function Menu() {
 		{name:"Font size", ref:"fontSize", tooltip:"Better technology allows the font size to be decreased, to print more characters per page"}
 	];
 	this.activeMenu = "printerMenu";
+	this.color = {
+		selected: "#555",
+		notSelected: "#fff",
+		hover: "#a3a3a3"
+	};
 }
 
 Menu.prototype.init_menu = function() {
