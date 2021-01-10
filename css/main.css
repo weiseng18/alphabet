@@ -63,6 +63,7 @@ html, body {
 
 #menuContent {
 	position: absolute;
+	overflow-y: auto;
 	bottom: 0;
 	height: 80%;
 	width: 100%;
