@@ -16,6 +16,19 @@ function Game() {
 	}
 }
 
+Game.prototype.updateHTML_resources = function() {
+	/*
+		Description:
+		updates the resource values in HTML table
+	*/
+	let numRows = get("resources").children[0].children.length;
+	for (let i=0; i<numRows; i++) {
+		let row = get("resources").children[0].children[i];
+		let resourceType = row.children[0].innerHTML;
+		row.children[1].innerHTML = this.resources[resourceType];
+	}
+}
+
 Game.prototype.update_resources_max = function() {
 	this.resources_max.paper = this.upgrades["paperTraySize"].formula();
 	this.resources_max.ink = this.upgrades["inkCartridgeSize"].formula();
