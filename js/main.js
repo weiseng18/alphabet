@@ -153,6 +153,24 @@ function refill_amount_cost(material) {
 
 }
 
+function refill_resource(resource) {
+	/*
+		Description:
+		this function attempts to refill a resource
+		only succeeds if there is sufficient money, and that resource's amount is not at max capacity
+	*/
+	let purchase = refill_amount_cost(resource);
+	console.log(purchase.cost, game.resources["money"]);
+	if (purchase.cost > game.resources["money"]) return;
+
+	// deduct cost
+	game.resources["money"] -= purchase.cost;
+	// set to max
+	game.resources[resource] = game.resources_max[resource];
+
+	game.updateHTML_resources();
+}
+
 function add_printerRefillButtons() {
 	/*
 		Description:
@@ -162,12 +180,14 @@ function add_printerRefillButtons() {
 	paperRefill.className = "refillButton";
 	paperRefill.id = "refillButton_paper";
 	paperRefill.innerHTML = "paper refill placeholder";
+	paperRefill.addEventListener("click", ()=>{refill_resource("paper")});
 	get("printerRight").appendChild(paperRefill);
 
 	let inkRefill = document.createElement("div");
 	inkRefill.className = "refillButton";
 	inkRefill.id = "refillButton_ink";
 	inkRefill.innerHTML = "ink refill placeholder";
+	inkRefill.addEventListener("click", ()=>{refill_resource("ink")});
 	get("printerRight").appendChild(inkRefill);
 }
 
