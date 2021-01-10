@@ -139,6 +139,42 @@ function refill_amount_cost(material) {
 
 }
 
+function add_printerRefillButtons() {
+	/*
+		Description:
+		this function adds the paper tray refill and ink cartridge refill buttons
+	*/
+	let paperRefill = document.createElement("div");
+	paperRefill.className = "refillButton";
+	paperRefill.id = "refillButton_paper";
+	paperRefill.innerHTML = "paper refill placeholder";
+	get("printerRight").appendChild(paperRefill);
+
+	let inkRefill = document.createElement("div");
+	inkRefill.className = "refillButton";
+	inkRefill.id = "refillButton_ink";
+	inkRefill.innerHTML = "ink refill placeholder";
+	get("printerRight").appendChild(inkRefill);
+}
+
+function update_printerRefillButtons() {
+	/*
+		Description:
+		this function updates the innerHTML of the paper tray refill and ink cartridge refill buttons
+		    - amount to refill
+		    - cost to refill
+	*/
+
+	let paper = refill_amount_cost("paper");
+	let paper_text = "Load " + paper.amount + " more paper at $" + paper.cost;
+	get("refillButton_paper").innerHTML = paper_text;
+
+	let ink = refill_amount_cost("ink");
+	let ink_text = "Replace ink cartridge at $" + ink.cost;
+	get("refillButton_ink").innerHTML = ink_text;
+
+}
+
 var game;
 
 function init() {
@@ -153,6 +189,9 @@ function init() {
 	menu.init_printer_menu();
 	menu.init_research_menu();
 	menu.init_settings_menu();
+
+	add_printerRefillButtons();
+	update_printerRefillButtons();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);

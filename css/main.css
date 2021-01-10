@@ -76,3 +76,14 @@ html, body {
 thead {
 	background-color: #23a5bc;
 }
+
+.refillButton {
+	border: solid black 1px;
+	padding: 5px;
+	margin: 20px 10px;
+	cursor: pointer;
+}
+
+.refillButton:hover {
+	background-color: #a3a3a3;
+}
