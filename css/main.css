@@ -32,6 +32,7 @@ html, body {
 #printerArea {
 	height: 45%;
 	width: 100%;
+	display: flex;
 }
 
 	#printerLeft {
