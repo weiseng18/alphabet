@@ -30,7 +30,7 @@ html, body {
 }
 
 #printerArea {
-	height: 40%;
+	height: 45%;
 	width: 100%;
 }
 
@@ -50,7 +50,7 @@ html, body {
 	}
 
 #menuArea {
-	height: 55%;
+	height: 50%;
 	width: 100%;
 
 	background-color: white;
