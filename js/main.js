@@ -128,7 +128,8 @@ function refill_amount_cost(material) {
 	*/
 	let remainingCapacity = game.resources_max[material] - game.resources[material];
 	let cost;
-	if (remainingCapacity <= 0) return;
+	// set cost to 1e9/infinity to prevent purchase when there is no capacity left
+	if (remainingCapacity <= 0) return {amount:0, cost:1e9};
 
 	if (material == "paper")
 		cost = remainingCapacity / 5;
