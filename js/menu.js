@@ -62,6 +62,8 @@ Menu.prototype.init_printer_menu = function() {
 	for (let i=0; i<headers.length; i++) {
 		let cell = header.insertCell();
 		cell.innerHTML = headers[i];
+		if (headers[i] == "Tooltip")
+			cell.style.width = "40%";
 	}
 
 	// content rows

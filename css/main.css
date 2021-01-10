@@ -77,6 +77,10 @@ thead {
 	background-color: #23a5bc;
 }
 
+th, td {
+	padding: 10px;
+}
+
 .refillButton {
 	border: solid black 1px;
 	padding: 5px;
