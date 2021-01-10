@@ -110,6 +110,27 @@ Game.prototype.init_upgrades = function() {
 	}
 }
 
+Game.prototype.query_refill_data = function(material) {
+	/*
+		Description:
+		this function returns a object with properties amount and cost
+		    - amount: remaining capacity
+		    - cost: cost to refill (paper) / replace (ink)
+	*/
+	let remainingCapacity = this.resources_max[material] - this.resources[material];
+	let cost;
+	// set cost to 1e9/infinity to prevent purchase when there is no capacity left
+	if (remainingCapacity <= 0) return {amount:0, cost:1e9};
+
+	if (material == "paper")
+		cost = remainingCapacity / 5;
+	else if (material == "ink")
+		cost = this.resources_max["ink"] / 100;
+
+	return {amount: remainingCapacity, cost: cost};
+
+}
+
 function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
 	// constants
 	this.name = name;
@@ -132,35 +153,13 @@ Upgrade.prototype.formula = function() {
 		return this.baseAmount * (this.baseMultiplier)**(this.level-1);
 }
 
-function refill_amount_cost(material) {
-	/*
-		Description:
-		this function returns a object with properties amount and cost
-		    - amount: remaining capacity
-		    - cost: cost to refill (paper) / replace (ink)
-	*/
-	let remainingCapacity = game.resources_max[material] - game.resources[material];
-	let cost;
-	// set cost to 1e9/infinity to prevent purchase when there is no capacity left
-	if (remainingCapacity <= 0) return {amount:0, cost:1e9};
-
-	if (material == "paper")
-		cost = remainingCapacity / 5;
-	else if (material == "ink")
-		cost = game.resources_max["ink"] / 100;
-
-	return {amount: remainingCapacity, cost: cost};
-
-}
-
 function refill_resource(resource) {
 	/*
 		Description:
 		this function attempts to refill a resource
 		only succeeds if there is sufficient money, and that resource's amount is not at max capacity
 	*/
-	let purchase = refill_amount_cost(resource);
-	console.log(purchase.cost, game.resources["money"]);
+	let purchase = game.query_refill_data(resource);
 	if (purchase.cost > game.resources["money"]) return;
 
 	// deduct cost
@@ -199,11 +198,11 @@ function update_printerRefillButtons() {
 		    - cost to refill
 	*/
 
-	let paper = refill_amount_cost("paper");
+	let paper = game.query_refill_data("paper");
 	let paper_text = "Load " + paper.amount + " more paper at $" + paper.cost;
 	get("refillButton_paper").innerHTML = paper_text;
 
-	let ink = refill_amount_cost("ink");
+	let ink = game.query_refill_data("ink");
 	let ink_text = "Replace ink cartridge at $" + ink.cost;
 	get("refillButton_ink").innerHTML = ink_text;
 
