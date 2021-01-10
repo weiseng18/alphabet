@@ -34,6 +34,21 @@ html, body {
 	width: 100%;
 }
 
+	#printerLeft {
+		width: 60%;
+		display: inline-block;
+		text-align: center;
+	}
+
+		pre#printerArt {
+			display: inline-block;
+			text-align: left;
+		}
+
+	#printerRight {
+		display: inline-block;
+	}
+
 #menuArea {
 	height: 55%;
 	width: 100%;
