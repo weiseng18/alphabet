@@ -119,6 +119,26 @@ Upgrade.prototype.formula = function() {
 		return this.baseAmount * (this.baseMultiplier)**(this.level-1);
 }
 
+function refill_amount_cost(material) {
+	/*
+		Description:
+		this function returns a object with properties amount and cost
+		    - amount: remaining capacity
+		    - cost: cost to refill (paper) / replace (ink)
+	*/
+	let remainingCapacity = game.resources_max[material] - game.resources[material];
+	let cost;
+	if (remainingCapacity <= 0) return;
+
+	if (material == "paper")
+		cost = remainingCapacity / 5;
+	else if (material == "ink")
+		cost = game.resources_max["ink"] / 100;
+
+	return {amount: remainingCapacity, cost: cost};
+
+}
+
 var game;
 
 function init() {
