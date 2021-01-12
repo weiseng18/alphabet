@@ -119,7 +119,7 @@ function add_printerRefillButtons() {
 	get("printerRight").appendChild(inkRefill);
 }
 
-function update_printerRefillButtons() {
+function updateHTML_printerRefillButtons() {
 	/*
 		Description:
 		this function updates the innerHTML of the paper tray refill and ink cartridge refill buttons
@@ -153,7 +153,7 @@ function init() {
 	menu.init_settings_menu();
 
 	add_printerRefillButtons();
-	update_printerRefillButtons();
+	updateHTML_printerRefillButtons();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);
