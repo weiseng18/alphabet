@@ -154,6 +154,23 @@ Game.prototype.refill_resource = function(resource) {
 	this.updateHTML_resources();
 }
 
+Game.prototype.discover_letter = function(specify=null) {
+	/*
+		Description:
+		Generates a random letter to be discovered, unless specify is defined - then that is used as the discovered letter.
+		Also creates a notification which goes to #notifications div
+
+		Parameters:
+		specify: a single character [a-z]. likely only to be "a" or "i"
+	*/
+
+	// either random, or the specified letter (probably "a" or "i")
+	let letter = specify == null ? randLetter() : specify;
+
+	game.discovered_letters.push(letter);
+	let notification = new Notification("letter", letter);
+}
+
 function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
 	// constants
 	this.name = name;
