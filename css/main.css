@@ -87,7 +87,13 @@ html, body {
 }
 
 #printerUpgrades {
-	width: 90%;
+	width: 100%;
+}
+
+#printerUpgrades thead {
+	position: sticky;
+	/* there is a random 2px margin-like spacing for some reason */
+	top: 2px;
 }
 
 thead {
