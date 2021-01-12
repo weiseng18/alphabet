@@ -83,7 +83,7 @@ Menu.prototype.init_printer_menu = function() {
 		cell_level.innerHTML = upgrade["level"];
 		// effect
 		let cell_effect = row.insertCell();
-		let amount = upgrade.formula();
+		let amount = upgrade.effectFormula();
 		cell_effect.innerHTML = upgrade["effect"]( amount );
 	}
 

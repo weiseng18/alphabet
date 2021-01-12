@@ -30,8 +30,8 @@ Game.prototype.updateHTML_resources = function() {
 }
 
 Game.prototype.update_resources_max = function() {
-	this.resources_max.paper = this.upgrades["paperTraySize"].formula();
-	this.resources_max.ink = this.upgrades["inkCartridgeSize"].formula();
+	this.resources_max.paper = this.upgrades["paperTraySize"].effectFormula();
+	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
 }
 
 Game.prototype.init_resources = function() {
@@ -163,7 +163,11 @@ function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) 
 	this.effect = effect;
 }
 
-Upgrade.prototype.formula = function() {
+Upgrade.prototype.effectFormula = function() {
+	/*
+		Description:
+		Returns the effect of the upgrade
+	*/
 	if (this.ref == "fontSize")
 		return this.level;
 	else
