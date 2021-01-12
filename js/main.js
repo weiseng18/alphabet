@@ -14,6 +14,8 @@ function Game() {
 		inkCartridgeSize: 1,
 		fontSize: 1
 	}
+	this.discovered_words = [];
+	this.discovered_letters = [];
 }
 
 Game.prototype.updateHTML_resources = function() {
