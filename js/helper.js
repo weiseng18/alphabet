@@ -11,3 +11,11 @@ function getCurrentTime() {
 	let formatted = d.toTimeString().split(" ")[0];
 	return formatted;
 }
+
+function randInt(num) {
+	/*
+		Description:
+		Returns a random integer from 0 to num-1.
+	*/
+	return Math.floor(Math.random() * num);
+}
