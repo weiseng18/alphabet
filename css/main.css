@@ -17,9 +17,9 @@ html, body {
 	float: left;
 }
 
-#resources td {
-	padding: 5px;
-}
+	#resources td {
+		padding: 5px;
+	}
 
 #right {
 	width: 70%;
@@ -29,46 +29,46 @@ html, body {
 	float: left;
 }
 
-#printerArea {
-	height: 45%;
-	width: 100%;
-	display: flex;
-}
-
-	#printerLeft {
-		width: 60%;
-		display: inline-block;
-		text-align: center;
+	#printerArea {
+		height: 45%;
+		width: 100%;
+		display: flex;
 	}
 
-		pre#printerArt {
+		#printerLeft {
+			width: 60%;
 			display: inline-block;
-			text-align: left;
+			text-align: center;
 		}
 
-	#printerRight {
-		display: inline-block;
+			pre#printerArt {
+				display: inline-block;
+				text-align: left;
+			}
+
+		#printerRight {
+			display: inline-block;
+		}
+
+	#menuArea {
+		height: 50%;
+		width: 100%;
+
+		position: relative;
 	}
 
-#menuArea {
-	height: 50%;
-	width: 100%;
+		#menuSelect {
+			background-color: white;
+		}
 
-	position: relative;
-}
-
-#menuSelect {
-	background-color: white;
-}
-
-#menuContent {
-	position: absolute;
-	overflow-y: auto;
-	bottom: 0;
-	height: 80%;
-	width: 100%;
-	background-color: white;
-}
+		#menuContent {
+			position: absolute;
+			overflow-y: auto;
+			bottom: 0;
+			height: 80%;
+			width: 100%;
+			background-color: white;
+		}
 
 /* added via javascript */
 
