@@ -19,3 +19,12 @@ function randInt(num) {
 	*/
 	return Math.floor(Math.random() * num);
 }
+
+function randLetter() {
+	/*
+		Description:
+		Returns a random letter from a to z.
+	*/
+	let a = "a".charCodeAt(0);
+	return String.fromCharCode(a + randInt(26));
+}
