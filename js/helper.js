@@ -28,3 +28,12 @@ function randLetter() {
 	let a = "a".charCodeAt(0);
 	return String.fromCharCode(a + randInt(26));
 }
+
+function randWord() {
+	/*
+		Description:
+		Returns a random word from dictionary.txt. Contents stored in var dictionary
+	*/
+	let length = dictionary.length;
+	return dictionary[ randInt(length) ];
+}
