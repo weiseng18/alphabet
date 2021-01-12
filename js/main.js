@@ -34,7 +34,11 @@ Game.prototype.update_resources_max = function() {
 	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
 }
 
-Game.prototype.init_resources = function() {
+Game.prototype.initHTML_resources = function() {
+	/*
+		Description:
+		this function fills the HTML table #resources with resources data
+	*/
 	let table = get("resources");
 	for (const resource in this.resources) {
 		let row = table.insertRow();
@@ -320,7 +324,7 @@ function init() {
 	game.init_upgrades();
 	game.update_resources_max();
 
-	game.init_resources();
+	game.initHTML_resources();
 
 	menu = new Menu();
 	menu.init_menu();
