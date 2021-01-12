@@ -171,6 +171,23 @@ Game.prototype.discover_letter = function(specify=null) {
 	let notification = new Notification("letter", letter);
 }
 
+Game.prototype.discover_word = function(specify=null) {
+	/*
+		Description:
+		Generates a random word to be discovered, unless specify is defined - then that is used as the discovered word.
+		Also creates a notification which goes to #notifications div
+
+		Parameters:
+		specify: a single character [a-z]. likely only to be "a" or "i"
+	*/
+
+	// either random, or the specified letter (probably "a" or "i")
+	let word = specify == null ? randWord() : specify;
+
+	game.discovered_words.push(word);
+	let notification = new Notification("word", word);
+}
+
 function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
 	// constants
 	this.name = name;
