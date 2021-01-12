@@ -99,44 +99,6 @@ function trigger_wordAnimation(word) {
 	document.body.appendChild(floater);
 }
 
-function add_printerRefillButtons() {
-	/*
-		Description:
-		this function adds the paper tray refill and ink cartridge refill buttons
-	*/
-	let paperRefill = document.createElement("div");
-	paperRefill.className = "refillButton";
-	paperRefill.id = "refillButton_paper";
-	paperRefill.innerHTML = "paper refill placeholder";
-	paperRefill.addEventListener("click", ()=>{game.refill_resource("paper")});
-	get("printerRight").appendChild(paperRefill);
-
-	let inkRefill = document.createElement("div");
-	inkRefill.className = "refillButton";
-	inkRefill.id = "refillButton_ink";
-	inkRefill.innerHTML = "ink refill placeholder";
-	inkRefill.addEventListener("click", ()=>{game.refill_resource("ink")});
-	get("printerRight").appendChild(inkRefill);
-}
-
-function updateHTML_printerRefillButtons() {
-	/*
-		Description:
-		this function updates the innerHTML of the paper tray refill and ink cartridge refill buttons
-		    - amount to refill
-		    - cost to refill
-	*/
-
-	let paper = game.query_refill_data("paper");
-	let paper_text = "Load " + paper.amount + " more paper at $" + paper.cost;
-	get("refillButton_paper").innerHTML = paper_text;
-
-	let ink = game.query_refill_data("ink");
-	let ink_text = "Replace ink cartridge at $" + ink.cost;
-	get("refillButton_ink").innerHTML = ink_text;
-
-}
-
 var game;
 
 function init() {
@@ -146,14 +108,14 @@ function init() {
 
 	game.initHTML_resources();
 
+	game.initHTML_printerRefillButtons();
+	game.updateHTML_printerRefillButtons();
+
 	menu = new Menu();
 	menu.init_menu();
 	menu.init_printer_menu();
 	menu.init_research_menu();
 	menu.init_settings_menu();
-
-	add_printerRefillButtons();
-	updateHTML_printerRefillButtons();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);

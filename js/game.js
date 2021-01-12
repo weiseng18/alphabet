@@ -36,6 +36,24 @@ Game.prototype.update_resources_max = function() {
 	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
 }
 
+Game.prototype.updateHTML_printerRefillButtons = function() {
+	/*
+		Description:
+		this function updates the innerHTML of the paper tray refill and ink cartridge refill buttons
+		    - amount to refill
+		    - cost to refill
+	*/
+
+	let paper = this.query_refill_data("paper");
+	let paper_text = "Load " + paper.amount + " more paper at $" + paper.cost;
+	get("refillButton_paper").innerHTML = paper_text;
+
+	let ink = this.query_refill_data("ink");
+	let ink_text = "Replace ink cartridge at $" + ink.cost;
+	get("refillButton_ink").innerHTML = ink_text;
+
+}
+
 Game.prototype.initHTML_resources = function() {
 	/*
 		Description:
@@ -60,6 +78,26 @@ Game.prototype.initHTML_resources = function() {
 			totalAmount.innerHTML = this.resources_max[resource];
 		}
 	}
+}
+
+Game.prototype.initHTML_printerRefillButtons = function() {
+	/*
+		Description:
+		this function adds the paper tray refill and ink cartridge refill buttons
+	*/
+	let paperRefill = document.createElement("div");
+	paperRefill.className = "refillButton";
+	paperRefill.id = "refillButton_paper";
+	paperRefill.innerHTML = "paper refill placeholder";
+	paperRefill.addEventListener("click", ()=>{this.refill_resource("paper")});
+	get("printerRight").appendChild(paperRefill);
+
+	let inkRefill = document.createElement("div");
+	inkRefill.className = "refillButton";
+	inkRefill.id = "refillButton_ink";
+	inkRefill.innerHTML = "ink refill placeholder";
+	inkRefill.addEventListener("click", ()=>{this.refill_resource("ink")});
+	get("printerRight").appendChild(inkRefill);
 }
 
 Game.prototype.init_upgrades = function() {
