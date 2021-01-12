@@ -21,6 +21,10 @@ html, body {
 		padding: 5px;
 	}
 
+	#notifications {
+		margin-top: 20px;
+	}
+
 #right {
 	width: 70%;
 	height: 100%;
