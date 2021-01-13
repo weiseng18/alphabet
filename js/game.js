@@ -16,6 +16,9 @@ function Game() {
 	}
 	this.discovered_words = [];
 	this.discovered_letters = [];
+
+	// time since last print
+	this.time_lastPrint = null;
 }
 
 Game.prototype.updateHTML_resources = function() {
@@ -224,6 +227,55 @@ Game.prototype.discover_word = function(specify=null) {
 
 	game.discovered_words.push(word);
 	let notification = new Notification("word", word);
+}
+
+Game.prototype.print = function(currentTime) {
+	/*
+		Description:
+		prints a random word from this.discovered_words
+		- triggers word animation
+		- increases money, decreases paper and ink
+		currently the "delay" for printing is put inside this function. might be better to incorporate in the tick function?
+
+		Parameters:
+		currentTime - time measured in number of milliseconds since January 1 1970.
+	*/
+	// step 1: preprocessing
+
+	// calculate resources used
+
+		let inkCost = this.upgrades["inkEfficiency"].effectFormula();
+		let paperCost = 1;
+
+	// check if there is enough resources
+		if (inkCost > this.resources["ink"] || paperCost > this.resources["paper"]) return;
+
+	// set the time of the last successful print
+		this.time_lastPrint = currentTime;
+
+	// get random word and calculate money gained
+
+		let word = this.discovered_words[ randInt(this.discovered_words.length) ];
+		// tentative formula
+		let moneyEarned = word.length;
+
+	// step 2: actually trigger the print
+
+		// word animation
+		trigger_wordAnimation(word);
+
+		// deduct resources and add money
+		this.resources["ink"] -= inkCost;
+		this.resources["paper"] -= paperCost;
+		this.resources["money"] += moneyEarned;
+
+	// step 3: update information
+
+		// update buttons
+		this.updateHTML_printerRefillButtons();
+
+		// update new values for resources
+		this.updateHTML_resources();
 }
 
 function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
