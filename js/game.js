@@ -294,14 +294,30 @@ Game.prototype.levelUp_upgrade = function(ref) {
 		Description:
 		Levels up upgrade with reference "ref".
 	*/
+
+	// step 1: calculate cost, if insufficient money then terminate
 	let cost = this.upgrades[ref].costFormula();
-	// if insufficient money
 	if (cost > this.resources["money"]) return;
 
+	// step 2: deduct cost
 	this.resources["money"] = round(this.resources["money"] - cost);
 	this.upgrades[ref].level++;
 
-	// update UI
+	// step 3: certain upgrades unlock new features / modify values that are not necessarily re-queried
+	// i.e. hardcoded section
+	if (ref == "paperTraySize" || ref == "inkCartridgeSize") {
+		/*
+			Description:
+			- update Game.resources_max
+			- update max resources values in UI
+			- update printer refill buttons' max resources values
+		*/
+		this.update_resources_max();
+		this.updateHTML_resources_max();
+		this.updateHTML_printerRefillButtons();
+	}
+
+	// step 4: update UI
 		// update printer menu
 		menu.update_printer_menu();
 		// update money
