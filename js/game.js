@@ -7,13 +7,6 @@ function Game() {
 	};
 	this.resources_max = {};
 	this.upgrades = [];
-	this.printerUpgradeLevels = {
-		speed: 1,
-		inkEfficiency: 1,
-		paperTraySize: 1,
-		inkCartridgeSize: 1,
-		fontSize: 1
-	}
 	this.discovered_words = [];
 	this.discovered_letters = [];
 
