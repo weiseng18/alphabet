@@ -19,6 +19,9 @@ function Game() {
 
 	// time since last print
 	this.time_lastPrint = null;
+
+	// Game.run
+	this.tickSpeed = 1000 / 60;
 }
 
 Game.prototype.updateHTML_resources = function() {
@@ -276,6 +279,24 @@ Game.prototype.print = function(currentTime) {
 
 		// update new values for resources
 		this.updateHTML_resources();
+}
+
+Game.prototype.run = function() {
+	setInterval( () => {
+
+		let currentTime = new Date().getTime();
+		let time_betweenPrints = game.upgrades["speed"].effectFormula() * 1000;
+
+
+		// attempt a print
+		// subtracting null is equal to subtracting 0
+		let timeSinceLastPrint = currentTime - this.time_lastPrint;
+		if (this.time_lastPrint == null)
+			this.print(currentTime);
+		else if (timeSinceLastPrint > time_betweenPrints)
+			this.print(currentTime);
+
+	}, this.tickSpeed);
 }
 
 function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
