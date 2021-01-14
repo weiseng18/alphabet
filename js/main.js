@@ -102,6 +102,7 @@ function trigger_wordAnimation(word) {
 var game;
 
 function init() {
+	// set up game 
 	game = new Game();
 	game.init_upgrades();
 	game.update_resources_max();
@@ -111,11 +112,17 @@ function init() {
 	game.initHTML_printerRefillButtons();
 	game.updateHTML_printerRefillButtons();
 
+	// set up menu
 	menu = new Menu();
 	menu.init_menu();
 	menu.init_printer_menu();
 	menu.init_research_menu();
 	menu.init_settings_menu();
+
+	// begin game
+	game.discover_letter("a");
+	game.discover_word("a");
+	game.run();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);
