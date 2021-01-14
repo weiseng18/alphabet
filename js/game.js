@@ -259,6 +259,24 @@ Game.prototype.init_possible_words = function() {
 	this.possible_words = dictionary.filter(word => exp.test(word));
 }
 
+Game.prototype.update_possible_words = function(remove) {
+	/*
+		Description:
+		This function updates Game.possible_words and dictionary. To be called in Game.discover_word
+
+		Parameters:
+		remove: a word that has just been discovered, to remove from possible_words and dictionary
+	*/
+
+	// remove from Game.possible_words
+	let index = this.possible_words.indexOf(remove);
+	this.possible_words.splice(remove, 1);
+
+	// remove from dictionary
+	let index2 = dictionary.indexOf(remove);
+	dictionary.splice(remove, 1);
+}
+
 Game.prototype.print = function(currentTime) {
 	/*
 		Description:
