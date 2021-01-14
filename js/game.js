@@ -224,6 +224,8 @@ Game.prototype.discover_letter = function(specify=null) {
 
 	game.discovered_letters.push(letter);
 	let notification = new Notification("letter", letter);
+
+	this.init_possible_words();
 }
 
 Game.prototype.discover_word = function(specify=null) {
