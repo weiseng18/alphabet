@@ -35,6 +35,21 @@ Game.prototype.update_resources_max = function() {
 	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
 }
 
+Game.prototype.updateHTML_resources_max = function() {
+	let numRows = get("resources").children[0].children.length;
+	for (let i=0; i<numRows; i++) {
+		let row = get("resources").children[0].children[i];
+		let numCells = row.children.length;
+
+		// constant, 4 means 4 cells i.e. there is a maximum
+		if (numCells == 4) {
+			let resourceType = row.children[0].innerHTML;
+			let ref = resourceType == "paper" ? "paperTraySize" : "inkCartridgeSize";
+			row.children[3].innerHTML = this.upgrades[ref].effectFormula();
+		}
+	}
+}
+
 Game.prototype.updateHTML_printerRefillButtons = function() {
 	/*
 		Description:
