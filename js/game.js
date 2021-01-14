@@ -274,6 +274,25 @@ Game.prototype.print = function(currentTime) {
 		this.updateHTML_resources();
 }
 
+Game.prototype.levelUp_upgrade = function(ref) {
+	/*
+		Description:
+		Levels up upgrade with reference "ref".
+	*/
+	let cost = this.upgrades[ref].costFormula();
+	// if insufficient money
+	if (cost > this.resources["money"]) return;
+
+	this.resources["money"] -= cost;
+	this.upgrades[ref].level++;
+
+	// update UI
+		// update printer menu
+		menu.update_printer_menu();
+		// update money
+		this.updateHTML_resources();
+}
+
 Game.prototype.run = function() {
 	setInterval( () => {
 
