@@ -324,3 +324,16 @@ Upgrade.prototype.effectFormula = function() {
 	else
 		return this.baseAmount * (this.baseMultiplier)**(this.level-1);
 }
+
+Upgrade.prototype.costFormula = function() {
+	/*
+		Description:
+		Returns the cost of levelling up the upgrade
+	*/
+	if (this.ref == "fontSize")
+		return 100 * (1.5) ** this.level;
+	else if (this.ref == "speed" || this.ref == "inkEfficiency")
+		return 80 * (1.2) ** this.level;
+	else
+		return 80 * (1.1) ** this.level;
+}

@@ -58,12 +58,12 @@ Menu.prototype.init_printer_menu = function() {
 	// header row
 	let THead = table.createTHead();
 	let header = THead.insertRow();
-	let headers = ["Name", "Tooltip", "Level", "Effect"];
+	let headers = ["Name", "Tooltip", "Level", "Effect", "Cost to level up"];
 	for (let i=0; i<headers.length; i++) {
 		let cell = header.insertCell();
 		cell.innerHTML = headers[i];
 		if (headers[i] == "Tooltip")
-			cell.style.width = "40%";
+			cell.style.width = "30%";
 	}
 
 	// content rows
@@ -85,6 +85,10 @@ Menu.prototype.init_printer_menu = function() {
 		let cell_effect = row.insertCell();
 		let amount = upgrade.effectFormula();
 		cell_effect.innerHTML = upgrade["effect"]( amount );
+		// cost
+		let cell_cost = row.insertCell();
+		let cost = upgrade.costFormula();
+		cell_cost.innerHTML = "$" + cost;
 	}
 
 	wrapper.appendChild(table);
