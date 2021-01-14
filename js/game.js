@@ -261,8 +261,8 @@ Game.prototype.print = function(currentTime) {
 		trigger_wordAnimation(word);
 
 		// deduct resources and add money
-		this.resources["ink"] -= inkCost;
-		this.resources["paper"] -= paperCost;
+		this.resources["ink"] = round(this.resources["ink"] - inkCost);
+		this.resources["paper"] = round(this.resources["paper"] - paperCost);
 		this.resources["money"] += moneyEarned;
 
 	// step 3: update information
@@ -283,7 +283,7 @@ Game.prototype.levelUp_upgrade = function(ref) {
 	// if insufficient money
 	if (cost > this.resources["money"]) return;
 
-	this.resources["money"] -= cost;
+	this.resources["money"] = round(this.resources["money"] - cost);
 	this.upgrades[ref].level++;
 
 	// update UI
@@ -331,10 +331,13 @@ Upgrade.prototype.effectFormula = function() {
 		Description:
 		Returns the effect of the upgrade
 	*/
+	let effect;
 	if (this.ref == "fontSize")
-		return this.level;
+		effect = this.level;
 	else
-		return this.baseAmount * (this.baseMultiplier)**(this.level-1);
+		effect = this.baseAmount * (this.baseMultiplier)**(this.level-1);
+
+	return round(effect);
 }
 
 Upgrade.prototype.costFormula = function() {
@@ -342,10 +345,13 @@ Upgrade.prototype.costFormula = function() {
 		Description:
 		Returns the cost of levelling up the upgrade
 	*/
+	let cost;
 	if (this.ref == "fontSize")
-		return 100 * (1.5) ** this.level;
+		cost = 100 * (1.5) ** this.level;
 	else if (this.ref == "speed" || this.ref == "inkEfficiency")
-		return 80 * (1.2) ** this.level;
+		cost = 80 * (1.2) ** this.level;
 	else
-		return 80 * (1.1) ** this.level;
+		cost = 80 * (1.1) ** this.level;
+
+	return round(cost);
 }
