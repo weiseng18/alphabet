@@ -58,7 +58,7 @@ Menu.prototype.init_printer_menu = function() {
 	// header row
 	let THead = table.createTHead();
 	let header = THead.insertRow();
-	let headers = ["Name", "Tooltip", "Level", "Effect", "Cost to level up"];
+	let headers = ["Name", "Tooltip", "Level", "Effect", "Cost to level up", "Level up"];
 	for (let i=0; i<headers.length; i++) {
 		let cell = header.insertCell();
 		cell.innerHTML = headers[i];
@@ -89,6 +89,12 @@ Menu.prototype.init_printer_menu = function() {
 		let cell_cost = row.insertCell();
 		let cost = upgrade.costFormula();
 		cell_cost.innerHTML = "$" + cost;
+		// level up button
+		let cell_button = row.insertCell();
+		let button = document.createElement("button");
+		button.innerHTML = "Level up - " + upgrade["name"];
+		button.addEventListener("click", ()=>{ game.levelUp_upgrade(upgradeRef); } );
+		cell_button.appendChild(button);
 	}
 
 	wrapper.appendChild(table);
