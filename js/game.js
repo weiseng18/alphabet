@@ -232,17 +232,27 @@ Game.prototype.discover_word = function(specify=null) {
 	/*
 		Description:
 		Generates a random word to be discovered, unless specify is defined - then that is used as the discovered word.
+		The discovered word is now necessarily made up only of letters in this.discovered_letters
 		Also creates a notification which goes to #notifications div
 
 		Parameters:
 		specify: a word
 	*/
 
-	// either random, or the specified letter (probably "a" or "i")
-	let word = specify == null ? randWord() : specify;
+	// step 1: check if possible to discover a word
+	let length = this.possible_words.length;
+	if (length == 0 && specify == null) return;
+
+	// step 2: either random, or the specified word
+	let word = specify == null ? this.possible_words[ randInt(length) ] : specify;
 
 	game.discovered_words.push(word);
 	let notification = new Notification("word", word);
+
+	// step 3: update possible words, specify word so that only need to remove it
+	this.update_possible_words(word);
+}
+
 Game.prototype.init_possible_words = function() {
 	/*
 		Description:
