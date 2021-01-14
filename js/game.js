@@ -230,7 +230,7 @@ Game.prototype.discover_word = function(specify=null) {
 		Also creates a notification which goes to #notifications div
 
 		Parameters:
-		specify: a single character [a-z]. likely only to be "a" or "i"
+		specify: a word
 	*/
 
 	// either random, or the specified letter (probably "a" or "i")
