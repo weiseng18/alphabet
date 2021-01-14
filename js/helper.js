@@ -37,3 +37,11 @@ function randWord() {
 	let length = dictionary.length;
 	return dictionary[ randInt(length) ];
 }
+
+function round(num) {
+	/*
+		Description:
+		Rounds a number to 2 decimal places.
+	*/
+	return parseFloat(num.toFixed(2));
+}
