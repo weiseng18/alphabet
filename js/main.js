@@ -123,6 +123,10 @@ function init() {
 	game.discover_letter("a");
 	game.discover_word("a");
 	game.run();
+
+	// as the game is still in development, this section gives a huge amount of starting money for testing purposes.
+	game.resources["money"] = 10000;
+	game.updateHTML_resources();
 }
 
 window.addEventListener ? window.addEventListener("load",init,false) : window.attachEvent && window.attachEvent("onload", init);
