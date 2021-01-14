@@ -10,6 +10,9 @@ function Game() {
 	this.discovered_words = [];
 	this.discovered_letters = [];
 
+	// possible words that can be discovered
+	this.possible_words = [];
+
 	// time since last print
 	this.time_lastPrint = null;
 
@@ -238,6 +241,22 @@ Game.prototype.discover_word = function(specify=null) {
 
 	game.discovered_words.push(word);
 	let notification = new Notification("word", word);
+Game.prototype.init_possible_words = function() {
+	/*
+		Description:
+		This function initializes Game.possible_words based on Game.discovered_letters. To be called in Game.discover_letter
+	*/
+
+	// step 1: generate letters, a string of all the discovered letters
+	let letters = "";
+	for (let i=0; i<this.discovered_letters.length; i++)
+		letters += this.discovered_letters[i];
+
+	// step 2: create RegExp
+	let exp = new RegExp("^[" + letters + "]+$");
+
+	// step 3: filter
+	this.possible_words = dictionary.filter(word => exp.test(word));
 }
 
 Game.prototype.print = function(currentTime) {
