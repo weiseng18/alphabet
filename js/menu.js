@@ -100,6 +100,21 @@ Menu.prototype.init_printer_menu = function() {
 		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
+Menu.prototype.update_printer_menu = function() {
+	let allRows = get("printerUpgrades").children[1].children;
+	let index = 0;
+	for (const upgradeRef in game.upgrades) {
+		let row = allRows[index];
+		let upgrade = game.upgrades[upgradeRef];
+
+		row.children[2].innerHTML = upgrade["level"];
+		let amount = upgrade.effectFormula();
+		row.children[3].innerHTML = upgrade.effect( amount );
+		row.children[4].innerHTML = "$" + upgrade.costFormula();
+		index++;
+	}
+}
+
 Menu.prototype.init_research_menu = function() {
 	let menuContent = get("menuContent");
 
