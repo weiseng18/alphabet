@@ -109,6 +109,11 @@ Menu.prototype.init_printer_menu = function() {
 }
 
 Menu.prototype.update_printer_menu = function() {
+	/*
+		Description:
+		This updates levels, effects, and costs in the printer upgrades menu.
+		To be called after an upgrade is levelled up.
+	*/
 	let allRows = get("printerUpgrades").children[1].children;
 	let index = 0;
 	for (const upgradeRef in game.upgrades) {
