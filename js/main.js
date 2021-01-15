@@ -116,6 +116,8 @@ function init() {
 	menu = new Menu();
 	menu.init_menu();
 	menu.init_printer_menu();
+	menu.init_letter_menu();
+	menu.init_word_menu();
 	menu.init_research_menu();
 	menu.init_settings_menu();
 

@@ -1,6 +1,8 @@
 function Menu() {
 	this.tabs = [
 		"Printer",
+		"Letters",
+		"Words",
 		"Research",
 		"Settings"
 	];
@@ -119,6 +121,50 @@ Menu.prototype.update_printer_menu = function() {
 		row.children[4].innerHTML = "$" + upgrade.costFormula();
 		index++;
 	}
+}
+
+Menu.prototype.init_letter_menu = function() {
+	let menuContent = get("menuContent");
+
+	let wrapper = document.createElement("div");
+	wrapper.id = "lettersMenu";
+
+	let header = document.createElement("h3");
+	header.innerHTML = "Discovered Letters";
+	wrapper.appendChild(header);
+
+	let content = document.createElement("div");
+	content.id = "discoveredLetters";
+	wrapper.appendChild(content);
+
+	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
+}
+
+Menu.prototype.init_word_menu = function() {
+	let menuContent = get("menuContent");
+
+	let wrapper = document.createElement("div");
+	wrapper.id = "wordsMenu";
+
+	let header = document.createElement("h3");
+	header.innerHTML = "Discovered Words";
+	wrapper.appendChild(header);
+
+	let content = document.createElement("div");
+	contentid = "discoveredWords";
+	wrapper.appendChild(content);
+
+	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
 Menu.prototype.init_research_menu = function() {

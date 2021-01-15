@@ -73,6 +73,9 @@ html, body {
 			width: 100%;
 			background-color: white;
 		}
+			#lettersMenu, #wordsMenu {
+				padding: 0px 20px;
+			}
 
 /* added via javascript */
 
