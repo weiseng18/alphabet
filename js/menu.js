@@ -161,7 +161,7 @@ Menu.prototype.init_word_menu = function() {
 	wrapper.appendChild(header);
 
 	let content = document.createElement("div");
-	contentid = "discoveredWords";
+	content.id = "discoveredWords";
 	wrapper.appendChild(content);
 
 	menuContent.appendChild(wrapper);
