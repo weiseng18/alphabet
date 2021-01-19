@@ -283,16 +283,13 @@ Game.prototype.discover_word = function(specify=null) {
 			// either the word has been discovered, or not enough letters, or is not a word
 			console.log(exp.test(specify));
 			let notification;
-			// valid word
-			if (dictionary.includes(specify)) {
-				// has been discovered
-				if (this.discovered_words.includes(specify)) {
-					notification = new Notification("discovered", specify);
-				}
-				// haven't unlocked all the letters
-				else if (!exp.test(specify)) {
-					notification = new Notification("insufficientLetters", specify);
-				}
+			// has been discovered
+			if (this.discovered_words.includes(specify)) {
+				notification = new Notification("discovered", specify);
+			}
+			// haven't unlocked all the letters but valid word
+			else if (dictionary.includes(specify) && !exp.test(specify)) {
+				notification = new Notification("insufficientLetters", specify);
 			}
 			// invalid word
 			else {
