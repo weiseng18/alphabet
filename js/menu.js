@@ -134,6 +134,20 @@ Menu.prototype.init_letter_menu = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = "lettersMenu";
 
+	let discoverArea = document.createElement("div");
+		let button = document.createElement("button");
+		button.innerHTML = "Discover a random letter";
+		button.addEventListener("click", ()=>{ game.discover_letter(); });
+
+		let cost = document.createElement("span");
+		cost.id = "letter_cost";
+		cost.style.paddingLeft = "10px";
+
+		discoverArea.appendChild(button);
+		discoverArea.appendChild(cost);
+
+	wrapper.appendChild(discoverArea);
+
 	let header = document.createElement("h3");
 	header.innerHTML = "Discovered Letters";
 	wrapper.appendChild(header);
@@ -148,6 +162,11 @@ Menu.prototype.init_letter_menu = function() {
 		wrapper.style.display = "none";
 	else
 		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
+}
+
+Menu.prototype.updateHTML_letter_cost = function() {
+	let cost = round(game.discover_letter_cost());
+	get("letter_cost").innerHTML = "$" + cost;
 }
 
 Menu.prototype.init_word_menu = function() {
