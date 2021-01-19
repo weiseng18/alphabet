@@ -7,11 +7,13 @@ function Notification(type, data) {
 Notification.prototype.addNotification = function() {
 	// build innerHTML
 	let time = "[" + getCurrentTime() + "]";
-	let innerHTML;
+	let message;
 	if (this.type == "word" || this.type == "letter")
-		innerHTML = time + " You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
+		message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
 	else if (this.type == "insufficient")
-		innerHTML = time + " You have insufficient <strong>" + this.data + "</strong>";
+		message = "You have insufficient <strong>" + this.data + "</strong>";
+
+	innerHTML = time + " " + message;
 
 	// wrapper div element
 	let div = document.createElement("div");
