@@ -201,8 +201,8 @@ Game.prototype.refill_resource = function(resource) {
 	let purchase = this.query_refill_data(resource);
 	if (purchase.cost > this.resources["money"]) return;
 
-	// deduct cost
-	this.resources["money"] -= purchase.cost;
+	this.consume_resource("money", purchase.cost);
+
 	// set to max
 	this.resources[resource] = this.resources_max[resource];
 
@@ -223,9 +223,7 @@ Game.prototype.discover_letter = function(specify=null) {
 	let cost = this.discover_letter_cost();
 	if (cost > this.resources["money"]) return;
 
-	// deduct funds
-	this.resources["money"] = round(this.resources["money"] - cost);
-	this.updateHTML_resources();
+	this.consume_resource("money", cost);
 
 	// either random, or the specified letter (probably "a" or "i")
 	let letter = specify == null ? randLetter() : specify;
@@ -303,6 +301,34 @@ Game.prototype.update_possible_words = function(remove) {
 	dictionary.splice(remove, 1);
 }
 
+Game.prototype.gain_resource = function(which, amount) {
+	/*
+		Description:
+		this function increases [amount] of [which] resource.
+		calling this function means that there are sufficient funds
+	*/
+
+	// deduct amount then round
+	this.resources[which] = round(this.resources[which] + amount);
+
+	// update
+	this.updateHTML_resources();
+}
+
+Game.prototype.consume_resource = function(which, amount) {
+	/*
+		Description:
+		this function deducts [amount] of [which] resource.
+		calling this function means that there are sufficient funds
+	*/
+
+	// deduct amount then round
+	this.resources[which] = round(this.resources[which] - amount);
+
+	// update
+	this.updateHTML_resources();
+}
+
 Game.prototype.print = function(currentTime) {
 	/*
 		Description:
@@ -339,17 +365,14 @@ Game.prototype.print = function(currentTime) {
 		trigger_wordAnimation(word);
 
 		// deduct resources and add money
-		this.resources["ink"] = round(this.resources["ink"] - inkCost);
-		this.resources["paper"] = round(this.resources["paper"] - paperCost);
-		this.resources["money"] += moneyEarned;
+		this.consume_resource("ink", inkCost);
+		this.consume_resource("paper", paperCost);
+		this.gain_resource("money", moneyEarned);
 
 	// step 3: update information
 
 		// update buttons
 		this.updateHTML_printerRefillButtons();
-
-		// update new values for resources
-		this.updateHTML_resources();
 }
 
 Game.prototype.levelUp_upgrade = function(ref) {
@@ -363,7 +386,8 @@ Game.prototype.levelUp_upgrade = function(ref) {
 	if (cost > this.resources["money"]) return;
 
 	// step 2: deduct cost
-	this.resources["money"] = round(this.resources["money"] - cost);
+	this.consume_resource("money", cost);
+
 	this.upgrades[ref].level++;
 
 	// step 3: certain upgrades unlock new features / modify values that are not necessarily re-queried
@@ -383,8 +407,6 @@ Game.prototype.levelUp_upgrade = function(ref) {
 	// step 4: update UI
 		// update printer menu
 		menu.update_printer_menu();
-		// update money
-		this.updateHTML_resources();
 }
 
 Game.prototype.run = function() {
