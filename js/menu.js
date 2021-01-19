@@ -188,6 +188,24 @@ Menu.prototype.init_word_menu = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = "wordsMenu";
 
+	let input = document.createElement("input");
+	input.id = "wordInput";
+	// ensure only alpha characters
+	input.addEventListener("keypress", (e) => {
+		let value = String.fromCharCode(e.which);
+		let pattern = new RegExp(/[a-z]/i);
+		return pattern.test(value);
+	});
+	let button = document.createElement("button");
+	button.innerHTML = "Discover this word";
+	button.addEventListener("click", () => {
+		let word = get("wordInput").value;
+		console.log(word);
+		game.discover_word(word);
+	});
+	wrapper.appendChild(input);
+	wrapper.appendChild(button);
+
 	let header = document.createElement("h3");
 	header.innerHTML = "Discovered Words";
 	wrapper.appendChild(header);
