@@ -354,6 +354,14 @@ Game.prototype.print = function(currentTime) {
 		let paperCost = 1;
 
 	// check if there is enough resources
+		if (inkCost > this.resources["ink"]) {
+			let notification = new Notification("insufficient", "ink");
+			return;
+		}
+		if (paperCost > this.resources["paper"]) {
+			let notification = new Notification("insufficient", "paper");
+			return;
+		}
 		if (inkCost > this.resources["ink"] || paperCost > this.resources["paper"]) return;
 
 	// set the time of the last successful print
