@@ -219,6 +219,14 @@ Game.prototype.discover_letter = function(specify=null) {
 		specify: a single character [a-z]. likely only to be "a" or "i"
 	*/
 
+	// check for sufficient funds
+	let cost = this.discover_letter_cost();
+	if (cost > this.resources["money"]) return;
+
+	// deduct funds
+	this.resources["money"] = round(this.resources["money"] - cost);
+	this.updateHTML_resources();
+
 	// either random, or the specified letter (probably "a" or "i")
 	let letter = specify == null ? randLetter() : specify;
 
@@ -226,6 +234,12 @@ Game.prototype.discover_letter = function(specify=null) {
 	let notification = new Notification("letter", letter);
 
 	this.init_possible_words();
+}
+
+Game.prototype.discover_letter_cost = function() {
+	let total = this.discovered_letters.length;
+	let cost = 150 * (1.5) ** total;
+	return cost;
 }
 
 Game.prototype.discover_word = function(specify=null) {
