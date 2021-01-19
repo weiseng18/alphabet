@@ -158,6 +158,8 @@ Menu.prototype.init_letter_menu = function() {
 
 	menuContent.appendChild(wrapper);
 
+	this.updateHTML_letter_cost();
+
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
 	else

@@ -238,6 +238,9 @@ Game.prototype.discover_letter = function(specify=null) {
 	let notification = new Notification("letter", letter);
 
 	this.init_possible_words();
+
+	menu.updateHTML_letter_cost();
+	menu.updateHTML_letter_menu(letter);
 }
 
 Game.prototype.discover_letter_cost = function() {
