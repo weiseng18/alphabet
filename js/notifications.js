@@ -13,6 +13,16 @@ Notification.prototype.addNotification = function() {
 	else if (this.type == "insufficient")
 		message = "You have insufficient <strong>" + this.data + "</strong>";
 
+		// check if notification is the same as the immediate previous one
+		if (get("notifications").children.length > 1) {
+			let previousNotification = get("notifications").children[1].innerHTML;
+			let split = previousNotification.split(" ");
+			split.shift();
+			previousNotification = split.join(" ");
+			if (message == previousNotification)
+				return;
+		}
+
 	innerHTML = time + " " + message;
 
 	// wrapper div element
