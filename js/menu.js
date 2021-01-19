@@ -169,6 +169,17 @@ Menu.prototype.updateHTML_letter_cost = function() {
 	get("letter_cost").innerHTML = "$" + cost;
 }
 
+Menu.prototype.updateHTML_letter_menu = function(letter) {
+	/*
+		Description:
+		This appends "letter" to the discovered letters list displayed in #discoveredLetters
+	*/
+	let discoveredLetters_div = get("discoveredLetters");
+	let div = document.createElement("div");
+	div.innerHTML = letter;
+	discoveredLetters_div.appendChild(div);
+}
+
 Menu.prototype.init_word_menu = function() {
 	let menuContent = get("menuContent");
 
