@@ -12,6 +12,15 @@ Notification.prototype.addNotification = function() {
 		message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
 	else if (this.type == "insufficient")
 		message = "You have insufficient <strong>" + this.data + "</strong>";
+	else if (this.type == "discovered") {
+		// necessarily means failure
+		message = "You have already discovered <strong>" + this.data + "</strong>";
+	}
+	else if (this.type == "insufficientLetters")
+		message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
+	else if (this.type == "notWord")
+		message = "<strong>" + this.data + "</strong> is not a word";
+
 
 		// check if notification is the same as the immediate previous one
 		if (get("notifications").children.length > 1) {
