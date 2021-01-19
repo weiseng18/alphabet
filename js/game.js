@@ -199,7 +199,10 @@ Game.prototype.refill_resource = function(resource) {
 		only succeeds if there is sufficient money, and that resource's amount is not at max capacity
 	*/
 	let purchase = this.query_refill_data(resource);
-	if (purchase.cost > this.resources["money"]) return;
+	if (purchase.cost > this.resources["money"]) {
+		let notification = new Notification("insufficient", "money");
+		return;
+	}
 
 	this.consume_resource("money", purchase.cost);
 
@@ -221,7 +224,10 @@ Game.prototype.discover_letter = function(specify=null) {
 
 	// check for sufficient funds
 	let cost = this.discover_letter_cost();
-	if (cost > this.resources["money"]) return;
+	if (cost > this.resources["money"]) {
+		let notification = new Notification("insufficient", "money");
+		return;
+	}
 
 	this.consume_resource("money", cost);
 
@@ -383,7 +389,10 @@ Game.prototype.levelUp_upgrade = function(ref) {
 
 	// step 1: calculate cost, if insufficient money then terminate
 	let cost = this.upgrades[ref].costFormula();
-	if (cost > this.resources["money"]) return;
+	if (cost > this.resources["money"]) {
+		let notification = new Notification("insufficient", "money");
+		return;
+	}
 
 	// step 2: deduct cost
 	this.consume_resource("money", cost);

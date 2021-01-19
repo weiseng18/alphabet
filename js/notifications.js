@@ -10,6 +10,8 @@ Notification.prototype.addNotification = function() {
 	let innerHTML;
 	if (this.type == "word" || this.type == "letter")
 		innerHTML = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
+	else if (this.type == "insufficient")
+		innerHTML = "You have insufficient <strong>" + this.data + "</strong>";
 
 	// wrapper div element
 	let div = document.createElement("div");
