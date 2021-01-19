@@ -252,7 +252,7 @@ Game.prototype.discover_letter_cost = function() {
 Game.prototype.discover_word = function(specify=null) {
 	/*
 		Description:
-		Generates a random word to be discovered, unless specify is defined - then that is used as the discovered word.
+		Generates a random word to be discovered, unless specify is defined - then this function tries to use that as the discovered word
 		The discovered word is now necessarily made up only of letters in this.discovered_letters
 		Also creates a notification which goes to #notifications div
 
@@ -261,8 +261,47 @@ Game.prototype.discover_word = function(specify=null) {
 	*/
 
 	// step 1: check if possible to discover a word
-	let length = this.possible_words.length;
-	if (length == 0 && specify == null) return;
+	if (specify == null) {
+		// if no word is specified, check if it is possible to generate a random word
+		let length = this.possible_words.length;
+		if (length == 0) return;
+	}
+	else {
+		// if a word is specified, check if the specified word is valid
+		if (!this.possible_words.includes(specify)) {
+
+			// letter string to check if the word is solely made up of discovered letters
+				// step 1: generate letters, a string of all the discovered letters
+				let letters = "";
+				for (let i=0; i<this.discovered_letters.length; i++)
+					letters += this.discovered_letters[i];
+
+				// step 2: create RegExp
+				let exp = new RegExp("^[" + letters + "]+$");
+
+			// actual check
+			// either the word has been discovered, or not enough letters, or is not a word
+			console.log(exp.test(specify));
+			let notification;
+			// valid word
+			if (dictionary.includes(specify)) {
+				// has been discovered
+				if (this.discovered_words.includes(specify)) {
+					notification = new Notification("discovered", specify);
+				}
+				// haven't unlocked all the letters
+				else if (!exp.test(specify)) {
+					notification = new Notification("insufficientLetters", specify);
+				}
+			}
+			// invalid word
+			else {
+				notification = new Notification("notWord", specify);
+			}
+			return;
+
+		}
+	}
 
 	// step 2: either random, or the specified word
 	let word = specify == null ? this.possible_words[ randInt(length) ] : specify;
