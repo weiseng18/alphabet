@@ -272,6 +272,8 @@ Game.prototype.discover_word = function(specify=null) {
 
 	// step 3: update possible words, specify word so that only need to remove it
 	this.update_possible_words(word);
+
+	menu.updateHTML_word_menu(word);
 }
 
 Game.prototype.init_possible_words = function() {

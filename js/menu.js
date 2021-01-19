@@ -222,6 +222,17 @@ Menu.prototype.init_word_menu = function() {
 		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
+Menu.prototype.updateHTML_word_menu = function(word) {
+	/*
+		Description:
+		This appends "word" to the discovered words list displayed in #discoveredWords
+	*/
+	let discoveredWords_div = get("discoveredWords");
+	let div = document.createElement("div");
+	div.innerHTML = word;
+	discoveredWords_div.appendChild(div);
+}
+
 Menu.prototype.init_research_menu = function() {
 	let menuContent = get("menuContent");
 
