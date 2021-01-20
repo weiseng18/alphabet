@@ -199,7 +199,7 @@ Game.prototype.refill_resource = function(resource) {
 		only succeeds if there is sufficient money, and that resource's amount is not at max capacity
 	*/
 	let purchase = this.query_refill_data(resource);
-	if (purchase.cost > this.resources["money"]) {
+	if (this.cannotAfford(purchase.cost, "money")) {
 		let notification = new Notification("insufficient", "money");
 		return;
 	}
@@ -224,7 +224,7 @@ Game.prototype.discover_letter = function(specify=null) {
 
 	// check for sufficient funds
 	let cost = this.discover_letter_cost();
-	if (cost > this.resources["money"]) {
+	if (this.cannotAfford(cost, "money")) {
 		let notification = new Notification("insufficient", "money");
 		return;
 	}
@@ -367,11 +367,11 @@ Game.prototype.print = function(currentTime) {
 		let paperCost = 1;
 
 	// check if there is enough resources
-		if (inkCost > this.resources["ink"]) {
+		if (this.cannotAfford(inkCost, "ink")) {
 			let notification = new Notification("insufficient", "ink");
 			return;
 		}
-		if (paperCost > this.resources["paper"]) {
+		if (this.cannotAfford(paperCost, "paper")) {
 			let notification = new Notification("insufficient", "paper");
 			return;
 		}
@@ -410,7 +410,7 @@ Game.prototype.levelUp_upgrade = function(ref) {
 
 	// step 1: calculate cost, if insufficient money then terminate
 	let cost = this.upgrades[ref].costFormula();
-	if (cost > this.resources["money"]) {
+	if (this.cannotAfford(cost, "money")) {
 		let notification = new Notification("insufficient", "money");
 		return;
 	}
@@ -530,4 +530,12 @@ Game.prototype.consume_resource = function(which, amount) {
 
 	// update
 	this.updateHTML_resources();
+}
+
+Game.prototype.cannotAfford = function(cost, type) {
+	/*
+		Description:
+		Check if there is insufficient resource (type) to perform an action that costs (cost)
+	*/
+	return (cost > this.resources[type]);
 }
