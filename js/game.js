@@ -16,6 +16,9 @@ function Game() {
 	// time since last print
 	this.time_lastPrint = null;
 
+	// time since last auto discover
+	this.time_lastAutoDiscover = null;
+
 	// Game.run
 	this.tickSpeed = 1000 / 60;
 }
@@ -161,6 +164,15 @@ Game.prototype.init_upgrades = function() {
 			tooltip:"Better technology allows the font size to be decreased, to print more characters per page",
 			level: 1,
 			effect: (amount) => {return amount + " characters per page";}
+		},
+		{
+			name:"Auto discover words",
+			ref:"autoWord",
+			tooltip:"Magic allows the printer to form words on its own",
+			baseAmount: 15,
+			baseMultiplier: 0.9,
+			level: 0,
+			effect: (amount) => {return "1 word / " + amount + " seconds";}
 		}
 	]
 
@@ -312,6 +324,17 @@ Game.prototype.discover_word = function(specify=null) {
 	menu.updateHTML_word_menu(word);
 }
 
+Game.prototype.auto_word = function(currentTime) {
+	/*
+		Description:
+		This function is called when discovering a word via auto. The difference is that there is an update to the Game.time_lastAutoDiscover
+	*/
+	console.log("run");
+	this.discover_word();
+	// set the time of the last successful auto discover
+	this.time_lastAutoDiscover = currentTime;
+}
+
 Game.prototype.init_possible_words = function() {
 	/*
 		Description:
@@ -442,9 +465,8 @@ Game.prototype.run = function() {
 	setInterval( () => {
 
 		let currentTime = new Date().getTime();
+
 		let time_betweenPrints = game.upgrades["speed"].effectFormula() * 1000;
-
-
 		// attempt a print
 		// subtracting null is equal to subtracting 0
 		let timeSinceLastPrint = currentTime - this.time_lastPrint;
@@ -452,6 +474,14 @@ Game.prototype.run = function() {
 			this.print(currentTime);
 		else if (timeSinceLastPrint > time_betweenPrints)
 			this.print(currentTime);
+
+		let time_betweenAuto = game.upgrades["autoWord"].effectFormula() * 1000;
+		// attempt to discover a word
+		if (this.upgrades["autoWord"].level > 0) {
+			let timeSinceLastAutoDiscover = currentTime - this.time_lastAutoDiscover;
+			if (this.possible_words.length > 0 && timeSinceLastAutoDiscover > time_betweenAuto)
+				this.auto_word(currentTime);
+		}
 
 	}, this.tickSpeed);
 }
@@ -495,6 +525,8 @@ Upgrade.prototype.costFormula = function() {
 		cost = 100 * (1.5) ** this.level;
 	else if (this.ref == "speed" || this.ref == "inkEfficiency")
 		cost = 80 * (1.2) ** this.level;
+	else if (this.ref == "autoWord")
+		cost = 1000 + 200 * (2) * this.level;
 	else
 		cost = 80 * (1.1) ** this.level;
 
