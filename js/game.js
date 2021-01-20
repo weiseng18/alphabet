@@ -348,34 +348,6 @@ Game.prototype.update_possible_words = function(remove) {
 	dictionary.splice(remove, 1);
 }
 
-Game.prototype.gain_resource = function(which, amount) {
-	/*
-		Description:
-		this function increases [amount] of [which] resource.
-		calling this function means that there are sufficient funds
-	*/
-
-	// deduct amount then round
-	this.resources[which] = round(this.resources[which] + amount);
-
-	// update
-	this.updateHTML_resources();
-}
-
-Game.prototype.consume_resource = function(which, amount) {
-	/*
-		Description:
-		this function deducts [amount] of [which] resource.
-		calling this function means that there are sufficient funds
-	*/
-
-	// deduct amount then round
-	this.resources[which] = round(this.resources[which] - amount);
-
-	// update
-	this.updateHTML_resources();
-}
-
 Game.prototype.print = function(currentTime) {
 	/*
 		Description:
@@ -528,4 +500,34 @@ Upgrade.prototype.costFormula = function() {
 		cost = 80 * (1.1) ** this.level;
 
 	return round(cost);
+}
+
+// helper functions
+
+Game.prototype.gain_resource = function(which, amount) {
+	/*
+		Description:
+		this function increases [amount] of [which] resource.
+		calling this function means that there are sufficient funds
+	*/
+
+	// deduct amount then round
+	this.resources[which] = round(this.resources[which] + amount);
+
+	// update
+	this.updateHTML_resources();
+}
+
+Game.prototype.consume_resource = function(which, amount) {
+	/*
+		Description:
+		this function deducts [amount] of [which] resource.
+		calling this function means that there are sufficient funds
+	*/
+
+	// deduct amount then round
+	this.resources[which] = round(this.resources[which] - amount);
+
+	// update
+	this.updateHTML_resources();
 }
