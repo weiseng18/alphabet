@@ -188,6 +188,8 @@ Menu.prototype.init_word_menu = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = "wordsMenu";
 
+	// manually discover word section
+
 	let input = document.createElement("input");
 	input.id = "wordInput";
 	// ensure only alpha characters
@@ -205,6 +207,8 @@ Menu.prototype.init_word_menu = function() {
 	});
 	wrapper.appendChild(input);
 	wrapper.appendChild(button);
+
+	// discovered words section
 
 	let header = document.createElement("h3");
 	header.innerHTML = "Discovered Words";
