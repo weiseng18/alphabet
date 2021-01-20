@@ -60,7 +60,7 @@ Menu.prototype.init_printer_menu = function() {
 	// header row
 	let THead = table.createTHead();
 	let header = THead.insertRow();
-	let headers = ["Name", "Tooltip", "Level", "Effect", "Cost to level up", "Level up"];
+	let headers = ["Name", "Tooltip", "Level", "Current effect", "Cost to level up", "Level up"];
 	for (let i=0; i<headers.length; i++) {
 		let cell = header.insertCell();
 		cell.innerHTML = headers[i];
