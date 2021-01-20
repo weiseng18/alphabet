@@ -172,7 +172,12 @@ Game.prototype.init_upgrades = function() {
 			baseAmount: 15,
 			baseMultiplier: 0.9,
 			level: 0,
-			effect: (amount) => {return "1 word / " + amount + " seconds";}
+			effect: function(amount) {
+				if (this.level > 0)
+					return "1 word / " + amount + " seconds";
+				else
+					return "No effect";
+			}
 		}
 	]
 
