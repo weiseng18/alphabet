@@ -167,7 +167,7 @@ Menu.prototype.init_letter_menu = function() {
 }
 
 Menu.prototype.updateHTML_letter_cost = function() {
-	let cost = round(game.discover_letter_cost());
+	let cost = round(game.cost_discover_letter());
 	get("letter_cost").innerHTML = "$" + cost;
 }
 

@@ -223,7 +223,7 @@ Game.prototype.discover_letter = function(specify=null) {
 	*/
 
 	// check for sufficient funds
-	let cost = this.discover_letter_cost();
+	let cost = this.cost_discover_letter();
 	if (this.cannotAfford(cost, "money")) {
 		let notification = new Notification("insufficient", "money");
 		return;
@@ -243,7 +243,7 @@ Game.prototype.discover_letter = function(specify=null) {
 	menu.updateHTML_letter_menu(letter);
 }
 
-Game.prototype.discover_letter_cost = function() {
+Game.prototype.cost_discover_letter = function() {
 	let total = this.discovered_letters.length;
 	let cost = 150 * (1.5) ** total;
 	return cost;
