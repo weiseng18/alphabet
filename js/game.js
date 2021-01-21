@@ -301,21 +301,26 @@ Game.prototype.discover_word = function(specify=null) {
 
 			// actual check
 			// case 1: word has been discovered
-			// case 2: haven't unlocked all the letters but valid word
-			// case 3: is not a word
+			// case 2: fontSize upgrade level not high enough
+			// case 3: haven't unlocked all the letters but valid word
+			// case 4: is not a word
 			let notification;
 			// has been discovered
-			if (this.discovered_words.includes(specify)) {
+			if (this.discovered_words.includes(specify))
 				notification = new Notification("discovered", specify);
-			}
+
+			// fontSize upgrade level not high enough
+			else if (specify.length > this.upgrades["fontSize"].level)
+				notification = new Notification("fontSize");
+
 			// haven't unlocked all the letters but valid word
-			else if (dictionary.includes(specify) && !exp.test(specify)) {
+			else if (dictionary.includes(specify) && !exp.test(specify))
 				notification = new Notification("insufficientLetters", specify);
-			}
+
 			// is not a word
-			else {
+			else
 				notification = new Notification("notWord", specify);
-			}
+
 			return;
 
 		}
@@ -356,7 +361,8 @@ Game.prototype.init_possible_words = function() {
 		letters += this.discovered_letters[i];
 
 	// step 2: create RegExp
-	let exp = new RegExp("^[" + letters + "]+$");
+	let maxLength = this.upgrades["fontSize"].level;
+	let exp = new RegExp("^[" + letters + "]{1," + maxLength + "}$");
 
 	// step 3: filter
 	this.possible_words = dictionary.filter(word => exp.test(word));
@@ -464,6 +470,13 @@ Game.prototype.levelUp_upgrade = function(ref) {
 		this.update_resources_max();
 		this.updateHTML_resources_max();
 		this.updateHTML_printerRefillButtons();
+	}
+	else if (ref == "fontSize") {
+		/*
+			Description:
+			- update possible words because there is a decrease in font size, allowing longer words to be printed
+		*/
+		this.init_possible_words();
 	}
 
 	// step 4: update UI

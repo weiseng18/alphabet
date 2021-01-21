@@ -18,16 +18,22 @@ Notification.prototype.addNotification = function() {
 	let time = "[" + getTime(this.date) + "]";
 	if (this.type == "word" || this.type == "letter")
 		this.message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
+
 	else if (this.type == "insufficient")
 		this.message = "You have insufficient <strong>" + this.data + "</strong>";
-	else if (this.type == "discovered") {
+
+	else if (this.type == "discovered")
 		// necessarily means failure
 		this.message = "You have already discovered <strong>" + this.data + "</strong>";
-	}
+
 	else if (this.type == "insufficientLetters")
 		this.message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
+
 	else if (this.type == "notWord")
 		this.message = "<strong>" + this.data + "</strong> is not a word";
+
+	else if (this.type == "fontSize")
+		this.message = "Your font size is still too large!"
 
 	// only possible for "repeat" notifications if there has been a notification in the first place
 
