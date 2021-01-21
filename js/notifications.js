@@ -16,24 +16,33 @@ function Notification(type, data, isAuto) {
 Notification.prototype.addNotification = function() {
 	// build innerHTML
 	let time = "[" + getTime(this.date) + "]";
-	if (this.type == "word" || this.type == "letter")
-		this.message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
+	switch(this.type) {
+		case "word":
+		case "letter":
+			this.message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
+			break;
 
-	else if (this.type == "insufficient")
-		this.message = "You have insufficient <strong>" + this.data + "</strong>";
+		case "insufficient":
+			this.message = "You have insufficient <strong>" + this.data + "</strong>";
+			break;
 
-	else if (this.type == "discovered")
-		// necessarily means failure
-		this.message = "You have already discovered <strong>" + this.data + "</strong>";
+		case "discovered":
+			// necessarily means failure
+			this.message = "You have already discovered <strong>" + this.data + "</strong>";
+			break;
 
-	else if (this.type == "insufficientLetters")
-		this.message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
+		case "insufficientLetters":
+			this.message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
+			break;
 
-	else if (this.type == "notWord")
-		this.message = "<strong>" + this.data + "</strong> is not a word";
+		case "notWord":
+			this.message = "<strong>" + this.data + "</strong> is not a word";
+			break;
 
-	else if (this.type == "fontSize")
-		this.message = "Your font size is still too large!"
+		case "fontSize":
+			this.message = "Your font size is still too large!"
+			break;
+	}
 
 	// only possible for "repeat" notifications if there has been a notification in the first place
 
