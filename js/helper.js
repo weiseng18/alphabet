@@ -2,13 +2,12 @@ function get(id) {
 	return document.getElementById(id);
 }
 
-function getCurrentTime() {
+function getTime(date) {
 	/*
 		Description:
-		Gets time in the format HH:MM:SS
+		Given a date, returns HH:MM:SS
 	*/
-	let d = new Date();
-	let formatted = d.toTimeString().split(" ")[0];
+	let formatted = date.toTimeString().split(" ")[0];
 	return formatted;
 }
 

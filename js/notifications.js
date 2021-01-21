@@ -1,12 +1,16 @@
 function Notification(type, data) {
 	this.type = type;
 	this.data = data;
+	
+	// time the notification was created
+	this.date = new Date();
+	
 	this.addNotification();
 }
 
 Notification.prototype.addNotification = function() {
 	// build innerHTML
-	let time = "[" + getCurrentTime() + "]";
+	let time = "[" + getTime(this.date) + "]";
 	let message;
 	if (this.type == "word" || this.type == "letter")
 		message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
