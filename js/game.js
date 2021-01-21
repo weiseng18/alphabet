@@ -278,15 +278,18 @@ Game.prototype.discover_word = function(specify=null) {
 	*/
 
 	// step 1: check if possible to discover a word
+	// auto discover
 	if (specify == null) {
 		// if no word is specified, check if it is possible to generate a random word
 		let length = this.possible_words.length;
 		if (length == 0) return;
 	}
+	// manual discover
 	else {
-		// if a word is specified, check if the specified word is valid
+		// if a word is specified, check if the specified word cannot be discovered
 		if (!this.possible_words.includes(specify)) {
 
+			// preparation
 			// letter string to check if the word is solely made up of discovered letters
 				// step 1: generate letters, a string of all the discovered letters
 				let letters = "";
@@ -297,8 +300,9 @@ Game.prototype.discover_word = function(specify=null) {
 				let exp = new RegExp("^[" + letters + "]+$");
 
 			// actual check
-			// either the word has been discovered, or not enough letters, or is not a word
-			console.log(exp.test(specify));
+			// case 1: word has been discovered
+			// case 2: haven't unlocked all the letters but valid word
+			// case 3: is not a word
 			let notification;
 			// has been discovered
 			if (this.discovered_words.includes(specify)) {
@@ -308,7 +312,7 @@ Game.prototype.discover_word = function(specify=null) {
 			else if (dictionary.includes(specify) && !exp.test(specify)) {
 				notification = new Notification("insufficientLetters", specify);
 			}
-			// invalid word
+			// is not a word
 			else {
 				notification = new Notification("notWord", specify);
 			}
