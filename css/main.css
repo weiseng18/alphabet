@@ -23,6 +23,16 @@ html, body {
 
 	#notifications {
 		margin-top: 20px;
+		height: 70%;
+		overflow-y: scroll;
+	}
+
+	#notifications h2 {
+		margin-top: 0;
+		top: 0;
+		padding-bottom: 20px;
+		position: sticky;
+		background-color: #f2f2f2;
 	}
 
 #right {
