@@ -4,7 +4,7 @@ function Notification(type, data) {
 	
 	// time the notification was created
 	this.date = new Date();
-	
+
 	this.addNotification();
 }
 
@@ -48,4 +48,7 @@ Notification.prototype.addNotification = function() {
 
 	// insert after <h2>
 	get("notifications").insertBefore(div, get("notifications").children[0].nextSibling);
+
+	// append to notifications array
+	notifications.push(this);
 }

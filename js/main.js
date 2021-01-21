@@ -99,7 +99,7 @@ function trigger_wordAnimation(word) {
 	document.body.appendChild(floater);
 }
 
-var game, menu;
+var game, menu, notifications;
 
 function init() {
 	// set up game 
@@ -120,6 +120,9 @@ function init() {
 	menu.init_word_menu();
 	menu.init_research_menu();
 	menu.init_settings_menu();
+
+	// notifications array
+	notifications = [];
 
 	// as the game is still in development, this section gives a huge amount of starting money for testing purposes.
 	game.resources["money"] = 10000;
