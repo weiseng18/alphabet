@@ -11,19 +11,18 @@ function Notification(type, data) {
 Notification.prototype.addNotification = function() {
 	// build innerHTML
 	let time = "[" + getTime(this.date) + "]";
-	let message;
 	if (this.type == "word" || this.type == "letter")
-		message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
+		this.message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
 	else if (this.type == "insufficient")
-		message = "You have insufficient <strong>" + this.data + "</strong>";
+		this.message = "You have insufficient <strong>" + this.data + "</strong>";
 	else if (this.type == "discovered") {
 		// necessarily means failure
-		message = "You have already discovered <strong>" + this.data + "</strong>";
+		this.message = "You have already discovered <strong>" + this.data + "</strong>";
 	}
 	else if (this.type == "insufficientLetters")
-		message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
+		this.message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
 	else if (this.type == "notWord")
-		message = "<strong>" + this.data + "</strong> is not a word";
+		this.message = "<strong>" + this.data + "</strong> is not a word";
 
 
 		// check if notification is the same as the immediate previous one
@@ -32,11 +31,11 @@ Notification.prototype.addNotification = function() {
 			let split = previousNotification.split(" ");
 			split.shift();
 			previousNotification = split.join(" ");
-			if (message == previousNotification)
+			if (this.message == previousNotification)
 				return;
 		}
 
-	innerHTML = time + " " + message;
+	innerHTML = time + " " + this.message;
 
 	// wrapper div element
 	let div = document.createElement("div");
