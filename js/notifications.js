@@ -7,6 +7,9 @@ function Notification(type, data, isAuto) {
 	// time the notification was created
 	this.date = new Date();
 
+	// this keeps track of how many manual action triggered notifications (in a row) are the same
+	this.count = 1;
+
 	this.addNotification();
 }
 
@@ -27,6 +30,7 @@ Notification.prototype.addNotification = function() {
 		this.message = "<strong>" + this.data + "</strong> is not a word";
 
 	// only possible for "repeat" notifications if there has been a notification in the first place
+
 	if (notifications.length > 0) {
 		if (this.isAuto) {
 			// if the notification came from an action that was performed automatically,
@@ -41,7 +45,7 @@ Notification.prototype.addNotification = function() {
 					// remove from HTML
 					get("notifications").children[notifications.length - arrayIndex].remove();
 					// remove from array
-					notifications.splice(arrayIndex);
+					notifications.splice(arrayIndex, 1);
 					break;
 				}
 
@@ -55,18 +59,39 @@ Notification.prototype.addNotification = function() {
 			}
 		}
 		else {
-			// else repeat the notification unless the immediate previous notification is the same
-			let previousNotification = notifications[notifications.length - 1];
-			if (previousNotification.message == this.message) {
-				// remove from HTML
-				get("notifications").children[1].remove();
-				// remove from array
-				notifications.pop();
+			// else
+			// if the notification has been made in the past 5 seconds: delete old, send new and add a counter to it
+			// otherwise just send a new notification
+			let delta = 5 * 1000;
+
+			let arrayIndex = notifications.length - 1;
+			let previousNotification = notifications[arrayIndex];
+
+			while ((this.date - previousNotification.date) < delta) {
+				if (previousNotification.message == this.message) {
+					this.count = notifications[arrayIndex].count + 1;
+
+					// remove from HTML
+					get("notifications").children[notifications.length - arrayIndex].remove();
+					// remove from array
+					notifications.splice(arrayIndex, 1);
+					break;
+				}
+
+				// get next notification
+				if (arrayIndex == 0)
+					break;
+				else {
+					arrayIndex--;
+					previousNotification = notifications[arrayIndex];
+				}
 			}
 		}
 	}
 
-	innerHTML = time + " " + this.message;
+	let countString = "(" + this.count + "x)";
+
+	innerHTML = time + " " + this.message + (this.count != 1 ? " " + countString : "");
 
 	// wrapper div element
 	let div = document.createElement("div");
