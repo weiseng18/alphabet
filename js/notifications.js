@@ -26,16 +26,45 @@ Notification.prototype.addNotification = function() {
 	else if (this.type == "notWord")
 		this.message = "<strong>" + this.data + "</strong> is not a word";
 
+	// only possible for "repeat" notifications if there has been a notification in the first place
+	if (notifications.length > 0) {
+		if (this.isAuto) {
+			// if the notification came from an action that was performed automatically,
+			// if the notification hasn't been made in the past 30 seconds: delete old and send new notification
+			// otherwise, send new notification and keep old
+			let delta = 30 * 1000;
 
-		// check if notification is the same as the immediate previous one
-		if (get("notifications").children.length > 1) {
-			let previousNotification = get("notifications").children[1].innerHTML;
-			let split = previousNotification.split(" ");
-			split.shift();
-			previousNotification = split.join(" ");
-			if (this.message == previousNotification)
-				return;
+			let arrayIndex = notifications.length - 1;
+			let previousNotification = notifications[arrayIndex];
+			while ((this.date - previousNotification.date) < delta) {
+				if (previousNotification.message == this.message) {
+					// remove from HTML
+					get("notifications").children[notifications.length - arrayIndex].remove();
+					// remove from array
+					notifications.splice(arrayIndex);
+					break;
+				}
+
+				// get next notification
+				if (arrayIndex == 0)
+					break;
+				else {
+					arrayIndex--;
+					previousNotification = notifications[arrayIndex];
+				}
+			}
 		}
+		else {
+			// else repeat the notification unless the immediate previous notification is the same
+			let previousNotification = notifications[notifications.length - 1];
+			if (previousNotification.message == this.message) {
+				// remove from HTML
+				get("notifications").children[1].remove();
+				// remove from array
+				notifications.pop();
+			}
+		}
+	}
 
 	innerHTML = time + " " + this.message;
 
