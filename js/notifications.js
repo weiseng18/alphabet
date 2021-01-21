@@ -1,6 +1,8 @@
-function Notification(type, data) {
+function Notification(type, data, isAuto) {
 	this.type = type;
 	this.data = data;
+	// isAuto is true when the notification was initiated by an automatic action
+	this.isAuto = isAuto;
 	
 	// time the notification was created
 	this.date = new Date();

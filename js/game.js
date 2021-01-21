@@ -396,11 +396,11 @@ Game.prototype.print = function(currentTime) {
 
 	// check if there is enough resources
 		if (this.cannotAfford(inkCost, "ink")) {
-			let notification = new Notification("insufficient", "ink");
+			let notification = new Notification("insufficient", "ink", true);
 			return;
 		}
 		if (this.cannotAfford(paperCost, "paper")) {
-			let notification = new Notification("insufficient", "paper");
+			let notification = new Notification("insufficient", "paper", true);
 			return;
 		}
 
