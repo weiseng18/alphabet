@@ -99,7 +99,7 @@ function trigger_wordAnimation(word) {
 	document.body.appendChild(floater);
 }
 
-var game;
+var game, menu;
 
 function init() {
 	// set up game 
