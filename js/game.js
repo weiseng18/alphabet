@@ -195,15 +195,15 @@ Game.prototype.query_refill_data = function(material) {
 		    - amount: remaining capacity
 		    - cost: cost to refill (paper) / replace (ink)
 	*/
-	let remainingCapacity = this.resources_max[material] - this.resources[material];
+	let remainingCapacity = round(this.resources_max[material] - this.resources[material]);
 	let cost;
 	// set cost to 1e9/infinity to prevent purchase when there is no capacity left
 	if (remainingCapacity <= 0) return {amount:0, cost:1e9};
 
 	if (material == "paper")
-		cost = remainingCapacity / 5;
+		cost = round(remainingCapacity / 5);
 	else if (material == "ink")
-		cost = this.resources_max["ink"] / 100;
+		cost = round(this.resources_max["ink"] / 100);
 
 	return {amount: remainingCapacity, cost: cost};
 
