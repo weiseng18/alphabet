@@ -545,6 +545,8 @@ Upgrade.prototype.effectFormula = function() {
 	let effect;
 	if (this.ref == "fontSize")
 		effect = this.level;
+	else if (this.ref == "paperTraySize")
+		effect = Math.round(this.baseAmount * (this.baseMultiplier)**(this.level-1));
 	else
 		effect = this.baseAmount * (this.baseMultiplier)**(this.level-1);
 
