@@ -21,6 +21,9 @@ function Game() {
 
 	// Game.run
 	this.tickSpeed = 1000 / 60;
+
+	// revenues
+	this.letterRevenue = [1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10];
 }
 
 Game.prototype.updateHTML_resources = function() {
@@ -386,6 +389,16 @@ Game.prototype.update_possible_words = function(remove) {
 	dictionary.splice(remove, 1);
 }
 
+Game.prototype.wordRevenue = function(word) {
+	let sum = 0;
+	for (let i=0; i<word.length; i++) {
+		let char = word[i];
+		let index = char.charCodeAt(0) - 'a'.charCodeAt(0);
+		sum += this.letterRevenue[index];
+	}
+	return sum;
+}
+
 Game.prototype.print = function(currentTime) {
 	/*
 		Description:
@@ -422,7 +435,7 @@ Game.prototype.print = function(currentTime) {
 
 		let word = this.discovered_words[ randInt(this.discovered_words.length) ];
 		// tentative formula
-		let moneyEarned = word.length;
+		let moneyEarned = this.wordRevenue(word);
 
 	// step 2: actually trigger the print
 
