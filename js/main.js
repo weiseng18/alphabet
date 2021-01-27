@@ -112,6 +112,8 @@ function init() {
 	game.initHTML_printerRefillButtons();
 	game.updateHTML_printerRefillButtons();
 
+	game.init_possible_letters();
+
 	// set up menu
 	menu = new Menu();
 	menu.init_menu();
@@ -129,8 +131,7 @@ function init() {
 	game.updateHTML_resources();
 
 	// begin game
-	game.discover_letter("a");
-	game.discover_word("a");
+	game.discover_letter();
 	game.run();
 
 }
