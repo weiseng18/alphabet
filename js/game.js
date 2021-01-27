@@ -304,7 +304,7 @@ Game.prototype.init_possible_letters = function() {
 			this.possible_letters.push(letter);
 		}
 		// remove the sole discovered letter so far
-		let index = this.discovered_letters[0].charCodeAt(0);
+		let index = this.discovered_letters[0].charCodeAt(0) - "a".charCodeAt(0);
 		this.possible_letters.splice(index, 1);
 	}
 }
