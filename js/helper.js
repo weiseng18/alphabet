@@ -22,10 +22,14 @@ function randInt(num) {
 function randLetter() {
 	/*
 		Description:
-		Returns a random letter from a to z.
+		Returns a random letter from Game.possible_letters, and its index.
 	*/
-	let a = "a".charCodeAt(0);
-	return String.fromCharCode(a + randInt(26));
+	let length = game.possible_letters.length;
+	let index = randInt(length);
+	return {
+		letter: game.possible_letters[ index ],
+		index: index
+	};
 }
 
 function randWord() {

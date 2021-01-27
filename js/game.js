@@ -13,6 +13,14 @@ function Game() {
 	// possible words that can be discovered
 	this.possible_words = [];
 
+	// possible letters that can be discovered
+	this.possible_letters = [];
+	/*
+		this is to check if starting a new game. if this is true, then init_possible_letters sets possible_letters to ["a", "i"].
+		after the first run of discover_letter, it then sets possible letters to [a-z], and removes the discovered letter in that first run.
+	*/
+	this.gameInit = true;
+
 	// time since last print
 	this.time_lastPrint = null;
 
@@ -232,14 +240,11 @@ Game.prototype.refill_resource = function(resource) {
 	this.updateHTML_resources();
 }
 
-Game.prototype.discover_letter = function(specify=null) {
+Game.prototype.discover_letter = function() {
 	/*
 		Description:
 		Generates a random letter to be discovered, unless specify is defined - then that is used as the discovered letter.
 		Also creates a notification which goes to #notifications div
-
-		Parameters:
-		specify: a single character [a-z]. likely only to be "a" or "i"
 	*/
 
 	// check for sufficient funds
@@ -251,12 +256,24 @@ Game.prototype.discover_letter = function(specify=null) {
 
 	this.consume_resource("money", cost);
 
-	// either random, or the specified letter (probably "a" or "i")
-	let letter = specify == null ? randLetter() : specify;
+	// execute randLetter() and get info
+	let info = randLetter();
+	let letter = info.letter;
+	let index = info.index;
 
+	// add letter into game.discovered_letters, and send notification
 	game.discovered_letters.push(letter);
 	let notification = new Notification("letter", letter);
 
+	// remove letter from game.possible_letters
+	game.possible_letters.splice(index, 1);
+
+	// possible_letters start off as ["a", "i"], this will correct it
+	if (this.gameInit) {
+		this.gameInit = false;
+		this.init_possible_letters();
+	}
+	
 	this.init_possible_words();
 
 	menu.updateHTML_letter_cost();
@@ -267,6 +284,29 @@ Game.prototype.cost_discover_letter = function() {
 	let total = this.discovered_letters.length;
 	let cost = 150 * (1.5) ** total;
 	return cost;
+}
+
+Game.prototype.init_possible_letters = function() {
+	/*
+		Description:
+		initializes Game.possible_letters
+	*/
+
+	// if start of game, only allow discover "a" or "i" so that single letter words can be discovered
+	if (this.gameInit)
+		this.possible_letters = ["a", "i"];
+
+	else {
+		// add [a-z]
+		let a = "a".charCodeAt(0);
+		for (let i=0; i<26; i++) {
+			let letter = String.fromCharCode(a + i);
+			this.possible_letters.push(letter);
+		}
+		// remove the sole discovered letter so far
+		let index = this.discovered_letters[0].charCodeAt(0);
+		this.possible_letters.splice(index, 1);
+	}
 }
 
 Game.prototype.discover_word = function(specify=null) {
