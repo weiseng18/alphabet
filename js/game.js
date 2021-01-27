@@ -247,6 +247,13 @@ Game.prototype.discover_letter = function() {
 		Also creates a notification which goes to #notifications div
 	*/
 
+	// check for letters still available
+	let length = this.possible_letters.length;
+	if (length == 0) {
+		let notification = new Notification("noneLeft", "letters");
+		return;
+	}
+
 	// check for sufficient funds
 	let cost = this.cost_discover_letter();
 	if (this.cannotAfford(cost, "money")) {

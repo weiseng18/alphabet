@@ -26,6 +26,10 @@ Notification.prototype.addNotification = function() {
 			this.message = "You have insufficient <strong>" + this.data + "</strong>";
 			break;
 
+		case "noneLeft":
+			this.message = "You have no more new " + this.data + " to discover";
+			break;
+
 		// this and below are used for discover_word error messages
 		case "discovered":
 			// necessarily means failure
