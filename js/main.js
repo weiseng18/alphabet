@@ -132,7 +132,7 @@ function init() {
 
 	// begin game
 	game.run();
-	let notification = new Notification("custom", "Discover a letter from the <strong>Letters</strong> tab");
+	let notification = new Notification("custom", "Discover a letter from the <strong>Discover</strong> tab");
 
 
 }
