@@ -201,7 +201,15 @@ Menu.prototype.init_word_menu = function() {
 		else {
 			let value = String.fromCharCode(e.which);
 			let pattern = new RegExp(/[a-z]/i);
-			return pattern.test(value);
+			let res = pattern.test(value);
+
+			// if non alphabet
+			if (res == false) {
+				if (e.preventDefault)
+					e.preventDefault();
+				else
+					e.returnValue = false;
+			}
 		}
 	});
 	let button = document.createElement("button");
