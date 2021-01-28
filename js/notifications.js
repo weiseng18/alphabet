@@ -29,8 +29,10 @@ Notification.prototype.addNotification = function() {
 			break;
 
 		case "noneLeft":
-			// no more new letters to discover
+			// no more new letters/words to discover
 			this.message = "You have no more new " + this.data + " to discover";
+			if (game.possible_letters.length > 0)
+				this.message += ". Consider discovering new letters or upgrading font size";
 			break;
 
 		// this and below are used for discover_word error messages

@@ -333,7 +333,10 @@ Game.prototype.discover_word = function(specify=null) {
 	if (specify == null) {
 		// if no word is specified, check if it is possible to generate a random word
 		let length = this.possible_words.length;
-		if (length == 0) return;
+		if (length == 0) {
+			let notification = new Notification("noneLeft", "words", true);
+			return false;
+		}
 	}
 	// manual discover
 	else {
@@ -372,7 +375,7 @@ Game.prototype.discover_word = function(specify=null) {
 			else
 				notification = new Notification("notWord", specify);
 
-			return;
+			return false;
 
 		}
 	}
@@ -387,6 +390,8 @@ Game.prototype.discover_word = function(specify=null) {
 	this.update_possible_words(word);
 
 	menu.updateHTML_word_menu(word);
+
+	return true;
 }
 
 Game.prototype.auto_word = function(currentTime) {
@@ -395,9 +400,11 @@ Game.prototype.auto_word = function(currentTime) {
 		This function is called when discovering a word via auto. The difference is that there is an update to the Game.time_lastAutoDiscover
 	*/
 	console.log("run");
-	this.discover_word();
-	// set the time of the last successful auto discover
-	this.time_lastAutoDiscover = currentTime;
+	let res = this.discover_word();
+	if (res) {
+		// set the time of the last successful auto discover
+		this.time_lastAutoDiscover = currentTime;
+	}
 }
 
 Game.prototype.init_possible_words = function() {
@@ -569,7 +576,7 @@ Game.prototype.run = function() {
 		// attempt to discover a word
 		if (this.upgrades["autoWord"].level > 0) {
 			let timeSinceLastAutoDiscover = currentTime - this.time_lastAutoDiscover;
-			if (this.possible_words.length > 0 && timeSinceLastAutoDiscover > time_betweenAuto)
+			if (timeSinceLastAutoDiscover > time_betweenAuto)
 				this.auto_word(currentTime);
 		}
 
