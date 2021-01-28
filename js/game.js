@@ -475,6 +475,12 @@ Game.prototype.print = function(currentTime) {
 		if (notification != undefined)
 			return;
 
+	// check if there is at least 1 discovered word
+		if (this.discovered_words.length == 0)
+			notification = new Notification("zeroWords");
+		if (notification != undefined)
+			return;
+
 	// set the time of the last successful print
 		this.time_lastPrint = currentTime;
 

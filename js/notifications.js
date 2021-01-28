@@ -47,6 +47,10 @@ Notification.prototype.addNotification = function() {
 		case "fontSize":
 			this.message = "Your font size is still too large!";
 			break;
+
+		case "zeroWords":
+			this.message = "You cannot print if you have not discovered any words";
+			break;
 		// end discover_word error messages
 
 		case "custom":
