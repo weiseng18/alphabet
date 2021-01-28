@@ -478,7 +478,7 @@ Game.prototype.print = function(currentTime) {
 
 	// check if there is at least 1 discovered word
 		if (this.discovered_words.length == 0)
-			notification = new Notification("zeroWords");
+			notification = new Notification("zeroWords", null, true);
 		if (notification != undefined)
 			return;
 
