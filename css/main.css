@@ -83,9 +83,14 @@ html, body {
 			width: 100%;
 			background-color: white;
 		}
-			#lettersMenu, #wordsMenu {
-				padding: 20px;
+			#discoverMenu {
+				display: flex;
 			}
+
+				.discover_half {
+					flex: 50%;
+					padding: 20px;
+				}
 
 /* added via javascript */
 

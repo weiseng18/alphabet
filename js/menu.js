@@ -1,8 +1,7 @@
 function Menu() {
 	this.tabs = [
 		"Printer",
-		"Letters",
-		"Words",
+		"Discover",
 		"Research",
 		"Settings"
 	];
@@ -34,7 +33,10 @@ Menu.prototype.init_menu = function() {
 			this.activeMenu = menuID;
 
 			get(this.activeMenu + "_button").style.backgroundColor = this.color.selected;
-			get(this.activeMenu).style.display = "block";
+			if (this.activeMenu == "discoverMenu")
+				get(this.activeMenu).style.display = "flex";
+			else
+				get(this.activeMenu).style.display = "block";
 		});
 		div.addEventListener("mouseover", () => {
 			div.style.backgroundColor = this.color.hover;
@@ -128,38 +130,100 @@ Menu.prototype.update_printer_menu = function() {
 	}
 }
 
-Menu.prototype.init_letter_menu = function() {
+Menu.prototype.init_discover_menu = function() {
 	let menuContent = get("menuContent");
 
 	let wrapper = document.createElement("div");
-	wrapper.id = "lettersMenu";
+	wrapper.id = "discoverMenu";
 
-	let discoverArea = document.createElement("div");
-		let button = document.createElement("button");
-		button.innerHTML = "Discover a random letter";
-		button.addEventListener("click", ()=>{ game.discover_letter(); });
+	// letter menu
+	let lettersMenu = document.createElement("div");
+	lettersMenu.className = "discover_half";
+	lettersMenu.id = "lettersMenu";
 
-		let cost = document.createElement("span");
-		cost.id = "letter_cost";
-		cost.style.paddingLeft = "10px";
+		// discover area
+		let discoverArea = document.createElement("div");
+			let letter_button = document.createElement("button");
+			letter_button.innerHTML = "Discover a random letter";
+			letter_button.addEventListener("click", ()=>{ game.discover_letter(); });
 
-		discoverArea.appendChild(button);
-		discoverArea.appendChild(cost);
+			let cost = document.createElement("span");
+			cost.id = "letter_cost";
+			cost.style.paddingLeft = "10px";
 
-	wrapper.appendChild(discoverArea);
+			discoverArea.appendChild(letter_button);
+			discoverArea.appendChild(cost);
+		lettersMenu.appendChild(discoverArea);
 
-	let header = document.createElement("h3");
-	header.innerHTML = "Discovered Letters";
-	wrapper.appendChild(header);
+		let letter_header = document.createElement("h3");
+		letter_header.innerHTML = "Discovered Letters";
+		lettersMenu.appendChild(letter_header);
 
-	let content = document.createElement("div");
-	content.id = "discoveredLetters";
-	wrapper.appendChild(content);
+		let letter_content = document.createElement("div");
+		letter_content.id = "discoveredLetters";
+		lettersMenu.appendChild(letter_content);
 
+	wrapper.appendChild(lettersMenu);
+
+	// word menu
+	let wordsMenu = document.createElement("div");
+	wordsMenu.className = "discover_half";
+	wordsMenu.id = "wordsMenu";
+
+		// manually discover word section
+
+		let input = document.createElement("input");
+		input.id = "wordInput";
+		// ensure only alpha characters
+		input.addEventListener("keypress", (e) => {
+			if (e.which == 13) {
+				let word = get("wordInput").value;
+				game.discover_word(word);
+			}
+			else {
+				let value = String.fromCharCode(e.which);
+				let pattern = new RegExp(/[a-z]/i);
+				let res = pattern.test(value);
+
+				// if non alphabet
+				if (res == false) {
+					if (e.preventDefault)
+						e.preventDefault();
+					else
+						e.returnValue = false;
+				}
+			}
+		});
+		let word_button = document.createElement("button");
+		word_button.innerHTML = "Discover this word";
+		word_button.addEventListener("click", () => {
+			let word = get("wordInput").value;
+			console.log(word);
+			game.discover_word(word);
+		});
+
+		wordsMenu.appendChild(input);
+		wordsMenu.appendChild(word_button);
+
+		// discovered words section
+
+		let word_header = document.createElement("h3");
+		word_header.innerHTML = "Discovered Words";
+		wordsMenu.appendChild(word_header);
+
+		let word_content = document.createElement("div");
+		word_content.id = "discoveredWords";
+		wordsMenu.appendChild(word_content);
+
+	wrapper.appendChild(wordsMenu);
+
+	// add to HTML
 	menuContent.appendChild(wrapper);
 
+	// update cost of discovering a letter
 	this.updateHTML_letter_cost();
 
+	// check if this is the active menu
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
 	else
@@ -180,64 +244,6 @@ Menu.prototype.updateHTML_letter_menu = function(letter) {
 	let div = document.createElement("div");
 	div.innerHTML = letter;
 	discoveredLetters_div.appendChild(div);
-}
-
-Menu.prototype.init_word_menu = function() {
-	let menuContent = get("menuContent");
-
-	let wrapper = document.createElement("div");
-	wrapper.id = "wordsMenu";
-
-	// manually discover word section
-
-	let input = document.createElement("input");
-	input.id = "wordInput";
-	// ensure only alpha characters
-	input.addEventListener("keypress", (e) => {
-		if (e.which == 13) {
-			let word = get("wordInput").value;
-			game.discover_word(word);
-		}
-		else {
-			let value = String.fromCharCode(e.which);
-			let pattern = new RegExp(/[a-z]/i);
-			let res = pattern.test(value);
-
-			// if non alphabet
-			if (res == false) {
-				if (e.preventDefault)
-					e.preventDefault();
-				else
-					e.returnValue = false;
-			}
-		}
-	});
-	let button = document.createElement("button");
-	button.innerHTML = "Discover this word";
-	button.addEventListener("click", () => {
-		let word = get("wordInput").value;
-		console.log(word);
-		game.discover_word(word);
-	});
-	wrapper.appendChild(input);
-	wrapper.appendChild(button);
-
-	// discovered words section
-
-	let header = document.createElement("h3");
-	header.innerHTML = "Discovered Words";
-	wrapper.appendChild(header);
-
-	let content = document.createElement("div");
-	content.id = "discoveredWords";
-	wrapper.appendChild(content);
-
-	menuContent.appendChild(wrapper);
-
-	if (wrapper.id != this.activeMenu)
-		wrapper.style.display = "none";
-	else
-		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
 Menu.prototype.updateHTML_word_menu = function(word) {
