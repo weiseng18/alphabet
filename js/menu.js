@@ -194,9 +194,15 @@ Menu.prototype.init_word_menu = function() {
 	input.id = "wordInput";
 	// ensure only alpha characters
 	input.addEventListener("keypress", (e) => {
-		let value = String.fromCharCode(e.which);
-		let pattern = new RegExp(/[a-z]/i);
-		return pattern.test(value);
+		if (e.which == 13) {
+			let word = get("wordInput").value;
+			game.discover_word(word);
+		}
+		else {
+			let value = String.fromCharCode(e.which);
+			let pattern = new RegExp(/[a-z]/i);
+			return pattern.test(value);
+		}
 	});
 	let button = document.createElement("button");
 	button.innerHTML = "Discover this word";
