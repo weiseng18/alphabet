@@ -131,8 +131,9 @@ function init() {
 	game.updateHTML_resources();
 
 	// begin game
-	game.discover_letter();
 	game.run();
+	let notification = new Notification("custom", "Discover a letter from the <strong>Letters</strong> tab");
+
 
 }
 
