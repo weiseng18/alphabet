@@ -279,6 +279,7 @@ Game.prototype.discover_letter = function() {
 	if (this.gameInit) {
 		this.gameInit = false;
 		this.init_possible_letters();
+		let notification = new Notification("custom", "Discover a word from the <strong>Words</strong> tab");
 	}
 	
 	this.init_possible_words();
