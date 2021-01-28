@@ -19,32 +19,38 @@ Notification.prototype.addNotification = function() {
 	switch(this.type) {
 		case "word":
 		case "letter":
+			// discovered a new word/letter
 			this.message = "You discovered a new " + this.type + ": <strong>" + this.data + "</strong>";
 			break;
 
 		case "insufficient":
+			// insufficient resources to perform an action
 			this.message = "You have insufficient <strong>" + this.data + "</strong>";
 			break;
 
 		case "noneLeft":
+			// no more new letters to discover
 			this.message = "You have no more new " + this.data + " to discover";
 			break;
 
 		// this and below are used for discover_word error messages
 		case "discovered":
-			// necessarily means failure
+			// discovered word before
 			this.message = "You have already discovered <strong>" + this.data + "</strong>";
 			break;
 
 		case "insufficientLetters":
+			// have not discovered all letters, in the word tried to discover
 			this.message = "You have not discovered all the letters in <strong>" + this.data + "</strong>";
 			break;
 
 		case "notWord":
+			// not a valid word in dictionary.js
 			this.message = "<strong>" + this.data + "</strong> is not a word";
 			break;
 
 		case "fontSize":
+			// level of fontSize < length of word tried to discover
 			this.message = "Your font size is still too large!";
 			break;
 
