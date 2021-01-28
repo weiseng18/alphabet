@@ -45,7 +45,12 @@ Notification.prototype.addNotification = function() {
 			break;
 
 		case "fontSize":
-			this.message = "Your font size is still too large!"
+			this.message = "Your font size is still too large!";
+			break;
+		// end discover_word error messages
+
+		case "custom":
+			this.message = this.data;
 			break;
 	}
 
