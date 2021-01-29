@@ -437,11 +437,11 @@ Game.prototype.update_possible_words = function(remove) {
 
 	// remove from Game.possible_words
 	let index = this.possible_words.indexOf(remove);
-	this.possible_words.splice(remove, 1);
+	this.possible_words.splice(index, 1);
 
 	// remove from dictionary
 	let index2 = dictionary.indexOf(remove);
-	dictionary.splice(remove, 1);
+	dictionary.splice(index2, 1);
 }
 
 Game.prototype.wordRevenue = function(word) {
