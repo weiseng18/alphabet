@@ -1,5 +1,4 @@
 function Game() {
-	// placeholder game data
 	this.resources = {
 		paper: 0,
 		ink: 0,
@@ -21,16 +20,16 @@ function Game() {
 	*/
 	this.gameInit = true;
 
-	// time since last print
+	// time of last print
 	this.time_lastPrint = null;
 
-	// time since last auto discover
+	// time of last auto discover
 	this.time_lastAutoDiscover = null;
 
-	// Game.run
+	// how often is Game.run executed
 	this.tickSpeed = 1000 / 60;
 
-	// revenues
+	// revenues of each letter
 	this.letterRevenue = [1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10];
 }
 
@@ -48,11 +47,19 @@ Game.prototype.updateHTML_resources = function() {
 }
 
 Game.prototype.update_resources_max = function() {
+	/*
+		Description:
+		updates the capacity of resources. called after upgrading any capacity
+	*/
 	this.resources_max.paper = this.upgrades["paperTraySize"].effectFormula();
 	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
 }
 
 Game.prototype.updateHTML_resources_max = function() {
+	/*
+		Description:
+		updates the resource capacity values in HTML table
+	*/
 	let numRows = get("resources").children[0].children.length;
 	for (let i=0; i<numRows; i++) {
 		let row = get("resources").children[0].children[i];
