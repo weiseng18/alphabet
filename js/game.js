@@ -37,6 +37,10 @@ function Game() {
 	this.uniqueWords = [];
 }
 
+/*
+	Update HTML and Init HTML
+*/
+
 Game.prototype.updateHTML_resources = function() {
 	/*
 		Description:
@@ -48,15 +52,6 @@ Game.prototype.updateHTML_resources = function() {
 		let resourceType = row.children[0].innerHTML;
 		row.children[1].innerHTML = this.resources[resourceType];
 	}
-}
-
-Game.prototype.update_resources_max = function() {
-	/*
-		Description:
-		updates the capacity of resources. called after upgrading any capacity
-	*/
-	this.resources_max.paper = this.upgrades["paperTraySize"].effectFormula();
-	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
 }
 
 Game.prototype.updateHTML_resources_max = function() {
@@ -93,7 +88,6 @@ Game.prototype.updateHTML_printerRefillButtons = function() {
 	let ink = this.query_refill_data("ink");
 	let ink_text = "Replace ink cartridge at $" + ink.cost;
 	get("refillButton_ink").innerHTML = ink_text;
-
 }
 
 Game.prototype.initHTML_resources = function() {
@@ -142,73 +136,9 @@ Game.prototype.initHTML_printerRefillButtons = function() {
 	get("printerRight").appendChild(inkRefill);
 }
 
-Game.prototype.init_upgrades = function() {
-	let upgrades = [
-		{
-			name:"Speed",
-			ref:"speed",
-			tooltip:"Increases printing speed",
-			baseAmount: 5,
-			baseMultiplier: 0.9,
-			level: 1,
-			effect: (amount) => {return "1 page / " + amount + " seconds";}
-		},
-		{
-			name:"Ink efficiency",
-			ref:"inkEfficiency",
-			tooltip:"Use less ink for the same printout",
-			baseAmount: 10,
-			baseMultiplier: 0.9,
-			level: 1,
-			effect: (amount) => {return "1 page / " + amount + " ml of ink";}
-		},
-		{
-			name:"Paper tray size",
-			ref:"paperTraySize",
-			tooltip:"Increases amount of paper the tray can hold",
-			baseAmount: 50,
-			baseMultiplier: 1.1,
-			level: 1,
-			effect: (amount) => {return amount + " pages";}
-		},
-		{
-			name:"Ink cartridge size",
-			ref:"inkCartridgeSize",
-			tooltip:"Makes more space in the printer, to allow a larger ink cartridge to fit in",
-			baseAmount: 1000,
-			baseMultiplier: 1.1,
-			level: 1,
-			effect: (amount) => {return amount + " ml of ink";}
-		},
-		{
-			name:"Font size",
-			ref:"fontSize",
-			tooltip:"Better technology allows the font size to be decreased, to print more characters per page",
-			level: 1,
-			effect: (amount) => {return amount + " characters per page";}
-		},
-		{
-			name:"Auto discover words",
-			ref:"autoWord",
-			tooltip:"Magic allows the printer to form words on its own",
-			baseAmount: 15,
-			baseMultiplier: 0.9,
-			level: 0,
-			effect: function(amount) {
-				if (this.level > 0)
-					return "1 word / " + amount + " seconds";
-				else
-					return "No effect";
-			}
-		}
-	]
-
-	for (let i=0; i<upgrades.length; i++) {
-		let data = upgrades[i];
-		let upgrade = new Upgrade(data.name, data.ref, data.tooltip, data.baseAmount, data.baseMultiplier, data.level, data.effect);
-		this.upgrades[data.ref] = upgrade;
-	}
-}
+/*
+	Refill
+*/
 
 Game.prototype.query_refill_data = function(material) {
 	/*
@@ -250,6 +180,10 @@ Game.prototype.refill_resource = function(resource) {
 
 	this.updateHTML_resources();
 }
+
+/*
+	Letter
+*/
 
 Game.prototype.discover_letter = function() {
 	/*
@@ -327,6 +261,10 @@ Game.prototype.init_possible_letters = function() {
 		this.possible_letters.splice(index, 1);
 	}
 }
+
+/*
+	Word
+*/
 
 Game.prototype.discover_word = function(specify=null) {
 	/*
@@ -484,6 +422,10 @@ Game.prototype.wordRevenue = function(word) {
 	return sum + bonus;
 }
 
+/*
+	Print
+*/
+
 Game.prototype.print = function(currentTime) {
 	/*
 		Description:
@@ -544,6 +486,116 @@ Game.prototype.print = function(currentTime) {
 		this.updateHTML_printerRefillButtons();
 }
 
+/*
+	Run (game loop)
+*/
+
+Game.prototype.run = function() {
+	setInterval( () => {
+
+		let currentTime = new Date().getTime();
+
+		let time_betweenPrints = game.upgrades["speed"].effectFormula() * 1000;
+		// attempt a print
+		// subtracting null is equal to subtracting 0
+		let timeSinceLastPrint = currentTime - this.time_lastPrint;
+		if (this.time_lastPrint == null)
+			this.print(currentTime);
+		else if (timeSinceLastPrint > time_betweenPrints)
+			this.print(currentTime);
+
+		let time_betweenAuto = game.upgrades["autoWord"].effectFormula() * 1000;
+		// attempt to discover a word
+		if (this.upgrades["autoWord"].level > 0) {
+			let timeSinceLastAutoDiscover = currentTime - this.time_lastAutoDiscover;
+			if (timeSinceLastAutoDiscover > time_betweenAuto)
+				this.auto_word(currentTime);
+		}
+
+	}, this.tickSpeed);
+}
+
+/*
+	Upgrade
+*/
+
+Game.prototype.update_resources_max = function() {
+	/*
+		Description:
+		updates the capacity of resources. called after upgrading any capacity
+	*/
+	this.resources_max.paper = this.upgrades["paperTraySize"].effectFormula();
+	this.resources_max.ink = this.upgrades["inkCartridgeSize"].effectFormula();
+}
+
+Game.prototype.init_upgrades = function() {
+	let upgrades = [
+		{
+			name:"Speed",
+			ref:"speed",
+			tooltip:"Increases printing speed",
+			baseAmount: 5,
+			baseMultiplier: 0.9,
+			level: 1,
+			effect: (amount) => {return "1 page / " + amount + " seconds";}
+		},
+		{
+			name:"Ink efficiency",
+			ref:"inkEfficiency",
+			tooltip:"Use less ink for the same printout",
+			baseAmount: 10,
+			baseMultiplier: 0.9,
+			level: 1,
+			effect: (amount) => {return "1 page / " + amount + " ml of ink";}
+		},
+		{
+			name:"Paper tray size",
+			ref:"paperTraySize",
+			tooltip:"Increases amount of paper the tray can hold",
+			baseAmount: 50,
+			baseMultiplier: 1.1,
+			level: 1,
+			effect: (amount) => {return amount + " pages";}
+		},
+		{
+			name:"Ink cartridge size",
+			ref:"inkCartridgeSize",
+			tooltip:"Makes more space in the printer, to allow a larger ink cartridge to fit in",
+			baseAmount: 1000,
+			baseMultiplier: 1.1,
+			level: 1,
+			effect: (amount) => {return amount + " ml of ink";}
+		},
+		{
+			name:"Font size",
+			ref:"fontSize",
+			tooltip:"Better technology allows the font size to be decreased, to print more characters per page",
+			level: 1,
+			effect: (amount) => {return amount + " characters per page";}
+		},
+		{
+			name:"Auto discover words",
+			ref:"autoWord",
+			tooltip:"Magic allows the printer to form words on its own",
+			baseAmount: 15,
+			baseMultiplier: 0.9,
+			level: 0,
+			effect: function(amount) {
+				if (this.level > 0)
+					return "1 word / " + amount + " seconds";
+				else
+					return "No effect";
+			}
+		}
+	]
+
+	for (let i=0; i<upgrades.length; i++) {
+		let data = upgrades[i];
+		let upgrade = new Upgrade(data.name, data.ref, data.tooltip, data.baseAmount, data.baseMultiplier, data.level, data.effect);
+		this.upgrades[data.ref] = upgrade;
+	}
+}
+
 Game.prototype.levelUp_upgrade = function(ref) {
 	/*
 		Description:
@@ -586,31 +638,6 @@ Game.prototype.levelUp_upgrade = function(ref) {
 	// step 4: update UI
 		// update printer menu
 		menu.update_printer_menu();
-}
-
-Game.prototype.run = function() {
-	setInterval( () => {
-
-		let currentTime = new Date().getTime();
-
-		let time_betweenPrints = game.upgrades["speed"].effectFormula() * 1000;
-		// attempt a print
-		// subtracting null is equal to subtracting 0
-		let timeSinceLastPrint = currentTime - this.time_lastPrint;
-		if (this.time_lastPrint == null)
-			this.print(currentTime);
-		else if (timeSinceLastPrint > time_betweenPrints)
-			this.print(currentTime);
-
-		let time_betweenAuto = game.upgrades["autoWord"].effectFormula() * 1000;
-		// attempt to discover a word
-		if (this.upgrades["autoWord"].level > 0) {
-			let timeSinceLastAutoDiscover = currentTime - this.time_lastAutoDiscover;
-			if (timeSinceLastAutoDiscover > time_betweenAuto)
-				this.auto_word(currentTime);
-		}
-
-	}, this.tickSpeed);
 }
 
 function Upgrade(name, ref, tooltip, baseAmount, baseMultiplier, level, effect) {
@@ -662,7 +689,9 @@ Upgrade.prototype.costFormula = function() {
 	return round(cost);
 }
 
-// helper functions
+/*
+	Helper functions
+*/
 
 Game.prototype.gain_resource = function(which, amount) {
 	/*
