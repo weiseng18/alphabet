@@ -31,6 +31,10 @@ function Game() {
 
 	// revenues of each letter
 	this.letterRevenue = [1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10];
+
+	// recent printed words
+	// resets after there is a duplicate
+	this.uniqueWords = [];
 }
 
 Game.prototype.updateHTML_resources = function() {
@@ -452,13 +456,32 @@ Game.prototype.update_possible_words = function(remove) {
 }
 
 Game.prototype.wordRevenue = function(word) {
+	// word base revenue
+
 	let sum = 0;
 	for (let i=0; i<word.length; i++) {
 		let char = word[i];
 		let index = char.charCodeAt(0) - 'a'.charCodeAt(0);
 		sum += this.letterRevenue[index];
 	}
-	return sum;
+
+	// bonus revenue based on unique words
+	// bonus = number of words in a row that do not have any duplicates
+	// min bonus = 1
+
+	let bonus;
+	// if this word will break the streak
+	if (this.uniqueWords.includes(word)) {
+		// reset uniqueWords and set to only contain this word
+		this.uniqueWords = [word];
+		bonus = 1;
+	}
+	else {
+		this.uniqueWords.push(word);
+		bonus = this.uniqueWords.length;
+	}
+
+	return sum + bonus;
 }
 
 Game.prototype.print = function(currentTime) {
