@@ -179,6 +179,8 @@ Menu.prototype.init_discover_menu = function() {
 			if (e.which == 13) {
 				let word = get("wordInput").value;
 				game.discover_word(word);
+
+				get("wordInput").value = "";
 			}
 			else {
 				let value = String.fromCharCode(e.which);
