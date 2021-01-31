@@ -6,6 +6,9 @@
 function Minigame() {
 	this.id = "minigame";
 
+	// maximum number of nextWords
+	this.nextWords_cap = 5;
+
 	// array containing the upcoming words to be typed
 	this.nextWords_array = [];
 	// actual state
@@ -34,6 +37,23 @@ Minigame.prototype.initHTML = function() {
 
 	let location = get("printerRight");
 	location.appendChild(wrapper);
+}
+
+Minigame.prototype.addWords = function() {
+	/*
+		Description:
+		keeps adding new words into #minigame until there is a overflow
+	*/
+	// do not attempt to add words if there aren't any discover words
+	if (game.discovered_words.length == 0) return;
+
+	let ele = get(this.id);
+
+	// while element is not overflowed in the x-axis
+	while (ele.clientWidth >= ele.scrollWidth && this.nextWords_array.length < this.nextWords_cap) {
+		let word = this.getRandomWord();
+		this.writeWord(word);
+	}
 }
 
 Minigame.prototype.writeWord = function(word) {

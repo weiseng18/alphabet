@@ -542,6 +542,9 @@ Game.prototype.run = function() {
 				this.auto_word(currentTime);
 		}
 
+		// minigame
+		minigame.addWords();
+
 	}, this.tickSpeed);
 }
 
