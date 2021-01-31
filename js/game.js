@@ -25,6 +25,9 @@ function Game() {
 
 	// time of last auto discover
 	this.time_lastAutoDiscover = null;
+	// whether to auto discover or not
+	// null before auto discover is unlocked
+	this.autoDiscover = null;
 
 	// how often is Game.run executed
 	this.tickSpeed = 1000 / 60;
@@ -134,6 +137,32 @@ Game.prototype.initHTML_printerRefillButtons = function() {
 	inkRefill.innerHTML = "ink refill placeholder";
 	inkRefill.addEventListener("click", ()=>{this.refill_resource("ink")});
 	get("printerRight").appendChild(inkRefill);
+}
+
+Game.prototype.initHTML_autoWordButton = function() {
+	/*
+		Description:
+		This function adds a button to toggle on/off auto word discovery.
+	*/
+	let button = document.createElement("button");
+	button.innerHTML = "Turn off auto word discovery";
+	button.addEventListener("click", () => {
+		let status = game.autoDiscover;
+
+		// whether the next click will be to turn off or on
+		let which = status ? "on" : "off";
+		// update button
+		button.innerHTML = "Turn " + which + " auto word discovery";
+
+		// update status
+		game.autoDiscover = !game.autoDiscover;
+	});
+
+	let parent = get("wordsMenu");
+
+	let h3 = Array.prototype.slice.call(parent.children)
+				.filter(ele => ele.tagName == "H3")[0];
+	parent.insertBefore(button, h3);
 }
 
 /*
@@ -505,8 +534,9 @@ Game.prototype.run = function() {
 			this.print(currentTime);
 
 		let time_betweenAuto = game.upgrades["autoWord"].effectFormula() * 1000;
-		// attempt to discover a word
-		if (this.upgrades["autoWord"].level > 0) {
+		// attempt to discover a word automatically
+		// upgrade must be level > 0 and user must have allowed auto discover
+		if (this.upgrades["autoWord"].level > 0 && this.autoDiscover) {
 			let timeSinceLastAutoDiscover = currentTime - this.time_lastAutoDiscover;
 			if (timeSinceLastAutoDiscover > time_betweenAuto)
 				this.auto_word(currentTime);
@@ -634,6 +664,13 @@ Game.prototype.levelUp_upgrade = function(ref) {
 		*/
 		this.init_possible_words();
 	}
+	else if (ref == "autoWord")
+		if (this.autoDiscover == null) {
+			// set it to true first
+			this.autoDiscover = true;
+			// insert toggle into #wordsMenu
+			this.initHTML_autoWordButton();
+		}
 
 	// step 4: update UI
 		// update printer menu
