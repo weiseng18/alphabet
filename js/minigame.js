@@ -7,6 +7,10 @@ function Minigame() {
 	this.id = "minigame";
 }
 
+Minigame.prototype.init = function() {
+	this.initHTML();
+}
+
 Minigame.prototype.initHTML = function() {
 	/*
 		Description:

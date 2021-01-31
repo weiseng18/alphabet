@@ -99,7 +99,7 @@ function trigger_wordAnimation(word) {
 	document.body.appendChild(floater);
 }
 
-var game, menu, notifications;
+var game, menu, notifications, minigame;
 
 function init() {
 	// set up game 
@@ -126,6 +126,10 @@ function init() {
 
 	// notifications array
 	notifications = [];
+
+	// minigame
+	minigame = new Minigame();
+	minigame.init();
 
 	// as the game is still in development, this section gives a huge amount of starting money for testing purposes.
 	game.resources["money"] = 10000;
