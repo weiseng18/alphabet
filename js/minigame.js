@@ -7,6 +7,26 @@ function Minigame() {
 	this.id = "minigame";
 }
 
+Minigame.prototype.initHTML = function() {
+	/*
+		Description:
+		set up HTML for minigame
+	*/
+	let wrapper = document.createElement("div");
+	wrapper.id = this.id + "_wrapper";
+
+	let header = document.createElement("h3");
+	header.innerText = "Minigame";
+	wrapper.appendChild(header);
+
+	let content = document.createElement("div");
+	content.id = this.id;
+	wrapper.appendChild(content);
+
+	let location = get("printerRight");
+	location.appendChild(wrapper);
+}
+
 // helper functions
 
 Minigame.prototype.getRandomWord = function() {
