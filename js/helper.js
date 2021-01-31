@@ -48,3 +48,12 @@ function round(num) {
 	*/
 	return parseFloat(num.toFixed(2));
 }
+
+async function loadTextFile(id, filename) {
+	/*
+		Description:
+		loads content of {filename} into element with id {id}
+	*/
+	let response = await fetch(filename);
+	get(id).innerHTML = await response.text();
+}
