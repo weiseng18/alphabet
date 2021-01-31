@@ -279,10 +279,10 @@ Game.prototype.discover_word = function(specify=null) {
 	*/
 
 	// step 1: check if possible to discover a word
+	let length = this.possible_words.length;
 	// auto discover
 	if (specify == null) {
 		// if no word is specified, check if it is possible to generate a random word
-		let length = this.possible_words.length;
 		if (length == 0) {
 			let notification = new Notification("noneLeft", "words", true);
 			return false;
