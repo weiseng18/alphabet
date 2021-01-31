@@ -122,6 +122,7 @@ function init() {
 	menu.init_discover_menu();
 	menu.init_research_menu();
 	menu.init_settings_menu();
+	menu.init_tutorial_menu();
 
 	// notifications array
 	notifications = [];

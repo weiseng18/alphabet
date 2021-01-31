@@ -92,6 +92,10 @@ html, body {
 					padding: 20px;
 				}
 
+			#tutorialMenu {
+				padding: 20px;
+			}
+
 /* added via javascript */
 
 .menuItem {

@@ -3,9 +3,10 @@ function Menu() {
 		"Printer",
 		"Discover",
 		"Research",
-		"Settings"
+		"Settings",
+		"Tutorial"
 	];
-	this.activeMenu = "printerMenu";
+	this.activeMenu = "tutorialMenu";
 	this.color = {
 		selected: "#555",
 		notSelected: "#fff",
@@ -284,6 +285,23 @@ Menu.prototype.init_settings_menu = function() {
 	wrapper.innerHTML = "placeholder";
 
 	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
+}
+
+Menu.prototype.init_tutorial_menu = function() {
+	let menuContent = get("menuContent");
+
+	let wrapper = document.createElement("div");
+	wrapper.id = "tutorialMenu";
+
+	menuContent.appendChild(wrapper);
+
+	// loads tutorial.html conent into #tutorialMenu
+	loadTextFile(wrapper.id, "./tutorial.html");
 
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
