@@ -349,7 +349,6 @@ Game.prototype.auto_word = function(currentTime) {
 		Description:
 		This function is called when discovering a word via auto. The difference is that there is an update to the Game.time_lastAutoDiscover
 	*/
-	console.log("run");
 	let res = this.discover_word();
 	if (res) {
 		// set the time of the last successful auto discover
