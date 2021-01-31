@@ -64,6 +64,12 @@ html, body {
 			display: inline-block;
 		}
 
+			#minigame {
+				white-space: nowrap;
+				overflow-x: scroll;
+				width: 250px;
+			}
+
 	#menuArea {
 		height: 50%;
 		width: 100%;
