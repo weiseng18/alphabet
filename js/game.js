@@ -251,6 +251,7 @@ Game.prototype.init_possible_letters = function() {
 
 	else {
 		// add [a-z]
+		this.possible_letters = [];
 		let a = "a".charCodeAt(0);
 		for (let i=0; i<26; i++) {
 			let letter = String.fromCharCode(a + i);
