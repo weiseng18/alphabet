@@ -91,6 +91,52 @@ Minigame.prototype.writeWord = function(word) {
 
 // helper functions
 
+Minigame.prototype.getIndexInfo = function(stringIndex) {
+	/*
+		Description:
+		converts index for this.nextWords_string, to index for this.nextWords_array
+
+		returns an object
+		data.wordIndex
+		data.charIndex
+
+		e.g.
+		this.nextWords_string = "alpha beta"
+		stringIndex = 7, corresponding to 'e'
+		data.wordIndex = 1
+		data.charIndex = 1
+		number of spaces == wordIndex
+	*/
+	let index = -1;
+	let spaceCount = 0;
+	let distanceFrom_lastSpace = 0;
+
+	while (index < stringIndex) {
+		index++;
+		let char = this.nextWords_string[index];
+		if (char == " ") {
+			spaceCount++;
+			distanceFrom_lastSpace = 0;
+		}
+		else
+			distanceFrom_lastSpace++;
+	}
+
+	// special case
+	if (spaceCount == 0 && distanceFrom_lastSpace == 0)
+		return {wordIndex: 0, charIndex: 0};
+
+	// if charIndex == -1,
+	// then the character is necessarily " ".
+	// the wordIndex would also refer to the next word's index
+	let data = {
+		wordIndex: spaceCount,
+		charIndex: distanceFrom_lastSpace-1
+	};
+
+	return data;
+}
+
 Minigame.prototype.getRandomWord = function() {
 	/*
 		Description:
