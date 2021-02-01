@@ -179,7 +179,7 @@ Game.prototype.query_refill_data = function(material) {
 	let remainingCapacity = round(this.resources_max[material] - this.resources[material]);
 	let cost;
 	// set cost to 1e9/infinity to prevent purchase when there is no capacity left
-	if (remainingCapacity <= 0) return {amount:0, cost:1e9};
+	if (remainingCapacity <= 0) return {amount:-1, cost:1e9};
 
 	if (material == "paper")
 		cost = round(remainingCapacity / 5);
@@ -197,6 +197,11 @@ Game.prototype.refill_resource = function(resource) {
 		only succeeds if there is sufficient money, and that resource's amount is not at max capacity
 	*/
 	let purchase = this.query_refill_data(resource);
+	if (purchase.amount == -1) {
+		// no need to refill
+		let notification = new Notification("atMax", resource);
+		return;
+	}
 	if (this.cannotAfford(purchase.cost, "money")) {
 		let notification = new Notification("insufficient", "money");
 		return;
