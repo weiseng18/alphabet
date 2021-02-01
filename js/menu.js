@@ -334,6 +334,12 @@ Menu.prototype.init_maximizedTutorial = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = this.maximizedID + "_wrapper";
 
+	// if click on the translucent gray area
+	wrapper.addEventListener("click", (e) => {
+		if (e.target == wrapper)
+			menu.toggleTutorialSize("minimize");
+	});
+
 		let body = document.createElement("div");
 		body.id = this.maximizedID + "_body";
 
