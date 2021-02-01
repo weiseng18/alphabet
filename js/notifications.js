@@ -28,6 +28,11 @@ Notification.prototype.addNotification = function() {
 			this.message = "You have insufficient <strong>" + this.data + "</strong>";
 			break;
 
+		case "atMax":
+			// already at max capacity, can't refill resource
+			this.message = "You are already at maximum capacity for <strong>" + this.data + "</strong>";
+			break;
+
 		case "noneLeft":
 			// no more new letters/words to discover
 			this.message = "You have no more new " + this.data + " to discover";
