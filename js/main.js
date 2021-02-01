@@ -123,6 +123,7 @@ function init() {
 	menu.init_research_menu();
 	menu.init_settings_menu();
 	menu.init_tutorial_menu();
+	menu.init_maximizedTutorial();
 
 	// notifications array
 	notifications = [];
