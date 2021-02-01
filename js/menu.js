@@ -201,7 +201,7 @@ Menu.prototype.init_discover_menu = function() {
 		word_button.innerHTML = "Discover this word";
 		word_button.addEventListener("click", () => {
 			let word = get("wordInput").value;
-			console.log(word);
+			get("wordInput").value = "";
 			game.discover_word(word);
 		});
 
