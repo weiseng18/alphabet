@@ -13,6 +13,8 @@ function Menu() {
 		hover: "#a3a3a3"
 	};
 
+	// keeps track if tutorial is maximized or not
+	this.tutorialMaximized = false;
 	// maximize prepend ID
 	this.maximizedID = "maximized";
 }
@@ -341,4 +343,15 @@ Menu.prototype.init_maximizedTutorial = function() {
 
 	// loads tutorial.html content into #tutorialMenu
 	loadTextFile(content.id, "./tutorial.html");
+}
+
+Menu.prototype.toggleTutorialSize = function(which) {
+	if (which == "maximize") {
+		this.tutorialMaximized = true;
+		get(this.maximizedID + "_wrapper").style.display = "block";
+	}
+	else if (which == "minimize") {
+		this.tutorialMaximized = false;
+		get(this.maximizedID + "_wrapper").style.display = "none";
+	}
 }
