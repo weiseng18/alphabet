@@ -298,10 +298,18 @@ Menu.prototype.init_tutorial_menu = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = "tutorialMenu";
 
+		let header = document.createElement("div");
+		header.id = "tutorialMenu_header";
+		wrapper.appendChild(header);
+
+		let content = document.createElement("div");
+		content.id = "tutorialMenu_content";
+		wrapper.appendChild(content);
+
 	menuContent.appendChild(wrapper);
 
-	// loads tutorial.html conent into #tutorialMenu
-	loadTextFile(wrapper.id, "./tutorial.html");
+	// loads tutorial.html content into #tutorialMenu
+	loadTextFile(content.id, "./tutorial.html");
 
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
