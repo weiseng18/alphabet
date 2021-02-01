@@ -12,6 +12,9 @@ function Menu() {
 		notSelected: "#fff",
 		hover: "#a3a3a3"
 	};
+
+	// maximize prepend ID
+	this.maximizedID = "maximized";
 }
 
 Menu.prototype.init_menu = function() {
@@ -315,4 +318,27 @@ Menu.prototype.init_tutorial_menu = function() {
 		wrapper.style.display = "none";
 	else
 		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
+}
+
+Menu.prototype.init_maximizedTutorial = function() {
+	let wrapper = document.createElement("div");
+	wrapper.id = this.maximizedID + "_wrapper";
+
+		let body = document.createElement("div");
+		body.id = this.maximizedID + "_body";
+
+			let header = document.createElement("div");
+			body.appendChild(header);
+
+			let content = document.createElement("div");
+			content.id = this.maximizedID + "_content";
+
+			body.appendChild(content);
+
+		wrapper.appendChild(body);
+
+	document.body.appendChild(wrapper);
+
+	// loads tutorial.html content into #tutorialMenu
+	loadTextFile(content.id, "./tutorial.html");
 }
