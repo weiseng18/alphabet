@@ -46,6 +46,31 @@ Minigame.prototype.initHTML = function() {
 	location.appendChild(wrapper);
 }
 
+Minigame.prototype.completeWord = function() {
+	/*
+		Description:
+		this function is called when the first word is typed correctly, including the space after it
+	*/
+
+	let word = this.nextWords_array[0];
+
+	// step 1: remove the word
+
+	// remove from HTML
+	get(this.id).children[0].remove();
+	// remove from this.nextWords_array
+	this.nextWords_array.shift();
+	// remove from this.nextWords_string
+	this.nextWords_string = this.nextWords_array.join(" ");
+	// remove from this.type
+	this.type = "";
+
+	// step 2: award money
+	// true parameter states that wordRevenue is called from minigame, so no bonus to be awarded
+	let revenue = game.wordRevenue(word, true);
+	game.gain_resource("money", revenue);
+}
+
 Minigame.prototype.addWords = function() {
 	/*
 		Description:
