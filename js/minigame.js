@@ -20,6 +20,9 @@ function Minigame() {
 	// 		user types "avsil"
 	//      this.type == "avs"
 	this.type = "";
+
+	// if seen error in this.type
+	this.seenError = false;
 }
 
 Minigame.prototype.init = function() {
@@ -44,6 +47,81 @@ Minigame.prototype.initHTML = function() {
 
 	let location = get("printerRight");
 	location.appendChild(wrapper);
+}
+
+Minigame.prototype.process = function(e) {
+	/*
+		Description:
+		handles keydown, main process of minigame
+
+		Info:
+		[A-Z] == [65-90]
+		[a-z] == [97-122]
+		[Space] == [32]
+		[Backspace] == [8]
+	*/
+	let keyID = e.which;
+
+	if (this.nextWords_array.length == 0) return;
+
+	// turn everything to uppercase
+	if (65 <= keyID && keyID <= 90) keyID += 32;
+
+	// backspace
+	if (keyID == 8) {
+		// string is empty, do nothing
+		if (this.type == "")
+			return;
+		// else trigger a delete, in HTML and JS
+		else {
+			let deleteIndex = this.type.length-1;
+			// undo last char in HTML
+			this.color(deleteIndex, "neutral");
+			// remove last char in JS
+			this.type = this.type.slice(0, -1);
+
+			// reset seenError
+			this.seenError = false;
+		}
+	}
+
+	// space
+	else if (keyID == 32) {
+		if (this.seenError) return;
+
+		let stringIndex = this.type.length;
+		let index = this.getIndexInfo(stringIndex);
+		// correct
+		// in this situation, a full word has been typed, and charIndex points to a space.
+		if (index.wordIndex == 1 && index.charIndex == -1) {
+			// remove the word, and award money
+			this.completeWord();
+		}
+		// else color wrong
+		else {
+			this.color(stringIndex, "wrong");
+			this.seenError = true;
+			this.type += " ";
+		}
+	}
+
+	// letter
+	else if (97 <= keyID && keyID <= 122) {
+		if (this.seenError) return;
+
+		let stringIndex = this.type.length;
+		let actualChar = this.nextWords_string[stringIndex];
+		let typedChar = String.fromCharCode(keyID);
+
+		this.type += typedChar;
+
+		if (typedChar == actualChar)
+			this.color(stringIndex, "correct");
+		else {
+			this.color(stringIndex, "wrong");
+			this.seenError = true;
+		}
+	}
 }
 
 Minigame.prototype.color = function(stringIndex, type) {
