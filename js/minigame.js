@@ -199,6 +199,9 @@ Minigame.prototype.completeWord = function() {
 	// true parameter states that wordRevenue is called from minigame, so no bonus to be awarded
 	let revenue = game.wordRevenue(word, true);
 	game.gain_resource("money", revenue);
+
+	// step 3: word animation on printer
+	trigger_wordAnimation(word);
 }
 
 Minigame.prototype.addWords = function() {
