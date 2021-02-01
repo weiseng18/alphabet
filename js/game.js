@@ -422,7 +422,7 @@ Game.prototype.update_possible_words = function(remove) {
 	dictionary.splice(index2, 1);
 }
 
-Game.prototype.wordRevenue = function(word) {
+Game.prototype.wordRevenue = function(word, isMinigame) {
 	// word base revenue
 
 	let sum = 0;
@@ -436,16 +436,19 @@ Game.prototype.wordRevenue = function(word) {
 	// bonus = number of words in a row that do not have any duplicates
 	// min bonus = 1
 
-	let bonus;
-	// if this word will break the streak
-	if (this.uniqueWords.includes(word)) {
-		// reset uniqueWords and set to only contain this word
-		this.uniqueWords = [word];
-		bonus = 1;
-	}
-	else {
-		this.uniqueWords.push(word);
-		bonus = this.uniqueWords.length;
+	let bonus = 0;
+	// no bonus for minigame
+	if (!isMinigame) {
+		// if this word will break the streak
+		if (this.uniqueWords.includes(word)) {
+			// reset uniqueWords and set to only contain this word
+			this.uniqueWords = [word];
+			bonus = 1;
+		}
+		else {
+			this.uniqueWords.push(word);
+			bonus = this.uniqueWords.length;
+		}
 	}
 
 	return sum + bonus;
@@ -497,7 +500,7 @@ Game.prototype.print = function(currentTime) {
 
 		let word = this.discovered_words[ randInt(this.discovered_words.length) ];
 		// tentative formula
-		let moneyEarned = this.wordRevenue(word);
+		let moneyEarned = this.wordRevenue(word, false);
 
 	// step 2: actually trigger the print
 
