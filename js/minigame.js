@@ -46,6 +46,41 @@ Minigame.prototype.initHTML = function() {
 	location.appendChild(wrapper);
 }
 
+Minigame.prototype.color = function(stringIndex, type) {
+	/*
+		Description:
+		Colors a character at [stringIndex] depending on [type].
+
+		correct: green (letter)
+		wrong: red (letter)
+		neutral: black (backspace)
+	*/
+	let index = this.getIndexInfo(stringIndex);
+	// adjust index only if charIndex = -1
+	if (index.charIndex == -1) {
+		index.wordIndex--;
+		index.charIndex = this.nextWords_array[index.wordIndex].length;
+	}
+	let letterEle = get(this.id).children[index.wordIndex].children[index.charIndex];
+
+	if (type == "neutral") {
+		// check if the element trying to set font color is just a space
+		if (letterEle.innerText == " ")
+			letterEle.style.backgroundColor = "";
+		else
+			letterEle.style.color = "";
+	}
+	else if (type == "correct")
+		letterEle.style.color = "green";
+	else if (type == "wrong") {
+		// check if the element trying to set font color is just a space
+		if (letterEle.innerText == " ")
+			letterEle.style.backgroundColor = "red";
+		else
+			letterEle.style.color = "red";
+	}
+}
+
 Minigame.prototype.completeWord = function() {
 	/*
 		Description:
