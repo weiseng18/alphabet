@@ -27,6 +27,7 @@ function Minigame() {
 
 Minigame.prototype.init = function() {
 	this.initHTML();
+	document.body.addEventListener("keydown", this, false);
 }
 
 Minigame.prototype.initHTML = function() {
@@ -47,6 +48,22 @@ Minigame.prototype.initHTML = function() {
 
 	let location = get("printerRight");
 	location.appendChild(wrapper);
+}
+
+Minigame.prototype.handleEvent = function(evt) {
+	/*
+		Description:
+		handleEvent function for use in addEventListener
+	*/
+	if (evt.type == "keydown") {
+		// do not trigger manual typing if currently manually discovering word
+		let discoverWord_input = get("wordInput");
+		if (document.activeElement == discoverWord_input)
+			return;
+		this.process(evt);
+	}
+	else
+		return;
 }
 
 Minigame.prototype.process = function(e) {
