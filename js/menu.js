@@ -305,6 +305,14 @@ Menu.prototype.init_tutorial_menu = function() {
 
 		let header = document.createElement("div");
 		header.id = "tutorialMenu_header";
+
+			let maximizeButton = document.createElement("button");
+			maximizeButton.innerHTML = "Maximize this window";
+			maximizeButton.addEventListener("click", () => {
+				menu.toggleTutorialSize("maximize");
+			});
+			header.appendChild(maximizeButton);
+
 		wrapper.appendChild(header);
 
 		let content = document.createElement("div");
@@ -330,6 +338,14 @@ Menu.prototype.init_maximizedTutorial = function() {
 		body.id = this.maximizedID + "_body";
 
 			let header = document.createElement("div");
+
+				let minimizeButton = document.createElement("button");
+				minimizeButton.innerHTML = "Minimize this window";
+				minimizeButton.addEventListener("click", () => {
+					menu.toggleTutorialSize("minimize");
+				});
+				header.appendChild(minimizeButton);
+
 			body.appendChild(header);
 
 			let content = document.createElement("div");
