@@ -13,6 +13,13 @@ function Minigame() {
 	this.nextWords_array = [];
 	// actual state
 	this.nextWords_string = "";
+
+	// string containing the letters typed so far
+	// up to a maximum of 1 'wrong' letter
+	// e.g. current word to type is available
+	// 		user types "avsil"
+	//      this.type == "avs"
+	this.type = "";
 }
 
 Minigame.prototype.init = function() {
