@@ -66,6 +66,7 @@ html, body {
 
 			#minigame {
 				white-space: nowrap;
+				height: 50px;
 				overflow-x: scroll;
 				width: 250px;
 			}
