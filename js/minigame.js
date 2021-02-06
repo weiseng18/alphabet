@@ -204,6 +204,31 @@ Minigame.prototype.completeWord = function() {
 	trigger_wordAnimation(word);
 }
 
+Minigame.prototype.checkComplete = function() {
+	/*
+		Description:
+		this function is to be called after user presses space. it will check if the last word typed is spelt correctly and in the correct position.
+	*/
+
+	// the space character has not been added to this.type yet
+	let index = this.type.length;
+	// assumption: this.type[index] == ' '
+	// check if corresponding char is also a space
+	if (this.nextWords_string[index] != ' ')
+		return false;
+	index--;
+	// check if previous word is spelt correctly
+	// to terminate at the next ' ' seen in this.nextWords_string
+	while (index >= 0 && this.nextWords_string[index] != ' ') {
+		let userTyped = this.type[index];
+		let generated = this.nextWords_string[index];
+		if (userTyped != generated)
+			return false;
+		index--;
+	}
+	return true;
+}
+
 Minigame.prototype.addWords = function() {
 	/*
 		Description:
