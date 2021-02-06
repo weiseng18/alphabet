@@ -77,3 +77,11 @@ function insertSorted(array, data) {
 	}
 	return start;
 }
+
+function stringRemoveByIndex(string, index) {
+	/*
+		Description:
+		remove a char in the string by index.
+	*/
+	return string.slice(0, index) + string.slice(index + 1);
+}
