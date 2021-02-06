@@ -184,28 +184,39 @@ Minigame.prototype.color = function(stringIndex, type) {
 Minigame.prototype.completeWord = function() {
 	/*
 		Description:
-		this function is called when the first word is typed correctly, including the space after it
+		this function is called when the last typed word is correct, including the space after it
 	*/
 
-	let word = this.nextWords_array[0];
+	// add space character to this.type first, for easier execution in the following steps
+	this.type += " ";
 
-	// step 1: remove the word
+	// remove last word from this.nextWords_string and this.type
+	let stringIndex = this.type.length - 1;
+
+	// should return {wordIndex: wordIndex + 1, charIndex: -1}
+	let indexInfo = this.getIndexInfo(stringIndex);
+	let wordIndex = indexInfo.wordIndex - 1;
+
+	let userTyped, generated;
+	do {
+		// remove by index
+		this.type = stringRemoveByIndex(this.type, stringIndex);
+		this.nextWords_string = stringRemoveByIndex(this.nextWords_string, stringIndex);
+
+		stringIndex--;
+	} while (stringIndex >= 0 && this.nextWords_string[stringIndex] != ' ')
+
+	// remove last word from this.nextWords_array
+	let word = this.nextWords_array.splice(wordIndex, 1)[0];
 
 	// remove from HTML
-	get(this.id).children[0].remove();
-	// remove from this.nextWords_array
-	this.nextWords_array.shift();
-	// remove from this.nextWords_string
-	this.nextWords_string = this.nextWords_array.join(" ");
-	// remove from this.type
-	this.type = "";
+	get(this.id).children[wordIndex].remove();
 
-	// step 2: award money
-	// true parameter states that wordRevenue is called from minigame, so no bonus to be awarded
+	// award money
 	let revenue = game.wordRevenue(word, true);
 	game.gain_resource("money", revenue);
 
-	// step 3: word animation on printer
+	// word animation on printer
 	trigger_wordAnimation(word);
 }
 
