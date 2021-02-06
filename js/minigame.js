@@ -7,7 +7,7 @@ function Minigame() {
 	this.id = "minigame";
 
 	// maximum number of nextWords
-	this.nextWords_cap = 5;
+	this.nextWords_cap = 10;
 
 	// array containing the upcoming words to be typed
 	this.nextWords_array = [];
