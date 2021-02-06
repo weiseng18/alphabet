@@ -273,10 +273,23 @@ Menu.prototype.updateHTML_word_menu = function(word) {
 		Description:
 		This appends "word" to the discovered words list displayed in #discoveredWords
 	*/
+	
+	// get array of words
+	let discoveredWords = get("discoveredWords").children;
+	let array = [];
+	for (let i=0; i<discoveredWords.length; i++)
+		array.push(discoveredWords[i].innerHTML);
+
+	// calculate insert index
+	let index = insertSorted(array, word);
+
+	// create element
+	let newDiv = document.createElement("div");
+	newDiv.innerHTML = word;
+
+	// insert element
 	let discoveredWords_div = get("discoveredWords");
-	let div = document.createElement("div");
-	div.innerHTML = word;
-	discoveredWords_div.appendChild(div);
+	discoveredWords_div.insertBefore(newDiv, discoveredWords_div.children[index]);
 }
 
 Menu.prototype.init_research_menu = function() {
