@@ -133,6 +133,14 @@ Minigame.prototype.process = function(e) {
 		else
 			this.color(stringIndex, "wrong");
 	}
+
+	// if the index in this.nextWords_string exceeds the index of second ' ', then do forceUpdate()
+	// in other words, if user has accumulated two wrong words (including the spaces), then delete the first word
+	let firstFound = this.nextWords_string.indexOf(" ");
+	let secondFound = this.nextWords_string.indexOf(" ", firstFound + 1);
+
+	if (this.type.length > secondFound)
+		this.forceUpdate();
 }
 
 Minigame.prototype.color = function(stringIndex, type) {
