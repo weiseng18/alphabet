@@ -20,9 +20,6 @@ function Minigame() {
 	// 		user types "avsil"
 	//      this.type == "avs"
 	this.type = "";
-
-	// if seen error in this.type
-	this.seenError = false;
 }
 
 Minigame.prototype.init = function() {
@@ -96,35 +93,34 @@ Minigame.prototype.process = function(e) {
 			this.color(deleteIndex, "neutral");
 			// remove last char in JS
 			this.type = this.type.slice(0, -1);
-
-			// reset seenError
-			this.seenError = false;
 		}
 	}
 
 	// space
 	else if (keyID == 32) {
-		if (this.seenError) return;
 
 		let stringIndex = this.type.length;
-		let index = this.getIndexInfo(stringIndex);
 		// correct
 		// in this situation, a full word has been typed, and charIndex points to a space.
-		if (index.wordIndex == 1 && index.charIndex == -1) {
+		if (this.checkComplete()) {
 			// remove the word, and award money
 			this.completeWord();
 		}
-		// else color wrong
+		// else check if it is a space
 		else {
-			this.color(stringIndex, "wrong");
-			this.seenError = true;
-			this.type += " ";
+			let actualChar = this.nextWords_string[stringIndex];
+			let typedChar = String.fromCharCode(keyID);
+			this.type += typedChar;
+
+			if (typedChar == actualChar)
+				this.color(stringIndex, "correct");
+			else
+				this.color(stringIndex, "wrong");
 		}
 	}
 
 	// letter
 	else if (97 <= keyID && keyID <= 122) {
-		if (this.seenError) return;
 
 		let stringIndex = this.type.length;
 		let actualChar = this.nextWords_string[stringIndex];
@@ -134,10 +130,8 @@ Minigame.prototype.process = function(e) {
 
 		if (typedChar == actualChar)
 			this.color(stringIndex, "correct");
-		else {
+		else
 			this.color(stringIndex, "wrong");
-			this.seenError = true;
-		}
 	}
 }
 
