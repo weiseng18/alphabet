@@ -248,10 +248,24 @@ Menu.prototype.updateHTML_letter_menu = function(letter) {
 		Description:
 		This appends "letter" to the discovered letters list displayed in #discoveredLetters
 	*/
+
+	// get array of letters
+	let discoveredLetters = get("discoveredLetters").children;
+	let array = [];
+	for (let i=0; i<discoveredLetters.length; i++)
+		array.push(discoveredLetters[i].innerHTML);
+
+	// calculate insert index
+	let index = insertSorted(array, letter);
+
+	// create element
+	let newDiv = document.createElement("div");
+	newDiv.innerHTML = letter;
+
+	// insert element
 	let discoveredLetters_div = get("discoveredLetters");
-	let div = document.createElement("div");
-	div.innerHTML = letter;
-	discoveredLetters_div.appendChild(div);
+	discoveredLetters_div.insertBefore(newDiv, discoveredLetters_div.children[index]);
+
 }
 
 Menu.prototype.updateHTML_word_menu = function(word) {
