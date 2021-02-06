@@ -57,3 +57,23 @@ async function loadTextFile(id, filename) {
 	let response = await fetch(filename);
 	get(id).innerHTML = await response.text();
 }
+
+function insertSorted(array, data) {
+	/*
+		Description:
+		assumes array is an ascending sorted array. binary search the array for the index that data should be inserted before. returns that index
+	*/
+	let start = 0, end = array.length;
+	
+	let middle;
+
+	while (start < end) {
+		middle = (start + end) >> 1;
+		let value = array[middle];
+		if (value < data)
+			start = middle + 1;
+		else
+			end = middle;
+	}
+	return start;
+}
