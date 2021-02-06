@@ -239,6 +239,34 @@ Minigame.prototype.checkComplete = function() {
 	return true;
 }
 
+Minigame.prototype.forceUpdate = function() {
+	/*
+		Description:
+		this function is called when the user has accumulated two wrong words (including the spaces)
+		
+		1. delete first word
+		2. add new word
+	*/
+
+	// step 1: delete first word
+
+		let word = this.nextWords_array[0];
+		// remove from HTML
+		get(this.id).children[0].remove();
+		// remove from this.nextWords_array
+		this.nextWords_array.shift();
+		// remove from this.nextWords_string
+		this.nextWords_string = this.nextWords_array.join(" ");
+		// remove from this.type, up to and including first space
+		this.type = this.type.substring(word.length + 1);
+
+	// step 2: add new word
+
+		let newWord = this.getRandomWord();
+		this.writeWord(newWord);
+
+}
+
 Minigame.prototype.addWords = function() {
 	/*
 		Description:
