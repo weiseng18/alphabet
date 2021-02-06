@@ -165,8 +165,13 @@ Minigame.prototype.color = function(stringIndex, type) {
 		else
 			letterEle.style.color = "";
 	}
-	else if (type == "correct")
-		letterEle.style.color = "green";
+	else if (type == "correct") {
+		// check if the element trying to set font color is just a space
+		if (letterEle.innerText == " ")
+			letterEle.style.backgroundColor = "green";
+		else
+			letterEle.style.color = "green";
+	}
 	else if (type == "wrong") {
 		// check if the element trying to set font color is just a space
 		if (letterEle.innerText == " ")
