@@ -155,21 +155,21 @@ Minigame.prototype.color = function(stringIndex, type) {
 	if (type == "neutral") {
 		// check if the element trying to set font color is just a space
 		if (letterEle.innerText == " ")
-			letterEle.style.backgroundColor = "";
+			letterEle.style.borderBottom = "";
 		else
 			letterEle.style.color = "";
 	}
 	else if (type == "correct") {
 		// check if the element trying to set font color is just a space
 		if (letterEle.innerText == " ")
-			letterEle.style.backgroundColor = "green";
+			letterEle.style.borderBottom = "solid green 2px";
 		else
 			letterEle.style.color = "green";
 	}
 	else if (type == "wrong") {
 		// check if the element trying to set font color is just a space
 		if (letterEle.innerText == " ")
-			letterEle.style.backgroundColor = "red";
+			letterEle.style.borderBottom = "solid red 2px";
 		else
 			letterEle.style.color = "red";
 	}
