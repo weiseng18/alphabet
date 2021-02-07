@@ -442,8 +442,9 @@ Minigame.prototype.calculate_WPM = function() {
 		// https://www.speedtypingonline.com/typing-equations
 		let gross = (this.characterCount / 5) / (delta / 60);
 		let net = gross - (this.errorCount) / (delta / 60);
+		let rounded = Math.round(net);
 
-		return Math.round(net);
+		return rounded < 0 ? 0 : rounded;
 	}
 }
 
