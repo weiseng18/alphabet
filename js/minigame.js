@@ -23,6 +23,11 @@ function Minigame() {
 
 	// wpm tracker
 
+	// time between WPM updates (in seconds)
+	this.timeBetween = 0.5;
+	// last WPM update
+	this.lastUpdate = null;
+
 	// max wait threshold (in seconds)
 	// how long to wait before resetting WPM to 0
 	this.maxWait = 10;
