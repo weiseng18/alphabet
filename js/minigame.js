@@ -20,6 +20,14 @@ function Minigame() {
 	// 		user types "avsil"
 	//      this.type == "avs"
 	this.type = "";
+
+	// wpm tracker
+	
+	// number of errors since this.startTime
+	this.errorCount = 0;
+	// number of characters since this.startTime
+	// includes spaces and alphabets
+	this.characterCount = 0;
 }
 
 Minigame.prototype.init = function() {
