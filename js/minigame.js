@@ -30,7 +30,7 @@ function Minigame() {
 
 	// max wait threshold (in seconds)
 	// how long to wait before resetting WPM to 0
-	this.maxWait = 10;
+	this.maxWait = 5;
 
 	// time of last typed character
 	this.lastType = null;
