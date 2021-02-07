@@ -60,6 +60,19 @@ Minigame.prototype.initHTML = function() {
 	content.id = this.id;
 	wrapper.appendChild(content);
 
+	let WPM_div = document.createElement("div");
+
+		let WPM_header = document.createElement("span");
+		WPM_header.innerHTML = "Current WPM: ";
+
+		let WPM_amount = document.createElement("span");
+		WPM_amount.id = this.id + "_WPM";
+
+		WPM_div.appendChild(WPM_header);
+		WPM_div.appendChild(WPM_amount);
+
+	wrapper.appendChild(WPM_div);
+
 	let location = get("printerRight");
 	location.appendChild(wrapper);
 }
