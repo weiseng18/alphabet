@@ -97,6 +97,14 @@ Minigame.prototype.process = function(e) {
 		// else trigger a delete, in HTML and JS
 		else {
 			let deleteIndex = this.type.length-1;
+
+			// check the status of the letter to be deleted
+			let status = this.getStatus(deleteIndex);
+			if (status == "wrong")
+				// decrement the number of errors by 1
+				// chance of going below 0, when user AFKs with errors, and amends after the AFK threshold causes a reset
+				this.errorCount--;
+
 			// undo last char in HTML
 			this.color(deleteIndex, "neutral");
 			// remove last char in JS
@@ -106,6 +114,9 @@ Minigame.prototype.process = function(e) {
 
 	// space
 	else if (keyID == 32) {
+
+		// increment number of typed characters by 1
+		this.characterCount++;
 
 		let stringIndex = this.type.length;
 		// correct
@@ -122,13 +133,20 @@ Minigame.prototype.process = function(e) {
 
 			if (typedChar == actualChar)
 				this.color(stringIndex, "correct");
-			else
+			else {
+				// increment the number of errors by 1
+				this.errorCount++;
+
 				this.color(stringIndex, "wrong");
+			}
 		}
 	}
 
 	// letter
 	else if (97 <= keyID && keyID <= 122) {
+
+		// increment number of typed characters by 1
+		this.characterCount++;
 
 		let stringIndex = this.type.length;
 		let actualChar = this.nextWords_string[stringIndex];
@@ -138,8 +156,12 @@ Minigame.prototype.process = function(e) {
 
 		if (typedChar == actualChar)
 			this.color(stringIndex, "correct");
-		else
+		else {
+			// increment the number of errors by 1
+			this.errorCount++;
+
 			this.color(stringIndex, "wrong");
+		}
 	}
 
 	// if the index in this.nextWords_string exceeds the index of second ' ', then do forceUpdate()
