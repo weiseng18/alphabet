@@ -553,6 +553,12 @@ Game.prototype.run = function() {
 		// minigame
 		minigame.addWords();
 
+		let time_betweenUpdates = minigame.timeBetween * 1000;
+		let timeSinceLastWPM = currentTime - minigame.lastUpdate;
+		// attempt to update WPM
+		if (timeSinceLastWPM > time_betweenUpdates)
+			minigame.updateHTML_WPM(currentTime);
+
 	}, this.tickSpeed);
 }
 
