@@ -22,7 +22,12 @@ function Minigame() {
 	this.type = "";
 
 	// wpm tracker
-	
+
+	// time of last typed character
+	this.lastType = null;
+	// start time of counting WPM
+	this.startTime = null;
+
 	// number of errors since this.startTime
 	this.errorCount = 0;
 	// number of characters since this.startTime
@@ -85,6 +90,13 @@ Minigame.prototype.process = function(e) {
 	let keyID = e.which;
 
 	if (this.nextWords_array.length == 0) return;
+
+	if (this.characterCount == 0 && this.errorCount == 0)
+		// update start time
+		this.startTime = getEpoch();
+
+	// update last typed time
+	this.lastType = getEpoch();
 
 	// turn everything to uppercase
 	if (65 <= keyID && keyID <= 90) keyID += 32;
