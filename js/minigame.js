@@ -400,6 +400,35 @@ Minigame.prototype.writeWord = function(word) {
 	this.nextWords_string += word;
 }
 
+Minigame.prototype.calculate_WPM = function() {
+	let currTime = getEpoch();
+
+	// in seconds
+	let delta = (currTime - this.startTime) / 1000;
+	// in seconds
+	let timeSinceLastType = (currTime - this.lastType) / 1000;
+
+	// check if errorCount < 0, then reset to 0
+	if (this.errorCount < 0)
+		this.errorCount = 0;
+
+	// reset WPM, if the time between now and the last typed time is > this.maxWait
+	if (timeSinceLastType > this.maxWait) {
+		this.errorCount = 0;
+		this.characterCount = 0;
+
+		return 0;
+	}
+	else {
+		// calculation based on
+		// https://www.speedtypingonline.com/typing-equations
+		let gross = (this.characterCount / 5) / (delta / 60);
+		let net = gross - (this.errorCount) / (delta / 60);
+
+		return Math.round(net);
+	}
+}
+
 // helper functions
 
 Minigame.prototype.getIndexInfo = function(stringIndex) {
