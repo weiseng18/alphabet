@@ -23,6 +23,10 @@ function Minigame() {
 
 	// wpm tracker
 
+	// max wait threshold (in seconds)
+	// how long to wait before resetting WPM to 0
+	this.maxWait = 10;
+
 	// time of last typed character
 	this.lastType = null;
 	// start time of counting WPM
