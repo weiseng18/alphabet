@@ -69,6 +69,7 @@ html, body {
 				height: 50px;
 				overflow-x: scroll;
 				width: 250px;
+				font-family: monospace;
 			}
 
 	#menuArea {
