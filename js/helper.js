@@ -11,6 +11,14 @@ function getTime(date) {
 	return formatted;
 }
 
+function getEpoch() {
+	/*
+		Description:
+		returns current time in milliseconds since epoch
+	*/
+	return new Date().getTime();
+}
+
 function randInt(num) {
 	/*
 		Description:
