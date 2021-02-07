@@ -68,4 +68,37 @@ Example:<br><br>
 <p>If you find the printer too slow, you can play the minigame to earn some money.</p>
 <p>The minigame will provide some words that you have already discovered, and all you need to do is to type them out correctly. The words are separated by spaces, and the word only gets printed after you type the space.</p>
 <p>It does not cost any paper or ink. The revenue for the minigame is the same as that of regular printing, except it does not have a bonus for a unique word streak.</p>
-<p>Note that you are only allowed to type a maximum of 1 error. It will not let you continue typing further if you have an error - you will need to correct your mistake.</p>
+
+<h4>Making errors in minigame</h4>
+<p>Note that you can continue to type after making errors, but the revenue for the word with a typo will not be awarded.</p>
+<p>In addition, if you make a typo in the first word, and make a typo in the second word before correcting the typo in the first word, the first word is deleted and thus you will not be able to correct it anymore. Refer to the table below for an illustrated example:</p>
+<table>
+	<tr>
+		<th>Action</th>
+		<th>Screenshot</th>
+	</tr>
+	<tr>
+		<td>Just before finishing second word, with typo in first word</td>
+		<td>
+			<img src="screenshots/minigame_error/1.png"/>
+		</td>
+	</tr>
+	<tr>
+		<td>Correctly typing the second word</td>
+		<td>
+			<img src="screenshots/minigame_error/2.png"/>
+		</td>
+	</tr>
+	<tr>
+		<td>Just before finishing the second word, with an error</td>
+		<td>
+			<img src="screenshots/minigame_error/3.png"/>
+		</td>
+	</tr>
+	<tr>
+		<td>Finished the second word, first word is deleted</td>
+		<td>
+			<img src="screenshots/minigame_error/4.png"/>
+		</td>
+	</tr>
+</table>
