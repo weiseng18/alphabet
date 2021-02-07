@@ -143,6 +143,35 @@ Minigame.prototype.process = function(e) {
 		this.forceUpdate();
 }
 
+Minigame.prototype.getStatus = function(stringIndex) {
+	/*
+		Description:
+		returns either "correct", "wrong", or "neutral", depending on the character typed at [stringIndex]
+	*/
+
+	// calculate index
+	let index = this.getIndexInfo(stringIndex);
+	// adjust index only if charIndex = -1
+	if (index.charIndex == -1) {
+		index.wordIndex--;
+		index.charIndex = this.nextWords_array[index.wordIndex].length;
+	}
+	let letterEle = get(this.id).children[index.wordIndex].children[index.charIndex];
+
+	let color;
+	if (letterEle.innerHTML == " ")
+		color = letterEle.style.backgroundColor;
+	else
+		color = letterEle.style.color;
+	
+	if (color == "green")
+		return "correct";
+	else if (color == "red")
+		return "wrong";
+	else
+		return "neutral";
+}
+
 Minigame.prototype.color = function(stringIndex, type) {
 	/*
 		Description:
