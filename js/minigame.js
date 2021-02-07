@@ -447,6 +447,16 @@ Minigame.prototype.calculate_WPM = function() {
 	}
 }
 
+Minigame.prototype.updateHTML_WPM = function(currTime) {
+	/*
+		Description:
+		updates WPM in HTML
+	*/
+	this.lastUpdate = currTime;
+	let wpm = this.calculate_WPM();
+	get(this.id + "_WPM").innerHTML = wpm;
+}
+
 // helper functions
 
 Minigame.prototype.getIndexInfo = function(stringIndex) {
