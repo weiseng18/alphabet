@@ -100,7 +100,9 @@ Stats.prototype.getData = function(type) {
 
 		case "longest_word":
 		case "highest_revenue":
-			let output = this.data[type].data;
-			return output == "" ? "NIL" : output;
+			let data = this.data[type].data;
+			let value = this.data[type].value;
+			let output = data + " (" + value + ")";
+			return data == "" ? "NIL" : output;
 	}
 }
