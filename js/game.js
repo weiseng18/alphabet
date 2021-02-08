@@ -478,12 +478,12 @@ Game.prototype.print = function(currentTime) {
 
 	// calculate resources used
 
-		let inkCost = this.upgrades["inkEfficiency"].effectFormula();
+		let inkCost_singleLetter = this.upgrades["inkEfficiency"].effectFormula();
 		let paperCost = 1;
 
 	// check if there is enough resources
 		let notification;
-		if (this.cannotAfford(inkCost, "ink")) {
+		if (this.cannotAfford(inkCost_singleLetter, "ink")) {
 			notification = new Notification("insufficient", "ink", true);
 		}
 		if (this.cannotAfford(paperCost, "paper")) {
@@ -502,10 +502,21 @@ Game.prototype.print = function(currentTime) {
 		this.time_lastPrint = currentTime;
 
 	// get random word and calculate money gained
+	// the earlier check for sufficient ink is a check based on the minimum possible ink cost (printing 1 letter)
+	// user could have sufficient ink to print 1 letter but not 5 letters, so here it will try to generate a word that the user can print
 
-		let word = this.discovered_words[ randInt(this.discovered_words.length) ];
-		// tentative formula
+		let ink = game.resources["ink"];
+		let maximumLetters = Math.floor(ink / inkCost_singleLetter);
+
+		// filter out words that the user can print
+		let filtered = this.discovered_words.filter(word => word.length <= maximumLetters);
+
+		// get random word and money earned
+		let word = filtered[ randInt(filtered.length) ];
 		let moneyEarned = this.wordRevenue(word, false);
+
+		// calculate actual ink cost
+		let inkCost = word.length * inkCost_singleLetter;
 
 	// step 2: actually trigger the print
 
@@ -593,7 +604,7 @@ Game.prototype.init_upgrades = function() {
 			baseAmount: 10,
 			baseMultiplier: 0.9,
 			level: 1,
-			effect: (amount) => {return "1 page / " + amount + " ml of ink";}
+			effect: (amount) => {return "1 letter / " + amount + " ml of ink";}
 		},
 		{
 			name:"Paper tray size",
