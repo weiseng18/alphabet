@@ -324,6 +324,9 @@ Menu.prototype.init_statistics_menu = function() {
 
 	menuContent.appendChild(wrapper);
 
+	// force update to populate values
+	this.updateHTML_statistics_menu();
+
 	if (wrapper.id != this.activeMenu)
 		wrapper.style.display = "none";
 	else
