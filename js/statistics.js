@@ -58,6 +58,9 @@ Stats.prototype.update = function(type, data) {
 			this.max(type, data[0], data[1])
 			break;
 	}
+	
+	// update HTML whether necessary or not
+	menu.updateHTML_statistics_menu();
 }
 
 Stats.prototype.increment = function(type, amount) {
