@@ -25,7 +25,7 @@ function Stats() {
 	// dictionary: stat => description
 	// this should have the same keys as this.data
 	this.description = {
-		used_ink: "Total ink used",
+		used_ink: "Total ink used (ml)",
 		used_paper: "Total paper used",
 		printed_words: "Total number of printed words",
 		longest_word: "Longest word printed",
