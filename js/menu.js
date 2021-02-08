@@ -330,6 +330,16 @@ Menu.prototype.init_statistics_menu = function() {
 		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
+Menu.prototype.updateHTML_statistics_menu = function() {
+	let div = get("statistics");
+	for (let i=0; i<div.children.length; i++) {
+		let row = div.children[i];
+		let key = row.children[1].id;
+		let statValue = statistics.getData(key);
+		row.children[1].innerHTML = statValue;
+	}
+}
+
 Menu.prototype.init_settings_menu = function() {
 	let menuContent = get("menuContent");
 
