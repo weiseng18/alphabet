@@ -308,7 +308,8 @@ Minigame.prototype.completeWord = function() {
 	get(this.id).children[wordIndex].remove();
 
 	// award money
-	let revenue = game.wordRevenue(word, true);
+	let revenueInfo = game.wordRevenue(word, true);
+	let revenue = revenueInfo.base + revenueInfo.bonus;
 	game.gain_resource("money", revenue);
 
 	// word animation on printer

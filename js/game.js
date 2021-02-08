@@ -456,7 +456,10 @@ Game.prototype.wordRevenue = function(word, isMinigame) {
 		}
 	}
 
-	return sum + bonus;
+	return {
+		base: sum,
+		bonus: bonus
+	};
 }
 
 /*
@@ -513,7 +516,8 @@ Game.prototype.print = function(currentTime) {
 
 		// get random word and money earned
 		let word = filtered[ randInt(filtered.length) ];
-		let moneyEarned = this.wordRevenue(word, false);
+		let revenueInfo = this.wordRevenue(word, false);
+		let moneyEarned = revenueInfo.base + revenueInfo.bonus;
 
 		// calculate actual ink cost
 		let inkCost = word.length * inkCost_singleLetter;
