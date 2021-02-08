@@ -70,3 +70,34 @@ Stats.prototype.max = function(type, data, value) {
 		this.data[type].value = value;
 	}
 }
+
+/*
+	get info
+*/
+
+Stats.prototype.getDescription = function(type) {
+	/*
+		Description:
+		returns the associated description with a statistic
+	*/
+	return this.description[type];
+}
+
+Stats.prototype.getData = function(type) {
+	/*
+		Description:
+		returns the data for the statistic
+	*/
+
+	switch (type) {
+		case "used_ink":
+		case "used_paper":
+		case "printed_words":
+			return this.data[type];
+
+		case "longest_word":
+		case "highest_revenue":
+			let output = this.data[type].data;
+			return output == "" ? "NIL" : output;
+	}
+}
