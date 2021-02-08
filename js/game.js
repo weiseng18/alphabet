@@ -782,6 +782,13 @@ Game.prototype.consume_resource = function(which, amount) {
 	// deduct amount then round
 	this.resources[which] = round(this.resources[which] - amount);
 
+	// if the resource consumed is ink or paper
+	// update the statistic
+	if (which == "ink" || which == "paper") {
+		let statKey = "used_" + which;
+		statistics.update(statKey, [amount]);
+	}
+
 	// update
 	this.updateHTML_resources();
 }
