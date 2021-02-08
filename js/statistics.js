@@ -21,3 +21,41 @@ function Stats() {
 		}
 	};
 }
+
+/*
+	statistics update
+*/
+
+Stats.prototype.update = function(type, data) {
+	/*
+		Description:
+		this method is called when there is a chance that ANY statistic needs to be updated
+		 - data: array of parameters
+	*/
+	switch (type) {
+		case "used_ink":
+		case "used_paper":
+		case "printed_words":
+			// in this case, data should only have 1 item
+			this.increment(type, data[0]);
+			break;
+		case "longest_word":
+		case "highest_revenue":
+			// in this case, data should have 2 items
+			// data[0]: the data
+			// data[1]: the attribute of the data, to be used to compare for maximum
+			this.max(type, data[0], data[1])
+			break;
+	}
+}
+
+Stats.prototype.increment = function(type, amount) {
+	this.data[type] += amount;
+}
+
+Stats.prototype.max = function(type, data, value) {
+	if (value > this.data[type].value) {
+		this.data[type].data = data;
+		this.data[type].value = value;
+	}
+}
