@@ -298,7 +298,29 @@ Menu.prototype.init_statistics_menu = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = "statisticsMenu";
 
-	wrapper.innerHTML = "placeholder";
+	let statistics_wrapper = document.createElement("div");
+	statistics_wrapper.id = "statistics";
+
+	// content rows
+	for (let i=0; i<statistics.keys.length; i++) {
+		let div = document.createElement("div");
+		let key = statistics.keys[i];
+
+		// description
+		let ele_description = document.createElement("span");
+		let description = statistics.getDescription(key) + ": ";
+		ele_description.innerHTML = description;
+		// value
+		let ele_value = document.createElement("span");
+		ele_value.id = key;
+
+		div.appendChild(ele_description);
+		div.appendChild(ele_value);
+
+		statistics_wrapper.appendChild(div);
+	}
+
+	wrapper.appendChild(statistics_wrapper);
 
 	menuContent.appendChild(wrapper);
 
