@@ -20,6 +20,17 @@ function Stats() {
 			value: 0
 		}
 	};
+
+	// description for stats
+	// dictionary: stat => description
+	// this should have the same keys as this.data
+	this.description = {
+		used_ink: "Total ink used",
+		used_paper: "Total paper used",
+		printed_words: "Total number of printed words",
+		longest_word: "Longest word printed",
+		highest_revenue: "Highest revenue from a printed word"
+	}
 }
 
 /*
