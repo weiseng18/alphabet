@@ -27,7 +27,7 @@ function Stats() {
 	this.description = {
 		used_ink: "Total ink used (ml)",
 		used_paper: "Total paper used",
-		printed_words: "Total number of printed words",
+		printed_words: "Total words printed",
 		longest_word: "Longest word printed",
 		highest_revenue: "Highest revenue from a printed word"
 	}
