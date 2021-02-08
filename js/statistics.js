@@ -1,6 +1,6 @@
 function Stats() {
 	// the stat keys
-	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue"];
+	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue", "highest_base_revenue"];
 
 	// contains the stats
 	// dictionary: stat => data
@@ -18,6 +18,10 @@ function Stats() {
 		highest_revenue: {
 			data: "",
 			value: 0
+		},
+		highest_base_revenue: {
+			data: "",
+			value: 0
 		}
 	};
 
@@ -29,7 +33,8 @@ function Stats() {
 		used_paper: "Total paper used",
 		printed_words: "Total words printed",
 		longest_word: "Longest word printed",
-		highest_revenue: "Highest revenue from a single printed word (including bonus from unique print streak)"
+		highest_revenue: "Highest revenue from a single printed word (including bonus from unique print streak)",
+		highest_base_revenue: "Highest revenue from a single printed word (excluding bonus from unique print streak)"
 	}
 }
 
@@ -52,6 +57,7 @@ Stats.prototype.update = function(type, data) {
 			break;
 		case "longest_word":
 		case "highest_revenue":
+		case "highest_base_revenue":
 			// in this case, data should have 2 items
 			// data[0]: the data
 			// data[1]: the attribute of the data, to be used to compare for maximum
@@ -100,6 +106,7 @@ Stats.prototype.getData = function(type) {
 
 		case "longest_word":
 		case "highest_revenue":
+		case "highest_base_revenue":
 			let data = this.data[type].data;
 			let value = this.data[type].value;
 			let output = data + " (" + value + ")";
