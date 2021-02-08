@@ -33,8 +33,8 @@ function Stats() {
 		used_paper: "Total paper used",
 		printed_words: "Total words printed",
 		longest_word: "Longest word printed",
-		highest_revenue: "Highest revenue from a single printed word (including bonus from unique print streak)",
-		highest_base_revenue: "Highest revenue from a single printed word (excluding bonus from unique print streak)"
+		highest_revenue: "Highest revenue from one word",
+		highest_base_revenue: "Highest revenue from one word (excluding bonus from unique print streak)"
 	}
 }
 
