@@ -547,6 +547,10 @@ Game.prototype.print = function(currentTime) {
 		statKey = "highest_revenue";
 		statistics.update(statKey, [word, moneyEarned]);
 
+		// statistic for highest base revenue (excluding bonus)
+		statKey = "highest_base_revenue";
+		statistics.update(statKey, [word, revenueInfo.base]);
+
 	// step 4: update information
 
 		// update buttons
