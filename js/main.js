@@ -99,7 +99,7 @@ function trigger_wordAnimation(word) {
 	document.body.appendChild(floater);
 }
 
-var game, menu, notifications, minigame;
+var game, menu, notifications, minigame, statistics;
 
 function init() {
 	// set up game 
@@ -113,6 +113,9 @@ function init() {
 	game.updateHTML_printerRefillButtons();
 
 	game.init_possible_letters();
+
+	// set up statistics
+	statistics = new Stats();
 
 	// set up menu
 	menu = new Menu();
