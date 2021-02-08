@@ -2,7 +2,7 @@ function Menu() {
 	this.tabs = [
 		"Printer",
 		"Discover",
-		"Research",
+		"Statistics",
 		"Settings",
 		"Tutorial"
 	];
@@ -292,11 +292,11 @@ Menu.prototype.updateHTML_word_menu = function(word) {
 	discoveredWords_div.insertBefore(newDiv, discoveredWords_div.children[index]);
 }
 
-Menu.prototype.init_research_menu = function() {
+Menu.prototype.init_statistics_menu = function() {
 	let menuContent = get("menuContent");
 
 	let wrapper = document.createElement("div");
-	wrapper.id = "researchMenu";
+	wrapper.id = "statisticsMenu";
 
 	wrapper.innerHTML = "placeholder";
 

@@ -120,7 +120,7 @@ function init() {
 	menu.init_printer_menu();
 
 	menu.init_discover_menu();
-	menu.init_research_menu();
+	menu.init_statistics_menu();
 	menu.init_settings_menu();
 	menu.init_tutorial_menu();
 	menu.init_maximizedTutorial();
