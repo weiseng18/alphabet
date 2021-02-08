@@ -308,6 +308,7 @@ Menu.prototype.init_statistics_menu = function() {
 
 		// description
 		let ele_description = document.createElement("span");
+		ele_description.style.fontWeight = "bold";
 		let description = statistics.getDescription(key) + ": ";
 		ele_description.innerHTML = description;
 		// value
