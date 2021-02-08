@@ -528,7 +528,22 @@ Game.prototype.print = function(currentTime) {
 		this.consume_resource("paper", paperCost);
 		this.gain_resource("money", moneyEarned);
 
-	// step 3: update information
+	// step 3: add statistics
+
+		// statistic for number of printed words
+		let statKey = "printed_words";
+		statistics.update(statKey, [1]);
+
+		// statistic for longest word
+		statKey = "longest_word";
+		let length = word.length;
+		statistics.update(statKey, [word, length]);
+
+		// statistic for highest revenue
+		statKey = "highest_revenue";
+		statistics.update(statKey, [word, moneyEarned]);
+
+	// step 4: update information
 
 		// update buttons
 		this.updateHTML_printerRefillButtons();
