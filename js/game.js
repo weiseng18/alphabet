@@ -265,6 +265,9 @@ Game.prototype.discover_letter = function() {
 
 	menu.updateHTML_letter_cost();
 	menu.updateHTML_letter_menu(letter);
+
+	// update statistic
+	statistics.update("num_discovered_letters", [1]);
 }
 
 Game.prototype.cost_discover_letter = function() {
@@ -374,6 +377,9 @@ Game.prototype.discover_word = function(specify=null) {
 	this.update_possible_words(word);
 
 	menu.updateHTML_word_menu(word);
+
+	// step 4: update statistic
+	statistics.update("num_discovered_words", [1]);
 
 	return true;
 }
