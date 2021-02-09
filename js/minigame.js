@@ -314,6 +314,9 @@ Minigame.prototype.completeWord = function() {
 
 	// word animation on printer
 	trigger_wordAnimation(word);
+
+	// update statistic
+	statistics.update("num_typed_words", [1]);
 }
 
 Minigame.prototype.checkComplete = function() {

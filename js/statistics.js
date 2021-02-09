@@ -1,6 +1,6 @@
 function Stats() {
 	// the stat keys
-	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue", "highest_base_revenue", "num_discovered_letters", "num_discovered_words"];
+	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue", "highest_base_revenue", "num_discovered_letters", "num_discovered_words", "num_typed_words"];
 
 	// contains the stats
 	// dictionary: stat => data
@@ -23,9 +23,13 @@ function Stats() {
 			data: "",
 			value: 0
 		},
+
 		// discovered amounts
 		num_discovered_letters: 0,
-		num_discovered_words: 0
+		num_discovered_words: 0,
+
+		// minigame
+		num_typed_words: 0
 	};
 
 	// description for stats
@@ -39,7 +43,8 @@ function Stats() {
 		highest_revenue: "Highest revenue from one word",
 		highest_base_revenue: "Highest revenue from one word (excluding bonus from unique print streak)",
 		num_discovered_letters: "Number of discovered letters",
-		num_discovered_words: "Number of discovered words"
+		num_discovered_words: "Number of discovered words",
+		num_typed_words: "Number of correctly typed words"
 	}
 }
 
@@ -59,6 +64,7 @@ Stats.prototype.update = function(type, data) {
 		case "printed_words":
 		case "num_discovered_letters":
 		case "num_discovered_words":
+		case "num_typed_words":
 			// in this case, data should only have 1 item
 			this.increment(type, data[0]);
 			break;
@@ -111,6 +117,7 @@ Stats.prototype.getData = function(type) {
 		case "printed_words":
 		case "num_discovered_letters":
 		case "num_discovered_words":
+		case "num_typed_words":
 			return this.data[type];
 
 		case "longest_word":
