@@ -413,6 +413,10 @@ Game.prototype.init_possible_words = function() {
 
 	// step 3: filter
 	this.possible_words = dictionary.filter(word => exp.test(word));
+
+	// step 4: update possible words statistic
+	let num = this.possible_words.length;
+	statistics.update("num_possible_words_left", [num]);
 }
 
 Game.prototype.update_possible_words = function(remove) {
@@ -431,6 +435,10 @@ Game.prototype.update_possible_words = function(remove) {
 	// remove from dictionary
 	let index2 = dictionary.indexOf(remove);
 	dictionary.splice(index2, 1);
+
+	// update possible words statistic
+	let num = this.possible_words.length;
+	statistics.update("num_possible_words_left", [num]);
 }
 
 Game.prototype.wordRevenue = function(word, isMinigame) {
