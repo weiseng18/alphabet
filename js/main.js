@@ -135,6 +135,10 @@ function init() {
 	minigame = new Minigame();
 	minigame.init();
 
+	// update statistic max_words
+	let num = dictionary.length;
+	statistics.update("max_words", [num]);
+
 	// as the game is still in development, this section gives a huge amount of starting money for testing purposes.
 	game.resources["money"] = 10000;
 	game.updateHTML_resources();
