@@ -16,7 +16,7 @@ function Stats() {
 		used_ink: 0,
 		used_paper: 0,
 
-		// words
+		// printing
 		printed_words: 0,
 		longest_word: {
 			data: "",
@@ -31,7 +31,7 @@ function Stats() {
 			value: 0
 		},
 
-		// discovered amounts
+		// discovery
 		num_discovered_letters: 0,
 		num_discovered_words: 0,
 
