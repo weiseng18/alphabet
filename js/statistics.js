@@ -4,10 +4,10 @@ function Stats() {
 
 	// map key to category #
 	// assume that this is in ascending order
-	this.key_to_category = [0, 0, 1, 1, 1, 1, 2, 2, 2, 3];
+	this.key_to_category = [0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3];
 
 	// the stat keys
-	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue", "highest_base_revenue", "num_discovered_letters", "num_discovered_words", "num_possible_words_left", "num_typed_words"];
+	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue", "highest_base_revenue", "num_discovered_letters", "num_discovered_words", "num_possible_words_left", "max_words", "num_typed_words"];
 
 	// contains the stats
 	// dictionary: stat => data
@@ -36,6 +36,8 @@ function Stats() {
 		num_discovered_words: 0,
 		// # of possible words left, based on current discovered letters
 		num_possible_words_left: 0,
+		// # of words
+		max_words: 0,
 
 		// minigame
 		num_typed_words: 0
@@ -54,6 +56,7 @@ function Stats() {
 		num_discovered_letters: "Number of discovered letters",
 		num_discovered_words: "Number of discovered words",
 		num_possible_words_left: "Number of undiscovered words that can be discovered, based on current discovered letters",
+		max_words: "Number of words in this game",
 		num_typed_words: "Number of correctly typed words"
 	}
 }
@@ -75,6 +78,7 @@ Stats.prototype.update = function(type, data) {
 		case "num_discovered_letters":
 		case "num_discovered_words":
 		case "num_possible_words_left":
+		case "max_words":
 		case "num_typed_words":
 			// in this case, data should only have 1 item
 			this.increment(type, data[0]);
@@ -129,6 +133,7 @@ Stats.prototype.getData = function(type) {
 		case "num_discovered_letters":
 		case "num_discovered_words":
 		case "num_possible_words_left":
+		case "max_words":
 		case "num_typed_words":
 			return this.data[type];
 
