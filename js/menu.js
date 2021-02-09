@@ -301,19 +301,36 @@ Menu.prototype.init_statistics_menu = function() {
 	let statistics_wrapper = document.createElement("div");
 	statistics_wrapper.id = "statistics";
 
+	// start from -1, everytime see a new number (increase), write that category header
+	let categoryIndex = -1;
+
 	// content rows
 	for (let i=0; i<statistics.keys.length; i++) {
-		let div = document.createElement("div");
-		let key = statistics.keys[i];
+		// check if need to write a new category header
+		let categoryID = statistics.key_to_category[i];
+		if (categoryID > categoryIndex) {
+			// update categoryIndex
+			categoryIndex = categoryID;
+			// get header text
+			let headerText = statistics.categories[categoryIndex];
+			// header h-element
+			let header = document.createElement("h2");
+			header.innerHTML = headerText;
+			statistics_wrapper.appendChild(header);
+		}
 
-		// description
-		let ele_description = document.createElement("span");
-		ele_description.style.fontWeight = "bold";
-		let description = statistics.getDescription(key) + ": ";
-		ele_description.innerHTML = description;
-		// value
-		let ele_value = document.createElement("span");
-		ele_value.id = key;
+		// stat div
+		let div = document.createElement("div");
+			let key = statistics.keys[i];
+
+			// description
+			let ele_description = document.createElement("span");
+			ele_description.style.fontWeight = "bold";
+			let description = statistics.getDescription(key) + ": ";
+			ele_description.innerHTML = description;
+			// value
+			let ele_value = document.createElement("span");
+			ele_value.id = key;
 
 		div.appendChild(ele_description);
 		div.appendChild(ele_value);
@@ -338,6 +355,10 @@ Menu.prototype.updateHTML_statistics_menu = function() {
 	let div = get("statistics");
 	for (let i=0; i<div.children.length; i++) {
 		let row = div.children[i];
+		if (row.tagName != "DIV") {
+			// skip non-DIV elements, as they are headers and do not contain statistics
+			continue;
+		}
 		let key = row.children[1].id;
 		let statValue = statistics.getData(key);
 		row.children[1].innerHTML = statValue;
