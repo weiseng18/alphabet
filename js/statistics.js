@@ -1,4 +1,11 @@
 function Stats() {
+	// stat categories
+	this.categories = ["Resources used", "Printing", "Discovery", "Minigame"];
+
+	// map key to category #
+	// assume that this is in ascending order
+	this.key_to_category = [0, 0, 1, 1, 1, 1, 2, 2, 3];
+
 	// the stat keys
 	this.keys = ["used_ink", "used_paper", "printed_words", "longest_word", "highest_revenue", "highest_base_revenue", "num_discovered_letters", "num_discovered_words", "num_typed_words"];
 
