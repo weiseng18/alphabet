@@ -74,6 +74,10 @@ Menu.prototype.init_printer_menu = function() {
 		cell.innerHTML = headers[i];
 		if (headers[i] == "Tooltip")
 			cell.style.width = "30%";
+		else if (headers[i] == "Level")
+			cell.style.width = "5%";
+		else if (headers[i] == "Current effect")
+			cell.style.width = "15%";
 	}
 
 	// content rows
