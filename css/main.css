@@ -144,6 +144,7 @@ html, body {
 }
 
 #printerUpgrades {
+	table-layout: fixed;
 	width: 100%;
 }
 
