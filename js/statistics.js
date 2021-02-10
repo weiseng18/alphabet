@@ -105,7 +105,7 @@ Stats.prototype.set = function(type, amount) {
 }
 
 Stats.prototype.increment = function(type, amount) {
-	this.data[type] += amount;
+	this.data[type] = round(this.data[type] + amount);
 }
 
 Stats.prototype.max = function(type, data, value) {
