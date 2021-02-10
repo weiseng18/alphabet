@@ -77,11 +77,14 @@ Stats.prototype.update = function(type, data) {
 		case "printed_words":
 		case "num_discovered_letters":
 		case "num_discovered_words":
-		case "num_possible_words_left":
 		case "max_words":
 		case "num_typed_words":
 			// in this case, data should only have 1 item
 			this.increment(type, data[0]);
+			break;
+		case "num_possible_words_left":
+			// in this case, the statistic is replaced rather than added to
+			this.set(type, data[0]);
 			break;
 		case "longest_word":
 		case "highest_revenue":
