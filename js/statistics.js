@@ -97,6 +97,10 @@ Stats.prototype.update = function(type, data) {
 	menu.updateHTML_statistics_menu();
 }
 
+Stats.prototype.set = function(type, amount) {
+	this.data[type] = amount;
+}
+
 Stats.prototype.increment = function(type, amount) {
 	this.data[type] += amount;
 }
