@@ -15,3 +15,21 @@ function Achievement(key, shortDesc, thresholdFunction) {
 	// boolean for obtained or not
 	this.obtained = false;
 }
+
+/*
+	init methods
+*/
+
+Achievements.prototype.init_append = function(key, shortDesc, thresholdFunction) {
+	/*
+		Description:
+		creates new achievement, adds to this.keyToIndex, pushes into this.list
+	*/
+
+	// create new
+	let achievement = new Achievement(key, shortDesc, thresholdFunction);
+	// add to this.keyToIndex
+	this.keyToIndex[key] = this.list.length;
+	// push to this.list
+	this.list.push(achievement);
+}
