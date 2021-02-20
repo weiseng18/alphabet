@@ -422,11 +422,21 @@ Minigame.prototype.writeWord = function(word) {
 	this.nextWords_string += word;
 }
 
+Minigame.prototype.timeDelta = function() {
+	/*
+		Description:
+		difference in time between now and this.startTime, in seconds
+	*/
+	let currTime = getEpoch();
+	let delta = (currTime - this.startTime) / 1000;
+	return delta;
+}
+
 Minigame.prototype.calculate_WPM = function() {
 	let currTime = getEpoch();
 
 	// in seconds
-	let delta = (currTime - this.startTime) / 1000;
+	let delta = this.timeDelta();
 	// in seconds
 	let timeSinceLastType = (currTime - this.lastType) / 1000;
 
