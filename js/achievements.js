@@ -102,6 +102,10 @@ Achievements.prototype.obtain = function(key) {
 	let index = this.keyToIndex[key];
 	// set obtained to true
 	this.list[index].obtained = true;
+
 	// update HTML
+	// make achievement box green
 	get("achievement_" + key).style.backgroundColor = "green";
+	// make longDesc text white for visibility
+	get("achievement_" + key).children[1].style.color = "white";
 }
