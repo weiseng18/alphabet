@@ -106,6 +106,14 @@ html, body {
 
 			#achievementsMenu {
 				padding: 20px;
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr 1fr;
+				grid-gap: 50px;
+			}
+				#achievementsMenu > div.achievement {
+					box-shadow: 0px 0px 10px 3px rgba(50, 50, 50, .3);
+					padding: 1em;
+					text-align: center;
 			}
 
 			#tutorialMenu {

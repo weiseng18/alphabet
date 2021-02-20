@@ -42,6 +42,8 @@ Menu.prototype.init_menu = function() {
 			get(this.activeMenu + "_button").style.backgroundColor = this.color.selected;
 			if (this.activeMenu == "discoverMenu")
 				get(this.activeMenu).style.display = "flex";
+			else if (this.activeMenu == "achievementsMenu")
+				get(this.activeMenu).style.display = "grid";
 			else
 				get(this.activeMenu).style.display = "block";
 		});
