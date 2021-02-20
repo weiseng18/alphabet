@@ -76,6 +76,22 @@ Achievements.prototype.init_append = function(key, shortDesc, thresholdFunction)
 	other functions
 */
 
+Achievements.prototype.check = function() {
+	/*
+		Description:
+		checks through all unobtained achievements, to see if it can be considered obtained
+	*/
+	for (let i=0; i<this.list.length; i++) {
+		let achievement = this.list[i];
+		if (!achievement.obtained) {
+			let key = achievement.key;
+			let res = achievement.thresholdFunction();
+			if (res)
+				this.obtain(key);
+		}
+	}
+}
+
 Achievements.prototype.obtain = function(key) {
 	/*
 		Description:
