@@ -96,8 +96,9 @@ Stats.prototype.update = function(type, data) {
 			break;
 	}
 	
-	// update HTML whether necessary or not
-	menu.updateHTML_statistics_menu();
+	if (menu)
+		// update HTML whether necessary or not
+		menu.updateHTML_statistics_menu();
 }
 
 Stats.prototype.set = function(type, amount) {
