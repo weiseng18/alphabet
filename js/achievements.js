@@ -49,7 +49,7 @@ Achievements.prototype.init = function() {
 				let wpmRequirement = wpm >= achievement.threshold;
 
 				let duration = minigame.timeDelta();
-				let durationRequirement = duration >= 5;
+				let durationRequirement = duration >= 60;
 
 				return wpmRequirement && durationRequirement;
 			}
