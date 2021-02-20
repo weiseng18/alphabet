@@ -22,21 +22,37 @@ function Achievement(key, shortDesc, longDesc, thresholdFunction) {
 	init methods
 */
 
+Achievements.prototype.generateList = function() {
+	/*
+		Description:
+		this function generates the data required to define all the achievements, to reduce duplicate info that is used in similar achievements
+	*/
+	let list = [];
+
+	// wpm
+	let base = (val) => ({type:"WPM", threshold:val, shortDesc:"WPM &ge; " + val, longDesc:"Obtain an average WPM of at least " + val + ", for a duration of at least 1 minute."})
+	for (let i=60; i<=80; i+=10) {
+		let achievement = base(i);
+		list.push(achievement);
+	}
+
+	// discovered letters
+	base = (val) => ({type:"discoveredLetters", threshold:val, shortDesc:"Alphabet " + val + "%", longDesc:"Discover at least " + val + "% of the alphabet."})
+	for (let i=25; i<=100; i+=25) {
+		let achievement = base(i);
+		list.push(achievement);
+	}
+
+	return list;
+}
+
 Achievements.prototype.init = function() {
 	/*
 		Description:
 		init function to create and build Achievement() objects
 	*/
-	// manually defined
-	let list = [
-		{type:"WPM", threshold:60, shortDesc:"WPM &ge; 60", longDesc:"Obtain an average WPM of at least 60, for a duration of at least 1 minute."},
-		{type:"WPM", threshold:70, shortDesc:"WPM &ge; 70", longDesc:"Obtain an average WPM of at least 70, for a duration of at least 1 minute."},
-		{type:"WPM", threshold:80, shortDesc:"WPM &ge; 80", longDesc:"Obtain an average WPM of at least 80, for a duration of at least 1 minute."},
-		{type:"discoveredLetters", threshold:25, shortDesc:"Alphabet 25%", longDesc:"Discover at least 25% of the alphabet."},
-		{type:"discoveredLetters", threshold:50, shortDesc:"Alphabet 50%", longDesc:"Discover at least 50% of the alphabet."},
-		{type:"discoveredLetters", threshold:75, shortDesc:"Alphabet 75%", longDesc:"Discover at least 75% of the alphabet."},
-		{type:"discoveredLetters", threshold:100, shortDesc:"Alphabet 100%", longDesc:"Discover every letter of the alphabet."}
-	];
+
+	let list = this.generateList();
 
 	for (let i=0; i<list.length; i++) {
 		let achievement = list[i];
