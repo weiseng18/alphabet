@@ -124,6 +124,7 @@ function init() {
 
 	menu.init_discover_menu();
 	menu.init_statistics_menu();
+	menu.init_achievements_menu();
 	menu.init_settings_menu();
 	menu.init_tutorial_menu();
 	menu.init_maximizedTutorial();

@@ -3,6 +3,7 @@ function Menu() {
 		"Printer",
 		"Discover",
 		"Statistics",
+		"Achievements",
 		"Settings",
 		"Tutorial"
 	];
@@ -367,6 +368,22 @@ Menu.prototype.updateHTML_statistics_menu = function() {
 		let statValue = statistics.getData(key);
 		row.children[1].innerHTML = statValue;
 	}
+}
+
+Menu.prototype.init_achievements_menu = function() {
+	let menuContent = get("menuContent");
+
+	let wrapper = document.createElement("div");
+	wrapper.id = "achievementsMenu";
+
+	wrapper.innerHTML = "placeholder";
+
+	menuContent.appendChild(wrapper);
+
+	if (wrapper.id != this.activeMenu)
+		wrapper.style.display = "none";
+	else
+		get(wrapper.id + "_button").style.backgroundColor = this.color.selected;
 }
 
 Menu.prototype.init_settings_menu = function() {
