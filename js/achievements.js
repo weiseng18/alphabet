@@ -37,7 +37,7 @@ Achievements.prototype.generateList = function() {
 	}
 
 	// discovered letters
-	base = (val) => ({type:"discoveredLetters", threshold:val, shortDesc:"Alphabet " + val + "%", longDesc:"Discover at least " + val + "% of the alphabet."})
+	base = (val) => ({type:"discoveredLetters", threshold:val, shortDesc:"Alphabet " + val + "%", longDesc:"Discover " + Math.ceil(val / 100 * 26) + " unique letters."})
 	for (let i=25; i<=100; i+=25) {
 		let achievement = base(i);
 		list.push(achievement);
