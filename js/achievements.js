@@ -31,7 +31,11 @@ Achievements.prototype.init = function() {
 	let list = [
 		{type:"WPM", threshold:60, shortDesc:"WPM &ge; 60", longDesc:"Obtain an average WPM of at least 60, for a duration of at least 1 minute."},
 		{type:"WPM", threshold:70, shortDesc:"WPM &ge; 70", longDesc:"Obtain an average WPM of at least 70, for a duration of at least 1 minute."},
-		{type:"WPM", threshold:80, shortDesc:"WPM &ge; 80", longDesc:"Obtain an average WPM of at least 80, for a duration of at least 1 minute."}
+		{type:"WPM", threshold:80, shortDesc:"WPM &ge; 80", longDesc:"Obtain an average WPM of at least 80, for a duration of at least 1 minute."},
+		{type:"discoveredLetters", threshold:25, shortDesc:"Alphabet 25%", longDesc:"Discover at least 25% of the alphabet."},
+		{type:"discoveredLetters", threshold:50, shortDesc:"Alphabet 50%", longDesc:"Discover at least 50% of the alphabet."},
+		{type:"discoveredLetters", threshold:75, shortDesc:"Alphabet 75%", longDesc:"Discover at least 75% of the alphabet."},
+		{type:"discoveredLetters", threshold:100, shortDesc:"Alphabet 100%", longDesc:"Discover every letter of the alphabet."}
 	];
 
 	for (let i=0; i<list.length; i++) {
@@ -54,6 +58,14 @@ Achievements.prototype.init = function() {
 				let durationRequirement = duration >= 60;
 
 				return wpmRequirement && durationRequirement;
+			}
+		else if (achievement.type == "discoveredLetters")
+			thresholdFunction = () => {
+				let numericalThreshold = Math.ceil(achievement.threshold / 100 * 26)
+
+				let numLetters = game.discovered_letters.length;
+				let requirement = numLetters >= numericalThreshold;
+				return requirement;
 			}
 
 		this.init_append(key, achievement.shortDesc, achievement.longDesc, thresholdFunction);
