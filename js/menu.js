@@ -380,12 +380,21 @@ Menu.prototype.init_achievements_menu = function() {
 
 	for (let i=0; i<achievements.list.length; i++) {
 		let achievement = achievements.list[i];
-		let text = achievement.shortDesc;
 
 		let achievementWrapper = document.createElement("div");
 		achievementWrapper.className = "achievement";
 		achievementWrapper.id = "achievement_" + achievement.key;
-		achievementWrapper.innerHTML = text;
+
+			let shortDesc = document.createElement("div");
+			shortDesc.innerHTML = achievement.shortDesc;
+
+			let longDesc = document.createElement("div");
+			longDesc.style.fontSize = "12px";
+			longDesc.style.color = "#999";
+			longDesc.innerHTML = achievement.longDesc;
+
+			achievementWrapper.appendChild(shortDesc);
+			achievementWrapper.appendChild(longDesc);
 
 		wrapper.appendChild(achievementWrapper);
 	}
