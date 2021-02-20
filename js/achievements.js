@@ -43,6 +43,13 @@ Achievements.prototype.generateList = function() {
 		list.push(achievement);
 	}
 
+	// discovered words
+	base = (val) => ({type:"discoveredWords", threshold:val, shortDesc:"Dictionary " + val + "%", longDesc:"Discover " + Math.ceil(val / 100 * statistics.getData("max_words")) + " unique words."})
+	for (let i=10; i<=100; i+=10) {
+		let achievement = base(i);
+		list.push(achievement);
+	}
+
 	return list;
 }
 
@@ -81,6 +88,14 @@ Achievements.prototype.init = function() {
 
 				let numLetters = game.discovered_letters.length;
 				let requirement = numLetters >= numericalThreshold;
+				return requirement;
+			}
+		else if (achievement.type == "discoveredWords")
+			thresholdFunction = () => {
+				let numericalThreshold = Math.ceil(achievement.threshold / 100 * statistics.getData("max_words"))
+
+				let numWords = game.discovered_words.length;
+				let requirement = numWords >= numericalThreshold;
 				return requirement;
 			}
 
