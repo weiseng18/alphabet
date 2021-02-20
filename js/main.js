@@ -99,7 +99,7 @@ function trigger_wordAnimation(word) {
 	document.body.appendChild(floater);
 }
 
-var game, menu, notifications, minigame, statistics;
+var game, menu, notifications, minigame, statistics, achievements;
 
 function init() {
 	// set up game 
@@ -116,6 +116,10 @@ function init() {
 
 	// set up statistics
 	statistics = new Stats();
+
+	// set up achievements
+	achievements = new Achievements();
+	achievements.init();
 
 	// set up menu
 	menu = new Menu();
