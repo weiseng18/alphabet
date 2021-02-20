@@ -40,6 +40,10 @@ Notification.prototype.addNotification = function() {
 				this.message += ". Consider discovering new letters or upgrading font size";
 			break;
 
+		case "achievement":
+			this.message = "Achievement <strong>" + this.data + "</strong> obtained!"
+			break;
+
 		// this and below are used for discover_word error messages
 		case "discovered":
 			// discovered word before
