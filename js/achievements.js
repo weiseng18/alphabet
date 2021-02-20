@@ -29,9 +29,9 @@ Achievements.prototype.init = function() {
 	*/
 	// manually defined
 	let list = [
-		{type:"WPM", threshold:60, shortDesc:"WPM &ge; 60", longDesc:"Obtain an average WPM of at least 60, for a duration of at least 1 minute.", getValue: () => minigame.calculate_WPM()},
-		{type:"WPM", threshold:70, shortDesc:"WPM &ge; 70", longDesc:"Obtain an average WPM of at least 70, for a duration of at least 1 minute.", getValue: () => minigame.calculate_WPM()},
-		{type:"WPM", threshold:80, shortDesc:"WPM &ge; 80", longDesc:"Obtain an average WPM of at least 80, for a duration of at least 1 minute.", getValue: () => minigame.calculate_WPM()}
+		{type:"WPM", threshold:60, shortDesc:"WPM &ge; 60", longDesc:"Obtain an average WPM of at least 60, for a duration of at least 1 minute."},
+		{type:"WPM", threshold:70, shortDesc:"WPM &ge; 70", longDesc:"Obtain an average WPM of at least 70, for a duration of at least 1 minute."},
+		{type:"WPM", threshold:80, shortDesc:"WPM &ge; 80", longDesc:"Obtain an average WPM of at least 80, for a duration of at least 1 minute."}
 	];
 
 	for (let i=0; i<list.length; i++) {
