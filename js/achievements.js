@@ -71,3 +71,19 @@ Achievements.prototype.init_append = function(key, shortDesc, thresholdFunction)
 	// push to this.list
 	this.list.push(achievement);
 }
+
+/*
+	other functions
+*/
+
+Achievements.prototype.obtain = function(key) {
+	/*
+		Description:
+		helper function for obtaining achievement
+	*/
+	let index = this.keyToIndex[key];
+	// set obtained to true
+	this.list[index].obtained = true;
+	// update HTML
+	get("achievement_" + key).style.backgroundColor = "green";
+}
