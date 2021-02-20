@@ -20,6 +20,44 @@ function Achievement(key, shortDesc, thresholdFunction) {
 	init methods
 */
 
+Achievements.prototype.init = function() {
+	/*
+		Description:
+		init function to create and build Achievement() objects
+	*/
+	// manually defined
+	let list = [
+		{type:"WPM", threshold:60, shortDesc:"WPM >= 60", getValue: () => minigame.calculate_WPM()},
+		{type:"WPM", threshold:70, shortDesc:"WPM >= 70", getValue: () => minigame.calculate_WPM()},
+		{type:"WPM", threshold:80, shortDesc:"WPM >= 80", getValue: () => minigame.calculate_WPM()}
+	];
+
+	for (let i=0; i<list.length; i++) {
+		let achievement = list[i];
+		
+		// key is type + threshold and should be unique
+		let key = achievement.type + achievement.threshold;
+
+		// thresholdFunction is determined by
+		// getValue(): the value to compare with
+		// comp: how to compare
+		// threshold: target
+		let thresholdFunction;
+		if (achievement.type == "WPM")
+			thresholdFunction = () => {
+				let wpm = minigame.calculate_WPM();
+				let wpmRequirement = wpm >= achievement.threshold;
+
+				let duration = minigame.timeDelta();
+				let durationRequirement = duration >= 5;
+
+				return wpmRequirement && durationRequirement;
+			}
+
+		this.init_append(key, achievement.shortDesc, thresholdFunction);
+	}
+}
+
 Achievements.prototype.init_append = function(key, shortDesc, thresholdFunction) {
 	/*
 		Description:
