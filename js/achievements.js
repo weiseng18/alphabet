@@ -5,11 +5,13 @@ function Achievements() {
 	this.keyToIndex = {};
 }
 
-function Achievement(key, shortDesc, thresholdFunction) {
+function Achievement(key, shortDesc, longDesc, thresholdFunction) {
 	// key
 	this.key = key;
 	// short description to be used in HTML
 	this.shortDesc = shortDesc;
+	// long description to be used in HTML
+	this.longDesc = longDesc;
 	// threshold function to determine if the achievement target is achieved
 	this.thresholdFunction = thresholdFunction;
 	// boolean for obtained or not
@@ -27,9 +29,9 @@ Achievements.prototype.init = function() {
 	*/
 	// manually defined
 	let list = [
-		{type:"WPM", threshold:60, shortDesc:"WPM >= 60", getValue: () => minigame.calculate_WPM()},
-		{type:"WPM", threshold:70, shortDesc:"WPM >= 70", getValue: () => minigame.calculate_WPM()},
-		{type:"WPM", threshold:80, shortDesc:"WPM >= 80", getValue: () => minigame.calculate_WPM()}
+		{type:"WPM", threshold:60, shortDesc:"WPM >= 60", longDesc:"Obtain an average WPM of at least 60, for a duration of at least 1 minute.", getValue: () => minigame.calculate_WPM()},
+		{type:"WPM", threshold:70, shortDesc:"WPM >= 70", longDesc:"Obtain an average WPM of at least 70, for a duration of at least 1 minute.", getValue: () => minigame.calculate_WPM()},
+		{type:"WPM", threshold:80, shortDesc:"WPM >= 80", longDesc:"Obtain an average WPM of at least 80, for a duration of at least 1 minute.", getValue: () => minigame.calculate_WPM()}
 	];
 
 	for (let i=0; i<list.length; i++) {
@@ -54,18 +56,18 @@ Achievements.prototype.init = function() {
 				return wpmRequirement && durationRequirement;
 			}
 
-		this.init_append(key, achievement.shortDesc, thresholdFunction);
+		this.init_append(key, achievement.shortDesc, achievement.longDesc, thresholdFunction);
 	}
 }
 
-Achievements.prototype.init_append = function(key, shortDesc, thresholdFunction) {
+Achievements.prototype.init_append = function(key, shortDesc, longDesc, thresholdFunction) {
 	/*
 		Description:
 		creates new achievement, adds to this.keyToIndex, pushes into this.list
 	*/
 
 	// create new
-	let achievement = new Achievement(key, shortDesc, thresholdFunction);
+	let achievement = new Achievement(key, shortDesc, longDesc, thresholdFunction);
 	// add to this.keyToIndex
 	this.keyToIndex[key] = this.list.length;
 	// push to this.list
