@@ -120,4 +120,7 @@ Achievements.prototype.obtain = function(key) {
 	get("achievement_" + key).style.backgroundColor = "green";
 	// make longDesc text white for visibility
 	get("achievement_" + key).children[1].style.color = "white";
+
+	// send notification
+	let notification = new Notification("achievement", this.list[index].shortDesc);
 }
