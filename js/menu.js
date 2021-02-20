@@ -378,7 +378,17 @@ Menu.prototype.init_achievements_menu = function() {
 	let wrapper = document.createElement("div");
 	wrapper.id = "achievementsMenu";
 
-	wrapper.innerHTML = "placeholder";
+	for (let i=0; i<achievements.list.length; i++) {
+		let achievement = achievements.list[i];
+		let text = achievement.shortDesc;
+
+		let achievementWrapper = document.createElement("div");
+		achievementWrapper.className = "achievement";
+		achievementWrapper.id = "achievement_" + achievement.key;
+		achievementWrapper.innerHTML = text;
+
+		wrapper.appendChild(achievementWrapper);
+	}
 
 	menuContent.appendChild(wrapper);
 
