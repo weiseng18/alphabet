@@ -607,6 +607,10 @@ Game.prototype.run = function() {
 		if (timeSinceLastWPM > time_betweenUpdates)
 			minigame.updateHTML_WPM(currentTime);
 
+		// achievements
+		// check it any achievement has been attained
+		achievements.check();
+
 	}, this.tickSpeed);
 }
 
